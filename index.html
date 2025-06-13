@@ -1,21 +1,61 @@
 <!DOCTYPE html>
-<html class="no-js" lang="en">
+<html class="no-js dark-mode" lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tiong-Sik Ng | Portfolio</title>
-	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-	<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
     <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
+    <link id="dark-style" rel="stylesheet" href="css/dark-mode.css">
     <script src="https://kit.fontawesome.com/9135e9eba9.js" crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const prefersLight = localStorage.getItem("theme") === "light";
+        if (prefersLight) document.body.classList.remove("dark-mode");
+      });
+    </script>
 </head>
 
-<body>
+<body class="dark-mode">
+    <script>
+        const body = document.body;
+        const icon = document.getElementById("theme-icon");
+
+        // On page load: set theme and icon based on localStorage
+        document.addEventListener("DOMContentLoaded", () => {
+            const theme = localStorage.getItem("theme") || "dark"; // default to dark
+            if (theme === "light") {
+            body.classList.remove("dark-mode");
+            icon.className = "fa fa-moon"; // show moon when in light mode
+            } else {
+            body.classList.add("dark-mode");
+            icon.className = "fa fa-sun"; // show sun when in dark mode
+            }
+        });
+
+        function toggleMode() {
+            const isDark = body.classList.toggle("dark-mode");
+            localStorage.setItem("theme", isDark ? "dark" : "light");
+            icon.className = isDark ? "fa fa-sun" : "fa fa-moon";
+        }
+    </script>
+    <!-- <button onclick="toggleMode()" style="position: fixed; top: 10px; right: 10px; z-index: 1000;">Toggle Mode</button> -->
+    <button id="theme-toggle" onclick="toggleMode()" style="position: fixed; top: 10px; right: 10px; z-index: 1000;">
+        <i id="theme-icon" class="fa fa-moon"></i>
+    </button>
+    <script>
+      function toggleMode() {
+        const body = document.body;
+        const isDark = body.classList.toggle("dark-mode");
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+      }
+    </script>
     <div id="mobile-menu-open" class="shadow-large">
         <i class="fa fa-bars" aria-hidden="true"></i>
     </div>
@@ -61,12 +101,12 @@
             </h2>
             <ul>                
             </ul> 
-            <a href="files/Resume.pdf" download="resume.pdf" class="btn-rounded-white">Download Resume</a>
+            <a href="files/Resume.pdf" download="resume.pdf" class="btn-rounded-white">Resume</a>
+            <a href="files/Curriculum_Vitae.pdf" download="resume.pdf" class="btn-rounded-black">Curriculum Vitae</a>
         </div>
         <!-- End #lead-content -->
 
         <div id="lead-overlay"></div>
-
         <div id="lead-down">
             <span>
                 <i class="fa fa-chevron-down" aria-hidden="true"></i>
@@ -84,11 +124,25 @@
                 </div>
                 <div class="col-md-8">
                     <p>
-                        <li> <i> (Updated 16th March, 2025.) </i> </li>
+                        <li id="dateItem"> Last Updated:  </i> </li>
                         <li> Yonsei University, South Korea - Doctorate in Engineering. (연세대학교, 대한민국 - 공학 박사 학위.)</li>
                         <li> Fields: Deep Learning, Biometrics Security, Cryptography and Security </li>
                         <li> 아직 한국어 시험을 쳐본적은 없지만, 한국생활을 더 잘하고 싶어서 한국어를 매일 공부하고 있어요. 올해 TOPIK 3 시험도 칠거에요 (2025년5월). </li>
                     </p>
+
+                    <script>
+                        const today = new Date();
+                        const year = today.getFullYear();
+                        const month = String(today.getMonth() + 1).padStart(2, '0');
+                        const day = String(today.getDate()).padStart(2, '0');
+
+                        const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
+                        const weekday = weekdays[today.getDay()];
+
+                        const koreanDate = `${year}년 ${month}월 ${day}일 (${weekday})`;
+
+                        document.getElementById("dateItem").textContent += koreanDate;
+                    </script>
                 </div>
             </div>
         </div>
@@ -98,13 +152,6 @@
     <div id="experience" class="background-alt">
         <h2 class="heading">Employment Experience</h2>
         <div id="experience-timeline">
-            <!-- <div data-date="October 2019 – March 2020">
-                <h3>Multimedia University</h3>
-                <h4>Research Assistant</h4>
-                <p>
-                    Researched on identity-based identification (IBI) schemes involving group settings. Proposed a secure Group-IBI scheme that is practical for e-voting usage.
-                </p>
-            </div> -->
 
             <div data-date="March 2019 – August 2019">
                 <h3>Recogine Technology Sdn. Bhd.</h3>
@@ -113,14 +160,6 @@
                     Worked on vehicle classification using TensorFlow and Keras. Helped train and test license plate recognition (LPR) models and created scripts for preparing datasets and analyzing model performance.
                 </p>
             </div>
-
-            <!-- <div data-date="March 2018 – May 2018">
-                <h3>Multimedia University</h3>
-                <h4>Research Officer (Contract)</h4>
-                <p>
-                    Worked as a research officer for TM R&amp;D's Digital Smart Homes project under a 3-month contract. Revamped the Centre of Digital Homes website using Bootstrap CSS and developed a residential area web system using PHP and HTML.
-                </p>
-            </div> -->
 
             <div data-date="September 2017 – December 2017">
                 <h3>Hitachi Hokenso Sdn. Bhd.</h3>
@@ -257,10 +296,10 @@
         <h2 class="heading">Selected Publications</h2>
         <ul>
             <li><b>Ng, T. S.,</b> Kim, J., &amp; Teoh, A. B. J. <br>
-                <a href="https://ieeexplore.ieee.org/abstract/document/10418204/">
+                <a href="https://ieeexplore.ieee.org/document/10962269">
                     Flexible Secure Biometrics: A Protected Modality-Invariant Face-Periocular Recognition System.</a><br>
-                <i>IEEE Transactions on Information Forensics and Security,</i>
-                (accepted, to appear), 2025.
+                <i>IEEE Transactions on Information Forensics and Security, vol. 20,</i>
+                pp. 4610-4621, 2025.
             </li>
             <li><b>Ng, T. S.,</b> &amp; Teoh, A. B. J. <br>
                 <a href="https://www.sciencedirect.com/science/article/abs/pii/S1568494625003552">
@@ -345,7 +384,7 @@
             <div class="row">
                 <div class="col-sm-5 copyright">
                     <p>
-                        Copyright &copy; <span id="current-year">2024</span> TIONG-SIK NG
+                        Copyright &copy; <span id="current-year">2024-2025</span> TIONG-SIK NG
                     </p>
                 </div>
                 <div class="col-sm-2 top">
