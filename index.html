@@ -1,29 +1,32 @@
 <!DOCTYPE html>
-<html class="no-js dark-mode" lang="en">
 
+<html class="no-js dark-mode" lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tiong-Sik Ng | Portfolio</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
-    <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
-    <link id="dark-style" rel="stylesheet" href="css/dark-mode.css">
-    <script src="https://kit.fontawesome.com/9135e9eba9.js" crossorigin="anonymous"></script>
-    <script>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Tiong-Sik Ng (황충식) | Portfolio</title>
+<link href="favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet"/>
+<link href="libs/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+<link href="css/bootstrap.min.css" rel="stylesheet"/>
+<link href="css/styles.css" rel="stylesheet"/>
+<link href="css/dark-mode.css" id="dark-style" rel="stylesheet"/>
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/9135e9eba9.js"></script>
+<script>
       document.addEventListener("DOMContentLoaded", () => {
         const prefersLight = localStorage.getItem("theme") === "light";
         if (prefersLight) document.body.classList.remove("dark-mode");
       });
     </script>
+<style>
+  body.lang-ko .lang-en { display: none !important; }
+  body.lang-ko .lang-ko { display: inline !important; }
+</style>
 </head>
-
 <body class="dark-mode">
-    <script>
+<script>
         const body = document.body;
         const icon = document.getElementById("theme-icon");
 
@@ -45,92 +48,94 @@
             icon.className = isDark ? "fa fa-sun" : "fa fa-moon";
         }
     </script>
-    <!-- <button onclick="toggleMode()" style="position: fixed; top: 10px; right: 10px; z-index: 1000;">Toggle Mode</button> -->
-    <button id="theme-toggle" onclick="toggleMode()" style="position: fixed; top: 10px; right: 10px; z-index: 1000;">
-        <i id="theme-icon" class="fa fa-moon"></i>
-    </button>
-    <script>
+<!-- <button onclick="toggleMode()" style="position: fixed; top: 10px; right: 10px; z-index: 1000;">Toggle Mode</button> -->
+<!-- Language toggle button -->
+<button id="language-toggle" onclick="toggleLanguage()" style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
+<i class="fa fa-globe" id="language-icon"></i>
+</button>
+<button id="theme-toggle" onclick="toggleMode()" style="position: fixed; top: 10px; right: 10px; z-index: 1000;">
+<i class="fa fa-moon" id="theme-icon"></i>
+</button>
+<script>
       function toggleMode() {
         const body = document.body;
         const isDark = body.classList.toggle("dark-mode");
         localStorage.setItem("theme", isDark ? "dark" : "light");
       }
     </script>
-    <div id="mobile-menu-open" class="shadow-large">
-        <i class="fa fa-bars" aria-hidden="true"></i>
-    </div>
-    <!-- End #mobile-menu-toggle -->
-    <header>
-        <div id="mobile-menu-close">
-            <span>Close</span> <i class="fa fa-times" aria-hidden="true"></i>
-        </div>
-        <ul id="menu" class="shadow">
-            <li>
-                <a href="#about">About</a>
-            </li>
-            <li>
-                <a href="#experience">Experience</a>
-            </li>            
-            <li>
-                <a href="#education">Education</a>
-            </li>
-            <li>
-                <a href="#projects">Projects</a>
-            </li>
-            <li>
-                <a href="#publications">Publications</a>
-            </li>            
-            <li>
-                <a href="#contact">Contact</a>
-            </li>
-        </ul>
-    </header>
-    <!-- End header -->
-
-    <div id="lead">
-        <div id="lead-content">
-            <h1>Tiong-Sik Ng</h1>
-            <h2 class="heading">
-                <p>
-                <a href="https://github.com/tiongsikng/" target="_blank"><i class="fa fa-github" style="color:gray" aria-hidden="true"></i></a>
-                <a href="https://scholar.google.com/citations?user=oT2_EAEAAAAJ&hl=en/" target="_blank"><i class="fa-brands fa-google-scholar" style="color:skyblue" aria-hidden="true"></i></a>
-                <a href="https://orcid.org/0000-0001-7248-3935/" target="_blank"><i class="fa-brands fa-orcid" style="color:lawngreen" aria-hidden="true"></i></a>
-                <a href="https://www.researchgate.net/profile/Tiong_Sik_Ng/" target="_blank"><i class="fa-brands fa-researchgate" style="color:turquoise" aria-hidden="true"></i></a>
-                <a href="https://www.linkedin.com/in/tiong-sik-ng-521031145/" target="_blank"><i class="fa-brands fa-linkedin" style="color:#228dda" aria-hidden="true"></i></a>
-                </p>
-            </h2>
-            <ul>                
-            </ul> 
-            <a href="files/Resume.pdf" download="resume.pdf" class="btn-rounded-white">Resume</a>
-            <a href="files/Curriculum_Vitae.pdf" download="resume.pdf" class="btn-rounded-black">Curriculum Vitae</a>
-        </div>
-        <!-- End #lead-content -->
-
-        <div id="lead-overlay"></div>
-        <div id="lead-down">
-            <span>
-                <i class="fa fa-chevron-down" aria-hidden="true"></i>
-            </span>
-        </div>
-        <!-- End #lead-down -->
-    </div>
-    <!-- End #lead -->
-
-    <div id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h2 class="heading">About Me</h2>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                        <li id="dateItem"> Last Updated:  </i> </li>
-                        <li> Yonsei University, South Korea - Doctorate in Engineering. (연세대학교, 대한민국 - 공학 박사 학위.)</li>
-                        <li> Fields: Deep Learning, Biometrics Security, Cryptography and Security </li>
-                        <li> 아직 한국어 시험을 쳐본적은 없지만, 한국생활을 더 잘하고 싶어서 한국어를 매일 공부하고 있어요. 올해 TOPIK 3 시험도 칠거에요 (2025년5월). </li>
-                    </p>
-
-                    <script>
+<div class="shadow-large" id="mobile-menu-open">
+<i aria-hidden="true" class="fa fa-bars"></i>
+</div>
+<!-- End #mobile-menu-toggle -->
+<header>
+<div id="mobile-menu-close">
+<span>Close</span> <i aria-hidden="true" class="fa fa-times"></i>
+</div>
+<ul class="shadow" id="menu">
+<li>
+<a href="#about"><span class="lang-en">About</span><span class="lang-ko" style="display:none;">소개</span></a>
+</li>
+<li>
+<a href="#experience"><span class="lang-en">Experience</span><span class="lang-ko" style="display:none;">경력</span></a>
+</li>
+<li>
+<a href="#education"><span class="lang-en">Education</span><span class="lang-ko" style="display:none;">학력</span></a>
+</li>
+<li>
+<a href="#projects"><span class="lang-en">Projects</span><span class="lang-ko" style="display:none;">프로젝트</span></a>
+</li>
+<li>
+<a href="#publications"><span class="lang-en">Publications</span><span class="lang-ko" style="display:none;">논문</span></a>
+</li>
+<li>
+<a href="#skills"><span class="lang-en">Skills</span><span class="lang-ko" style="display:none;">기술</span></a>
+</li>
+<li>
+<a href="#contact"><span class="lang-en">Contact</span><span class="lang-ko" style="display:none;">연락처</span></a>
+</li>
+</ul>
+</header>
+<!-- End header -->
+<div id="lead">
+<div id="lead-content">
+<h1>Tiong-Sik Ng (황충식)</h1>
+<h2 class="heading">
+<p>
+<a href="https://github.com/tiongsikng/" target="_blank"><i aria-hidden="true" class="fa fa-github" style="color:gray"></i></a>
+<a href="https://scholar.google.com/citations?user=oT2_EAEAAAAJ&amp;hl=en/" target="_blank"><i aria-hidden="true" class="fa-brands fa-google-scholar" style="color:skyblue"></i></a>
+<a href="https://orcid.org/0000-0001-7248-3935/" target="_blank"><i aria-hidden="true" class="fa-brands fa-orcid" style="color:lawngreen"></i></a>
+<a href="https://www.researchgate.net/profile/Tiong_Sik_Ng/" target="_blank"><i aria-hidden="true" class="fa-brands fa-researchgate" style="color:turquoise"></i></a>
+<a href="https://www.linkedin.com/in/tiong-sik-ng-521031145/" target="_blank"><i aria-hidden="true" class="fa-brands fa-linkedin" style="color:#228dda"></i></a>
+</p>
+</h2>
+<ul>
+</ul>
+<a class="btn-rounded-white" download="resume.pdf" href="files/Resume.pdf">Resume</a>
+<a class="btn-rounded-black" download="curriculum_vitae.pdf" href="files/Curriculum_Vitae.pdf">Curriculum Vitae</a>
+</div>
+<!-- End #lead-content -->
+<div id="lead-overlay"></div>
+<div id="lead-down">
+<span>
+<i aria-hidden="true" class="fa fa-chevron-down"></i>
+</span>
+</div>
+<!-- End #lead-down -->
+</div>
+<!-- End #lead -->
+<div id="about">
+<div class="container">
+<div class="row">
+<div class="col-md-4">
+<h2 class="heading"><span class="lang-en">About Me</span><span class="lang-ko" style="display:none;">소개</span></h2>
+</div>
+<div class="col-md-8">
+<p>
+<li id="dateItem"> Last Updated:   </li>
+<li> Yonsei University, South Korea - Doctorate in Engineering. (연세대학교, 대한민국 - 공학 박사 학위.)</li>
+<li> Fields: Deep Learning, Biometrics Security, Cryptography and Security </li>
+</p>
+<script>
                         const today = new Date();
                         const year = today.getFullYear();
                         const month = String(today.getMonth() + 1).padStart(2, '0');
@@ -143,269 +148,319 @@
 
                         document.getElementById("dateItem").textContent += koreanDate;
                     </script>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End #about -->
-    
-    <div id="experience" class="background-alt">
-        <h2 class="heading">Employment Experience</h2>
-        <div id="experience-timeline">
-
-            <div data-date="March 2019 – August 2019">
-                <h3>Recogine Technology Sdn. Bhd.</h3>
-                <h4>Research and Development Engineer</h4>
-                <p>
-                    Worked on vehicle classification using TensorFlow and Keras. Helped train and test license plate recognition (LPR) models and created scripts for preparing datasets and analyzing model performance.
-                </p>
-            </div>
-
-            <div data-date="September 2017 – December 2017">
-                <h3>Hitachi Hokenso Sdn. Bhd.</h3>
-                <h4>Application Engineer</h4>
-                <p>
-                    Worked as a back-end developer using the Java Spring Framework, handling debugging and server deployment with Oracle WebLogic Server. Created reports utilizing Jasper Framework and SQL stored procedures.
-                </p>
-            </div>
-
-            <div data-date="September 2016 – August 2017">
-                <h3>Multimedia University</h3>
-                <h4>Research Assistant</h4>
-                <p>
-                    Served as a research assistant, focusing on cryptographic digital signatures and security proofs, analyzing signature schemes to enhance their security through tight reduction techniques.
-                </p>
-            </div>
-
-            <div data-date="March 2015 – May 2015">
-                <h3>NetEon Sdn. Bhd.</h3>
-                <h4>Technical Assistant (Internship)</h4>
-                <p>
-                    Learnt  how  to  interface  computer  hardware for industrial purposes, such as soldering and adding components in circuit boards and also configuring radio antennas.
-                </p>
-            </div>
-        </div>
-    </div>
-    <!-- End #experience -->
-
-    <div id="education">
-        <h2 class="heading">Education</h2>
-        <div class="education-block">
-            <h3>Yonsei University</h3>
-            <span class="education-date">2020 - 2025</span>
-            <h4>Doctorate of Engineering</h4>
-            <p>
-                On the Realization of Conditional Periocular-Face Biometrics for Flexible Deployment (유연한 배포를 위한 조건부 눈 주위-얼굴 생체인식의 구현)
-            </p>
-        </div>
-        <!-- End .education-block -->
-
-        <div class="education-block">
-            <h3>Multimedia University</h3>
-            <span class="education-date">2016 - 2019</span>
-            <h4>Master of Science in Information Technology</h4>
-            <p>
-                Design of Tight Security Reduction for Signature Schemes
-            </p>
-        </div>
-        <!-- End .education-block -->
-
-        <div class="education-block">
-            <h3>Multimedia University</h3>
-            <span class="education-date">2012 - 2016</span>
-            <h4>Bachelor of Engineering (Hons.) Electronics Majoring in Computer</h4>
-            <p>
-                Secure Digital Medical Certificate System: Identity-Based Signatures
-            </p>
-        </div>
-        <!-- End .education-block -->
-    </div>
-    <!-- End #education -->    
-
-    <div id="projects" class="background-alt">
-        <h2 class="heading">Projects</h2>
-        <div class="container">
-            <div class="row">
-                <div class="project shadow-large">
-                    <div class="project-image">
-                        <img src="images/doctorate_project.jpg" />
-                    </div>
-                    <!-- End .project-image -->
-                    <div class="project-info">
-                        <h3>NRF Project (S. Korea): Multimodal Biometrics Conditioning and Data-driven Template Hashing (Member - Ph.D. Researcher)</h3>
-                        <p>
-                            <li> Researched advanced facial and periocular based recognition techniques using AI. Worked on improving security by protecting biometric data with special encryption methods. Developed innovative methods to recognize faces even when partially covered by masks or sunglasses. </li>
-                        </p>
-                    </div>
-                    <!-- End .project-info -->
-                </div>
-                <!-- End .project -->
-
-
-                <div class="project shadow-large">
-                    <div class="project-image">
-                        <img src="images/MySEAL.PNG" />
-                    </div>
-                    <!-- End .project-image -->
-                    <div class="project-info">
-                        <h3>Malaysian Digital Signature Algorithm Proposal: TNC Signature Scheme (MySEAL)</h3>
-                        <p>
-                            <li> Proposed the TNC Signature, compatible with Schnorr signatures, providing full security proof and implementation using C and Libgcrypt for both discrete logarithm and elliptic curve settings. </li>
-                        </p>
-                        <a href="https://mykripto.cybersecurity.my/index.php/files/101/AKBA-MySEAL/8/MySEAL---TNCSeminar-Slide.pdf">Slides for Technical Report</a>
-                    </div>
-                    <!-- End .project-info -->
-                </div>
-                <!-- End .project -->
-
-                <div class="project shadow-large">
-                    <div class="project-image">
-                        <img src="images/master_project.PNG" />
-                    </div>
-                    <!-- End .project-image -->
-                    <div class="project-info">
-                        <h3>FRGS Project (Malaysia): Tight Security Reduction Techniques for Cryptography Primitives (Member - Master Researcher)</h3>
-                        <p>
-                            <li> Studied the effectiveness and techniques of security reduction in cryptographic schemes. Applied security reduction methods to enhance the security of existing digital signature schemes. </li>
-                        </p>
-                    </div>
-                    <!-- End .project-info -->
-                </div>
-                <!-- End .project -->
-
-                <div class="project shadow-large">
-                    <div class="project-image">
-                        <img src="images/bachelors_project.PNG" />
-                    </div>
-                    <!-- End .project-image -->
-                    <div class="project-info">
-                        <h3>ITEX Exhibition 2016: An Online Digital Medical Certiﬁcate System Using Identity-Based Signature (Member - Undergraduate Project)</h3>
-                        <p>
-                            <li> Implemented Cha-Cheon's IBS and ECC-based ElGamal encryption using Java Applet, integrating QR code-based digital signature generation on Android with web server verification. </li>
-                        </p>
-                    </div>
-                    <!-- End .project-info -->
-                </div>
-                <!-- End .project -->
-            </div>
-        </div>
-    </div>
-    <!-- End #projects -->
-
-    <div id="skills">
-        <h2 class="heading">Selected Publications</h2>
-        <ul>
-            <li><b>Ng, T. S.,</b> Kim, J., &amp; Teoh, A. B. J. <br>
-                <a href="https://ieeexplore.ieee.org/document/10962269">
-                    Flexible Secure Biometrics: A Protected Modality-Invariant Face-Periocular Recognition System.</a><br>
-                <i>IEEE Transactions on Information Forensics and Security, vol. 20,</i>
+</div>
+</div>
+</div>
+</div>
+<!-- End #about -->
+<div class="background-alt" id="experience">
+<h2 class="heading"><span class="lang-en">Employment Experience</span><span class="lang-ko" style="display:none;">경력</span></h2>
+<div id="experience-timeline">
+<div data-date="March 2019 – August 2019">
+<h3>Recogine Technology Sdn. Bhd.</h3>
+<h4>Research and Development Engineer</h4>
+<p>
+<li><span class="lang-en">Developed computer vision models for vehicle classification and license plate recognition (LPR) using TensorFlow and Keras.</span><span class="lang-ko" style="display:none;">TensorFlow와 Keras를 사용하여 차량 분류 및 번호판 인식(LPR)을 위한 컴퓨터 비전 모델을 개발함.</span></li>
+<li><span class="lang-en">Automated data preprocessing pipelines with Bash scripts and conducted model performance evaluations.</span><span class="lang-ko" style="display:none;">Bash 스크립트를 사용하여 데이터 전처리 파이프라인을 자동화하고 모델 성능을 평가함.</span></li>
+<li><span class="lang-en">Contributed to real-time visual inference systems deployed in transport monitoring.</span><span class="lang-ko" style="display:none;">교통 모니터링에 배치된 실시간 시각 추론 시스템에 기여함.</span></li>
+<li><span class="lang-en">Integrated Docker to containerize CV workflows for testing and reproducibility.</span><span class="lang-ko" style="display:none;">테스트와 재현성을 위해 Docker를 통합하여 컴퓨터 비전 워크플로우를 컨테이너화함.</span></li>
+</p>
+</div>
+<div data-date="September 2017 – December 2017">
+<h3>Hitachi Hokenso Sdn. Bhd.</h3>
+<h4>Application Engineer</h4>
+<p>
+<li><span class="lang-en">Maintained and deployed enterprise-grade backend systems using the Java Spring Framework and Oracle WebLogic Server.</span><span class="lang-ko" style="display:none;">Java Spring Framework와 Oracle WebLogic Server를 사용하여 기업용 백엔드 시스템을 유지 및 배포함.</span></li>
+<li><span class="lang-en">Designed SQL stored procedures and generated operational reports via Jasper Framework.</span><span class="lang-ko" style="display:none;">SQL 저장 프로시저를 설계하고 Jasper Framework를 통해 운영 보고서를 생성함.</span></li>
+<li><span class="lang-en">Applied version control and collaborative development using Git for backend modules.</span><span class="lang-ko" style="display:none;">백엔드 모듈을 위해 Git을 사용하여 버전 관리 및 협업 개발을 수행함.</span></li>
+</p>
+</div>
+<div data-date="September 2016 – August 2017">
+<h3>Multimedia University</h3>
+<h4>Research Assistant</h4>
+<p>
+<li><span class="lang-en">Conducted academic research on digital signature schemes and provable security, with a focus on tight reduction techniques.</span><span class="lang-ko" style="display:none;">디지털 서명 스킴과 증명 가능한 보안에 대한 학술 연구를 수행했으며, 특히 타이트 리덕션 기법에 중점을 둠.</span></li>
+<li><span class="lang-en">Assisted in formalizing authentication protocols suitable for privacy-preserving or safety-critical systems, contributing to publication-oriented cryptographic analysis.</span><span class="lang-ko" style="display:none;">프라이버시 보호 또는 안전이 중요한 시스템에 적합한 인증 프로토콜을 공식화하는 데 기여하며, 학술 논문 중심의 암호 분석에 기여함.</span></li>
+</p>
+</div>
+<div data-date="March 2015 – May 2015">
+<h3>NetEon Sdn. Bhd.</h3>
+<h4>Technical Assistant (Internship)</h4>
+<p><span class="lang-en">Learnt  how  to  interface  computer  hardware for industrial purposes, such as soldering and adding components in circuit boards and also configuring radio antennas.</span><span class="lang-ko" style="display:none;">산업용으로 컴퓨터 하드웨어를 인터페이스하는 방법을 학습함 (예: 회로 기판 납땜, 부품 추가, 무선 안테나 구성 등).</span></p>
+</div>
+</div>
+</div>
+<!-- End #experience -->
+<div id="education">
+<h2 class="heading"><span class="lang-en">Education</span><span class="lang-ko" style="display:none;">학력</span></h2>
+<div class="education-block">
+<h3>Yonsei University</h3>
+<span class="education-date">2020 - 2025</span>
+<h4>Doctorate of Engineering</h4>
+<p><span class="lang-en">On the Realization of Conditional Periocular-Face Biometrics for Flexible Deployment</span><span class="lang-ko" style="display:none; text-align:left;">유연한 배포를 위한 조건부 눈 주위-얼굴 생체인식의 구현</span></p>
+</div>
+<!-- End .education-block -->
+<div class="education-block">
+<h3>Multimedia University</h3>
+<span class="education-date">2016 - 2019</span>
+<h4>Master of Science in Information Technology</h4>
+<p><span class="lang-en">Design of Tight Security Reduction for Signature Schemes</span><span class="lang-ko" style="display:none; text-align:left;">서명 스킴을 위한 타이트 보안 리덕션 설계</span></p>
+</div>
+<!-- End .education-block -->
+<div class="education-block">
+<h3>Multimedia University</h3>
+<span class="education-date">2012 - 2016</span>
+<h4>Bachelor of Engineering (Hons.) Electronics Majoring in Computer</h4>
+<p><span class="lang-en">Secure Digital Medical Certificate System: Identity-Based Signatures</span><span class="lang-ko" style="display:none;">안전한 디지털 진단서 시스템: ID 기반 서명</span></p>
+</div>
+<!-- End .education-block -->
+</div>
+<!-- End #education -->
+<div class="background-alt" id="projects">
+<h2 class="heading"><span class="lang-en">Projects</span><span class="lang-ko" style="display:none;">프로젝트</span></h2>
+<div class="container">
+<div class="row">
+<div class="project shadow-large">
+<div class="project-image">
+<img src="images/doctorate_project.jpg"/>
+</div>
+<!-- End .project-image -->
+<div class="project-info">
+<h3>NRF Project (S. Korea): Multimodal Biometrics Conditioning and Data-driven Template Hashing (Member - Ph.D. Researcher)</h3>
+<p><span class="lang-en">Researched advanced facial and periocular based recognition techniques using AI. Worked on improving security by protecting biometric data with special encryption methods. Developed innovative methods to recognize faces even when partially covered by masks or sunglasses.</span><span class="lang-ko" style="display:none;">AI를 활용한 고급 얼굴 및 눈 주위 인식 기술을 연구함. 생체 데이터를 특수한 암호화 방식으로 보호하여 보안을 향상시킴. 마스크나 선글라스로 부분적으로 가려진 얼굴도 인식할 수 있는 혁신적인 방법을 개발함.</span></p>
+</div>
+<!-- End .project-info -->
+</div>
+<!-- End .project -->
+<div class="project shadow-large">
+<div class="project-image">
+<img src="images/MySEAL.PNG"/>
+</div>
+<!-- End .project-image -->
+<div class="project-info">
+<h3>Malaysian Digital Signature Algorithm Proposal: TNC Signature Scheme (MySEAL)</h3>
+<p><span class="lang-en">Proposed the TNC Signature, compatible with Schnorr signatures, providing full security proof and implementation using C and Libgcrypt for both discrete logarithm and elliptic curve settings.</span><span class="lang-ko" style="display:none;">Schnorr 서명과 호환되는 TNC 서명을 제안하였고, 이산 로그 및 타원 곡선 설정 모두에서 C 및 Libgcrypt를 사용하여 완전한 보안 증명과 구현을 제공함.</span></p>
+<a href="https://mykripto.cybersecurity.my/index.php/files/101/AKBA-MySEAL/8/MySEAL---TNCSeminar-Slide.pdf">Slides for Technical Report</a>
+</div>
+<!-- End .project-info -->
+</div>
+<!-- End .project -->
+<div class="project shadow-large">
+<div class="project-image">
+<img src="images/master_project.PNG"/>
+</div>
+<!-- End .project-image -->
+<div class="project-info">
+<h3>FRGS Project (Malaysia): Tight Security Reduction Techniques for Cryptography Primitives (Member - M. Sc. Researcher)</h3>
+<p><span class="lang-en">Studied the effectiveness and techniques of security reduction in cryptographic schemes. Applied security reduction methods to enhance the security of existing digital signature schemes.</span><span class="lang-ko" style="display:none;">암호 스킴에서의 보안 리덕션 기법 및 효율성을 연구함. 기존 디지털 서명 스킴의 보안을 강화하기 위해 보안 리덕션 방법을 적용함.</span></p>
+</div>
+<!-- End .project-info -->
+</div>
+<!-- End .project -->
+<div class="project shadow-large">
+<div class="project-image">
+<img src="images/bachelors_project.PNG"/>
+</div>
+<!-- End .project-image -->
+<div class="project-info">
+<h3>ITEX Exhibition 2016: An Online Digital Medical Certificate System Using Identity-Based Signature (Member - Undergraduate Project)</h3>
+<p><span class="lang-en">Implemented Cha-Cheon's IBS and ECC-based ElGamal encryption using Java Applet, integrating QR code-based digital signature generation on Android with web server verification.</span><span class="lang-ko" style="display:none;">Java Applet을 사용하여 Cha-Cheon IBS 및 ECC 기반 ElGamal 암호화를 구현하였고, 안드로이드에서 QR 코드 기반 디지털 서명 생성을 웹 서버 검증과 통합함.</span></p>
+</div>
+<!-- End .project-info -->
+</div>
+<!-- End .project -->
+</div>
+</div>
+</div>
+<!-- End #projects -->
+<div ,="" class="optional-section" id="publications">
+<h2 class="heading"><span class="lang-en">Selected Publications</span><span class="lang-ko" style="display:none;">선택된 논문</span></h2>
+<ul>
+<li style="display:block; text-align:center;"><b>Ng, T. S.,</b> Kim, J., &amp; Teoh, A. B. J. <br/>
+<a href="https://ieeexplore.ieee.org/document/10962269">
+                    Flexible Secure Biometrics: A Protected Modality-Invariant Face-Periocular Recognition System.</a><br/>
+<i>IEEE Transactions on Information Forensics and Security, vol. 20,</i>
                 pp. 4610-4621, 2025.
             </li>
-            <li><b>Ng, T. S.,</b> &amp; Teoh, A. B. J. <br>
-                <a href="https://www.sciencedirect.com/science/article/abs/pii/S1568494625003552">
-                    Attention-aware ensemble learning for face-periocular cross-modality matching.</a><br>
-                <i>Applied Soft Computing, vol. 175,</i>
+<li style="display:block; text-align:center;"><b>Ng, T. S.,</b> &amp; Teoh, A. B. J. <br/>
+<a href="https://www.sciencedirect.com/science/article/abs/pii/S1568494625003552">
+                    Attention-aware ensemble learning for face-periocular cross-modality matching.</a><br/>
+<i>Applied Soft Computing, vol. 175,</i>
                 pp. 113044, 2024.
-            </li>        
-            <li>Tan, S.Y., <b>Ng, T. S.,</b>, &amp; Heng, S.H. <br>
-                <a href="https://link.springer.com/chapter/10.1007/978-981-96-0954-3_13">
-                    Efficient Fork-Free BLS Multi-signature Scheme with Incremental Signing.</a><br>
-                <i>International Conference on Provable Security (ProvSec),</i>
+            </li>
+<li style="display:block; text-align:center;">Tan, S.Y., <b>Ng, T. S.,</b>, &amp; Heng, S.H. <br/>
+<a href="https://link.springer.com/chapter/10.1007/978-981-96-0954-3_13">
+                    Efficient Fork-Free BLS Multi-signature Scheme with Incremental Signing.</a><br/>
+<i>International Conference on Provable Security (ProvSec),</i>
                 pp. 250-268, 2024.
             </li>
-            <li><b>Ng, T. S.,</b> Chai, J. C. L., Low, C. Y., &amp; Teoh, A. B. J.  <br>
-                <a href="https://ieeexplore.ieee.org/abstract/document/10418204/">
-                    Self-Attentive Contrastive Learning for Conditioned Periocular and Face Biometrics. </a><br>
-                <i>IEEE Transactions on Information Forensics and Security, vol. 19,</i>
+<li style="display:block; text-align:center;"><b>Ng, T. S.,</b> Chai, J. C. L., Low, C. Y., &amp; Teoh, A. B. J.  <br/>
+<a href="https://ieeexplore.ieee.org/abstract/document/10418204/">
+                    Self-Attentive Contrastive Learning for Conditioned Periocular and Face Biometrics. </a><br/>
+<i>IEEE Transactions on Information Forensics and Security, vol. 19,</i>
                 pp. 3251-3264, 2024.
             </li>
-            <li><b>Ng, T. S.,</b> Low, C. Y., Chai, J. C. L., &amp; Teoh, A. B. J.  <br>
-                <a href="https://ieeexplore.ieee.org/abstract/document/10201879">
-                    On the Representation Learning of Conditional Biometrics for Flexible Deployment. </a><br>
-                <i>IEEE Access, vol. 11,</i>
+<li style="display:block; text-align:center;"><b>Ng, T. S.,</b> Low, C. Y., Chai, J. C. L., &amp; Teoh, A. B. J.  <br/>
+<a href="https://ieeexplore.ieee.org/abstract/document/10201879">
+                    On the Representation Learning of Conditional Biometrics for Flexible Deployment. </a><br/>
+<i>IEEE Access, vol. 11,</i>
                 pp. 82338-82350, 2023.
             </li>
-            <li>Chai, J. C. L., <b>Ng, T. S.,</b> Low, C. Y., Park, J., &amp; Teoh, A. B. J. <br>
-                <a href="https://openaccess.thecvf.com/content/CVPR2023/html/Chai_Recognizability_Embedding_Enhancement_for_Very_Low-Resolution_Face_Recognition_and_Quality_CVPR_2023_paper.html">
-                    Recognizability embedding enhancement for very low-resolution face recognition and quality estimation. </a> <br>
-                <i>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR),</i>
+<li style="display:block; text-align:center;">Chai, J. C. L., <b>Ng, T. S.,</b> Low, C. Y., Park, J., &amp; Teoh, A. B. J. <br/>
+<a href="https://openaccess.thecvf.com/content/CVPR2023/html/Chai_Recognizability_Embedding_Enhancement_for_Very_Low-Resolution_Face_Recognition_and_Quality_CVPR_2023_paper.html">
+                    Recognizability embedding enhancement for very low-resolution face recognition and quality estimation. </a> <br/>
+<i>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR),</i>
                 pp. 9957-9967, 2023.
             </li>
-            <li><b>Ng, T. S.,</b> Low, C. Y., Chai, J. C. L., &amp; Teoh, A. B. J.  <br>
-                <a href="https://ieeexplore.ieee.org/abstract/document/9956636/">
-                    Conditional Multimodal Biometrics Embedding Learning For Periocular and Face in the Wild. </a><br>
-                <i>International Conference on Pattern Recognition (ICPR),</i>
+<li style="display:block; text-align:center;"><b>Ng, T. S.,</b> Low, C. Y., Chai, J. C. L., &amp; Teoh, A. B. J.  <br/>
+<a href="https://ieeexplore.ieee.org/abstract/document/9956636/">
+                    Conditional Multimodal Biometrics Embedding Learning For Periocular and Face in the Wild. </a><br/>
+<i>International Conference on Pattern Recognition (ICPR),</i>
                 pp. 812-818, 2022.
             </li>
-            <li><b>Ng, T. S.,</b> &amp; Teoh, A. B. J.  <br>
-                <a href="https://link.springer.com/chapter/10.1007/978-3-030-94763-7_23">
-                    Fuzzy MP - A Fuzzy Digital Signature Scheme with Biometrics. </a><br>
-                <i>International Conference on Mobile Networks and Management (EAI-MONAMI),</i>
+<li style="display:block; text-align:center;"><b>Ng, T. S.,</b> &amp; Teoh, A. B. J.  <br/>
+<a href="https://link.springer.com/chapter/10.1007/978-3-030-94763-7_23">
+                    Fuzzy MP - A Fuzzy Digital Signature Scheme with Biometrics. </a><br/>
+<i>International Conference on Mobile Networks and Management (EAI-MONAMI),</i>
                 pp. 299-315, 2022.
             </li>
-            <li><b>Ng, T. S.,</b> Tan, S. Y., &amp; Chin, J. J.  <br>
-                <a href="https://link.springer.com/chapter/10.1007/978-3-030-34339-2_15">
-                    Improving Signature Schemes With Tight Security Reductions. </a><br>
-                <i>International Conference on Information Security Practice and Experience (ISPEC),</i>
+<li style="display:block; text-align:center;"><b>Ng, T. S.,</b> Tan, S. Y., &amp; Chin, J. J.  <br/>
+<a href="https://link.springer.com/chapter/10.1007/978-3-030-34339-2_15">
+                    Improving Signature Schemes With Tight Security Reductions. </a><br/>
+<i>International Conference on Information Security Practice and Experience (ISPEC),</i>
                 pp. 273-292, 2019.
             </li>
-            <li><b>Ng, T. S.,</b> Tan, S. Y., &amp; Chin, J. J.  <br>
-                <a href="https://link.springer.com/chapter/10.1007/978-3-319-90775-8_13">
-                    A Variant of BLS Signature Scheme with Tight Security Reduction. </a><br>
-                <i>International Conference on Mobile Networks and Management (EAI-MONAMI),</i>
+<li style="display:block; text-align:center;"><b>Ng, T. S.,</b> Tan, S. Y., &amp; Chin, J. J.  <br/>
+<a href="https://link.springer.com/chapter/10.1007/978-3-319-90775-8_13">
+                    A Variant of BLS Signature Scheme with Tight Security Reduction. </a><br/>
+<i>International Conference on Mobile Networks and Management (EAI-MONAMI),</i>
                 pp. 150-163, 2017.
             </li>
-            <li><b>Ng, T. S.,</b> Tan, S. Y., &amp; Chin, J. J.  <br>
-                <a href="https://ieeexplore.ieee.org/abstract/document/8191014/">
-                    A Variant of Schnorr Signature Scheme with Tight Security Reduction. </a><br>
-                <i>International Conference on Information and Communication Technology Convergence (ICTC),</i>
+<li style="display:block; text-align:center;"><b>Ng, T. S.,</b> Tan, S. Y., &amp; Chin, J. J.  <br/>
+<a href="https://ieeexplore.ieee.org/abstract/document/8191014/">
+                    A Variant of Schnorr Signature Scheme with Tight Security Reduction. </a><br/>
+<i>International Conference on Information and Communication Technology Convergence (ICTC),</i>
                 pp. 411-415, 2017.
             </li>
-        </ul>
-    </div>
-    <!-- End #skills -->
-
-    <div id="contact">
-        <h2>Get in Touch</h2>
-        <div id="contact-form">
-            <form method="POST" action="https://formspree.io/f/mvoewlqz">
-                <input type="hidden" name="_subject" value="Contact request from personal website" />
-                <input type="email" name="_replyto" placeholder="Your email" required>
-                <textarea name="message" placeholder="Your message" required></textarea>
-                <button type="submit">Send</button>
-            </form>
-        </div>
-        <!-- End #contact-form -->
-    </div>
-    <!-- End #contact -->
-
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-5 copyright">
-                    <p>
-                        Copyright &copy; <span id="current-year">2024-2025</span> TIONG-SIK NG
+</ul>
+</div>
+<!-- End #publications -->
+<section class="background-alt" id="skills">
+<h2 class="heading"><span class="lang-en">Skills</span><span class="lang-ko" style="display:none;">기술</span></h2>
+<!-- Skills Categories -->
+<div class="optional-section-block">
+<h3>Technical Skills</h3>
+<ul>
+<li><strong>Development:</strong> PyTorch, Docker, TensorFlow</li>
+<li><strong>Programming:</strong> Python, Android Java, Java SE, .NET, C++</li>
+<li><strong>OS Software:</strong> Windows .NET, Android, Windows Phone</li>
+<li><strong>Scripting:</strong> Linux Ubuntu Bash, HTML &amp; CSS</li>
+</ul>
+</div>
+<!-- Deep Learning -->
+<div class="optional-section-block">
+<h3>Deep Learning Modeling</h3>
+<ul>
+<li><strong>Computer Vision:</strong> Convolutional Neural Networks, Vision Transformers, Hybrid CNN-Transformers</li>
+<li><strong>Text-to-Speech (TTS):</strong> VALL-E</li>
+<li><strong>Multimodal Image-to-Text:</strong> Hybrid Multimodal Transformers, CLIP</li>
+</ul>
+</div>
+<!-- Languages -->
+<div class="optional-section-block">
+<h3><span class="lang-en">Languages</span><span class="lang-ko" style="display:none;">언어</span></h3>
+<ul>
+<li><strong>Spoken:</strong> English (Native), Chinese Mandarin (Fluent), Bahasa Melayu (Fluent)</li>
+<li>TOEIC: 970/990 <em>(December 2022)</em></li>
+<li>TOEFL: 96/120 <em>(July 2018)</em></li>
+</ul>
+</div>
+<!-- Others -->
+<div class="optional-section-block">
+<h3><span class="lang-en">Others</span><span class="lang-ko" style="display:none;">기타</span></h3>
+<ul>
+<li><strong>Professional Body:</strong> Registered Graduate Engineer under Board of Engineers Malaysia (BEM) <em>(GE158045A)</em></li>
+</ul>
+</div>
+<!-- Add more blocks as needed -->
+</section>
+<div id="contact">
+<h2><span class="lang-en">Get in Touch</span><span class="lang-ko" style="display:none;">연락하기</span></h2>
+<div id="contact-form">
+<form action="https://formspree.io/f/mvoewlqz" method="POST">
+<input name="_subject" type="hidden" value="Contact request from personal website"/>
+<input data-placeholder-en="Your email" data-placeholder-ko="이메일 주소" name="_replyto" placeholder="Your email" required="" type="email"/>
+<textarea data-placeholder-en="Your message" data-placeholder-ko="메시지 입력" name="message" placeholder="Your message" required=""></textarea>
+<button type="submit"><span class="lang-en">Send</span><span class="lang-ko" style="display:none;">보내기</span></button>
+</form>
+</div>
+<!-- End #contact-form -->
+</div>
+<!-- End #contact -->
+<footer>
+<div class="container">
+<div class="row">
+<div class="col-sm-5 copyright">
+<p>
+                        Copyright © <span id="current-year">2024-2025</span> TIONG-SIK NG
                     </p>
-                </div>
-                <div class="col-sm-2 top">
-                    <span id="to-top">
-                        <i class="fa fa-chevron-up" aria-hidden="true"></i>
-                    </span>
-                </div>
-                <div class="col-sm-5 social">
-                    <ul>
-                        <li>
-                            <a href="https://ryanfitzgerald.github.io/devportfolio/" target="_blank"><i class="fa fa-github" aria-hidden="true"></i> Original Template</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- End footer -->
+</div>
+<div class="col-sm-2 top">
+<span id="to-top">
+<i aria-hidden="true" class="fa fa-chevron-up"></i>
+</span>
+</div>
+<div class="col-sm-5 social">
+<ul>
+<li>
+<a href="https://ryanfitzgerald.github.io/devportfolio/" target="_blank"><i aria-hidden="true" class="fa fa-github"></i> Original Template</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</footer>
+<!-- End footer -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="js/scripts.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const lang = localStorage.getItem("language") || "en";
+    if (lang === "ko") {
+      document.body.classList.add("lang-ko");
+    }
+  });
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/scripts.min.js"></script>
-</body>
+  function toggleLanguage() {
+    const body = document.body;
+    const isKorean = body.classList.toggle("lang-ko");
+    localStorage.setItem("language", isKorean ? "ko" : "en");
+  }
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const lang = localStorage.getItem("language") || "en";
+  if (lang === "ko") {
+    document.body.classList.add("lang-ko");
+    updatePlaceholders("ko");
+  } else {
+    updatePlaceholders("en");
+  }
+});
 
+function toggleLanguage() {
+  const body = document.body;
+  const isKorean = body.classList.toggle("lang-ko");
+  const newLang = isKorean ? "ko" : "en";
+  localStorage.setItem("language", newLang);
+  updatePlaceholders(newLang);
+}
+
+function updatePlaceholders(lang) {
+  const emailInput = document.querySelector("input[name='_replyto']");
+  const messageBox = document.querySelector("textarea[name='message']");
+  if (emailInput) emailInput.placeholder = emailInput.getAttribute("data-placeholder-" + lang);
+  if (messageBox) messageBox.placeholder = messageBox.getAttribute("data-placeholder-" + lang);
+}
+</script></body>
 </html>
