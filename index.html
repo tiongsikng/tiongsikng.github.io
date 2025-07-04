@@ -1,466 +1,863 @@
 <!DOCTYPE html>
-
 <html class="no-js dark-mode" lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Tiong-Sik Ng (황충식) | Portfolio</title>
-<link href="favicon.ico" rel="shortcut icon" type="image/x-icon"/>
-<link href="favicon.ico" rel="icon" type="image/x-icon"/>
-<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet"/>
-<link href="libs/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
-<link href="css/bootstrap.min.css" rel="stylesheet"/>
-<link href="css/styles.css" rel="stylesheet"/>
-<link href="css/dark-mode.css" id="dark-style" rel="stylesheet"/>
-<script crossorigin="anonymous" src="https://kit.fontawesome.com/9135e9eba9.js"></script>
-<script>
+	<head>
+		<meta charset="utf-8">
+		<meta content="IE=edge" http-equiv="X-UA-Compatible">
+		<meta content="width=device-width, initial-scale=1" name="viewport">
+		<title>Tiong-Sik Ng | Portfolio</title>
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
+		<link href="favicon.ico" rel="icon" type="image/x-icon">
+		<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+		<link href="libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/styles.css" rel="stylesheet">
+		<link href="css/dark-mode.css" id="dark-style" rel="stylesheet">
+		<script crossorigin="anonymous" src="https://kit.fontawesome.com/9135e9eba9.js"></script>
+		<script>
       document.addEventListener("DOMContentLoaded", () => {
-        const prefersLight = localStorage.getItem("theme") === "light";
-        if (prefersLight) document.body.classList.remove("dark-mode");
-      });
-    </script>
-<style>
-  body.lang-ko .lang-en { display: none !important; }
-  body.lang-ko .lang-ko { display: inline !important; }
-</style>
-</head>
-<body class="dark-mode">
-<script>
         const body = document.body;
-        const icon = document.getElementById("theme-icon");
+        const icon = document.getElementById("theme-icon"); // Get icon here
+        const prefersLight = localStorage.getItem("theme") === "light";
 
-        // On page load: set theme and icon based on localStorage
-        document.addEventListener("DOMContentLoaded", () => {
-            const theme = localStorage.getItem("theme") || "dark"; // default to dark
-            if (theme === "light") {
-            body.classList.remove("dark-mode");
-            icon.className = "fa fa-moon"; // show moon when in light mode
-            } else {
-            body.classList.add("dark-mode");
-            icon.className = "fa fa-sun"; // show sun when in dark mode
-            }
+        if (prefersLight) {
+          body.classList.remove("dark-mode");
+          if (icon) icon.className = "fa fa-moon"; // Light mode, show moon
+        } else {
+          body.classList.add("dark-mode");
+          if (icon) icon.className = "fa fa-sun"; // Dark mode, show sun
+        }
+      });
+
+		</script>
+
+    <style>
+      body.lang-en .lang-en { display: inline !important; }
+      body.lang-en .lang-ko { display: none !important; }
+      body.lang-en .lang-ja { display: none !important; }
+      body.lang-en .lang-ch { display: none !important; } /* Added for Chinese */
+
+      body.lang-ko .lang-ko { display: inline !important; }
+      body.lang-ko .lang-en { display: none !important; }
+      body.lang-ko .lang-ja { display: none !important; }
+      body.lang-ko .lang-ch { display: none !important; } /* Added for Chinese */
+
+      body.lang-ja .lang-ja { display: inline !important; }
+      body.lang-ja .lang-en { display: none !important; }
+      body.lang-ja .lang-ko { display: none !important; }
+      body.lang-ja .lang-ch { display: none !important; } /* Added for Chinese */
+
+      body.lang-ch .lang-ch { display: inline !important; } /* Added for Chinese */
+      body.lang-ch .lang-en { display: none !important; }
+      body.lang-ch .lang-ko { display: none !important; }
+      body.lang-ch .lang-ja { display: none !important; }
+		</style>
+
+	</head>
+
+	<body class="dark-mode lang-en">
+		<script>
+    // Initialize theme and language on load
+    document.addEventListener("DOMContentLoaded", () => {
+      // Theme
+      const icon = document.getElementById("theme-icon");
+      const theme = localStorage.getItem("theme") || "dark";
+      if (theme === "light") {
+        document.body.classList.remove("dark-mode");
+        icon.className = "fa fa-moon";
+      } else {
+        document.body.classList.add("dark-mode");
+        icon.className = "fa fa-sun";
+      }
+      // Language
+      const savedLang = localStorage.getItem("language") || "en";
+      setLanguage(savedLang);
+    });
+
+    function toggleMode() {
+      const icon = document.getElementById("theme-icon");
+      const isDark = document.body.classList.toggle("dark-mode");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+      icon.className = isDark ? "fa fa-sun" : "fa fa-moon";
+    }
+
+    function updatePlaceholders(lang) {
+      const emailInput = document.querySelector("input[name='_replyto']");
+      const messageBox = document.querySelector("textarea[name='message']");
+      if (emailInput) emailInput.placeholder = emailInput.getAttribute("data-placeholder-" + lang);
+      if (messageBox) messageBox.placeholder = messageBox.getAttribute("data-placeholder-" + lang);
+    }
+
+    // New function to update dates in the timeline
+    function updateTimelineDates(lang) {
+      document.querySelectorAll('#experience-timeline > div[data-date-en]').forEach(block => {
+        const dateSpanEn = block.querySelector('.timeline-date.lang-en');
+        const dateSpanKo = block.querySelector('.timeline-date.lang-ko');
+        const dateSpanJa = block.querySelector('.timeline-date.lang-ja');
+        const dateSpanCh = block.querySelector('.timeline-date.lang-ch');
+
+        if (dateSpanEn) dateSpanEn.textContent = block.getAttribute('data-date-en');
+        if (dateSpanKo) dateSpanKo.textContent = block.getAttribute('data-date-ko');
+        if (dateSpanJa) dateSpanJa.textContent = block.getAttribute('data-date-ja');
+        if (dateSpanCh) dateSpanCh.textContent = block.getAttribute('data-date-ch');
+      });
+    }
+
+    function setLanguage(lang) {
+      document.body.classList.remove("lang-en", "lang-ko", "lang-ja", "lang-ch"); // Added lang-ch
+      document.body.classList.add("lang-" + lang);
+      localStorage.setItem("language", lang);
+      document.getElementById("current-lang").textContent = lang.toUpperCase(); // Update button text
+      updatePlaceholders(lang);
+      updateTimelineDates(lang); // Call the new date update function
+    }
+  </script>
+
+    <div id="lang-control" style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
+      <button id="lang-toggle" style="cursor: pointer; display: flex; align-items: center; gap: 4px;">
+        <i class="fa fa-globe" id="language-icon"></i>
+        <span id="current-lang">EN</span>
+        <i class="fa fa-caret-down" style="margin-left:4px;"></i>
+      </button>
+      <ul id="lang-menu" style="list-style:none; margin:0; padding:4px; display:none; background:#fff; border:1px solid #ccc;">
+        <li data-lang="en" style="padding:4px; cursor:pointer;">English</li>
+        <li data-lang="ko" style="padding:4px; cursor:pointer;">한국어</li>
+        <li data-lang="ja" style="padding:4px; cursor:pointer;">日本語</li>
+        <li data-lang="ch" style="padding:4px; cursor:pointer;">中文</li> </ul>
+    </div>
+     <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const toggleBtn = document.getElementById('lang-toggle');
+        const menu = document.getElementById('lang-menu');
+        const label = document.getElementById('current-lang');
+        const langs = { en: 'EN', ko: 'KO', ja: 'JA', ch: 'CH' }; // Added for Chinese
+
+        // Open/close the dropdown
+        toggleBtn.addEventListener('click', e => {
+          menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
         });
 
-        function toggleMode() {
-            const isDark = body.classList.toggle("dark-mode");
-            localStorage.setItem("theme", isDark ? "dark" : "light");
-            icon.className = isDark ? "fa fa-sun" : "fa fa-moon";
-        }
+        // Handle language selection
+        menu.querySelectorAll('li').forEach(item => {
+          item.addEventListener('click', () => {
+            const chosen = item.getAttribute('data-lang');
+            // 1) Update the visible label
+            label.textContent = langs[chosen];
+            // 2) Toggle your <body> class to show that language
+            setLanguage(chosen); // Use the existing setLanguage function
+            // 3) Hide the menu
+            menu.style.display = 'none';
+          });
+        });
+
+        // Initialize from localStorage
+        const saved = localStorage.getItem('language') || 'en';
+        setLanguage(saved);
+      });
     </script>
-<!-- <button onclick="toggleMode()" style="position: fixed; top: 10px; right: 10px; z-index: 1000;">Toggle Mode</button> -->
-<!-- Language toggle button -->
-<button id="language-toggle" onclick="toggleLanguage()" style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
-<i class="fa fa-globe" id="language-icon"></i>
-</button>
-<button id="theme-toggle" onclick="toggleMode()" style="position: fixed; top: 10px; right: 10px; z-index: 1000;">
-<i class="fa fa-moon" id="theme-icon"></i>
-</button>
-<script>
-      function toggleMode() {
-        const body = document.body;
-        const isDark = body.classList.toggle("dark-mode");
-        localStorage.setItem("theme", isDark ? "dark" : "light");
-      }
-    </script>
-<div class="shadow-large" id="mobile-menu-open">
-<i aria-hidden="true" class="fa fa-bars"></i>
-</div>
-<!-- End #mobile-menu-toggle -->
-<header>
-<div id="mobile-menu-close">
-<span>Close</span> <i aria-hidden="true" class="fa fa-times"></i>
-</div>
-<ul class="shadow" id="menu">
-<li>
-<a href="#about"><span class="lang-en">About</span><span class="lang-ko" style="display:none;">소개</span></a>
-</li>
-<li>
-<a href="#experience"><span class="lang-en">Experience</span><span class="lang-ko" style="display:none;">경력</span></a>
-</li>
-<li>
-<a href="#education"><span class="lang-en">Education</span><span class="lang-ko" style="display:none;">학력</span></a>
-</li>
-<li>
-<a href="#projects"><span class="lang-en">Projects</span><span class="lang-ko" style="display:none;">프로젝트</span></a>
-</li>
-<li>
-<a href="#publications"><span class="lang-en">Publications</span><span class="lang-ko" style="display:none;">논문</span></a>
-</li>
-<li>
-<a href="#skills"><span class="lang-en">Skills</span><span class="lang-ko" style="display:none;">기술</span></a>
-</li>
-<li>
-<a href="#contact"><span class="lang-en">Contact</span><span class="lang-ko" style="display:none;">연락처</span></a>
-</li>
-</ul>
+		<button id="theme-toggle" onclick="toggleMode()" style="position: fixed; top: 10px; right: 10px; z-index: 1000;">
+			<i class="fa fa-moon" id="theme-icon"></i>
+		</button>
+		
+		<div class="shadow-large" id="mobile-menu-open">
+			<i aria-hidden="true" class="fa fa-bars"></i>
+		</div>
+
+		<header>
+  <div id="mobile-menu-close">
+    <span>Close</span>
+    <i aria-hidden="true" class="fa fa-times"></i>
+  </div>
+  <ul class="shadow" id="menu">
+    <li>
+      <a href="#about">
+        <span class="lang-en">About</span>
+        <span class="lang-ko" style="display:none;">소개</span>
+        <span class="lang-ja" style="display:none;">紹介</span>
+        <span class="lang-ch" style="display:none;">关于</span> </a>
+    </li>
+    <li>
+      <a href="#experience">
+        <span class="lang-en">Experience</span>
+        <span class="lang-ko" style="display:none;">경력</span>
+        <span class="lang-ja" style="display:none;">経歴</span>
+        <span class="lang-ch" style="display:none;">经历</span> </a>
+    </li>
+    <li>
+      <a href="#education">
+        <span class="lang-en">Education</span>
+        <span class="lang-ko" style="display:none;">학력</span>
+        <span class="lang-ja" style="display:none;">学歴</span>
+        <span class="lang-ch" style="display:none;">教育背景</span> </a>
+    </li>
+    <li>
+      <a href="#projects">
+        <span class="lang-en">Projects</span>
+        <span class="lang-ko" style="display:none;">프로젝트</span>
+        <span class="lang-ja" style="display:none;">プロジェクト</span>
+        <span class="lang-ch" style="display:none;">项目</span> </a>
+    </li>
+    <li>
+      <a href="#publications">
+        <span class="lang-en">Publications</span>
+        <span class="lang-ko" style="display:none;">논문</span>
+        <span class="lang-ja" style="display:none;">論文</span>
+        <span class="lang-ch" style="display:none;">出版物</span> </a>
+    </li>
+    <li>
+      <a href="#skills">
+        <span class="lang-en">Skills</span>
+        <span class="lang-ko" style="display:none;">기술</span>
+        <span class="lang-ja" style="display:none;">スキル</span>
+        <span class="lang-ch" style="display:none;">技能</span> </a>
+    </li>
+    <li>
+      <a href="#contact">
+        <span class="lang-en">Contact</span>
+        <span class="lang-ko" style="display:none;">연락처</span>
+        <span class="lang-ja" style="display:none;">連絡先</span>
+        <span class="lang-ch" style="display:none;">联系方式</span> </a>
+    </li>
+  </ul>
 </header>
-<!-- End header -->
-<div id="lead">
-<div id="lead-content">
-<h1>Tiong-Sik Ng (황충식)</h1>
-<h2 class="heading">
-<p>
-<a href="https://github.com/tiongsikng/" target="_blank"><i aria-hidden="true" class="fa fa-github" style="color:gray"></i></a>
-<a href="https://scholar.google.com/citations?user=oT2_EAEAAAAJ&amp;hl=en/" target="_blank"><i aria-hidden="true" class="fa-brands fa-google-scholar" style="color:skyblue"></i></a>
-<a href="https://orcid.org/0000-0001-7248-3935/" target="_blank"><i aria-hidden="true" class="fa-brands fa-orcid" style="color:lawngreen"></i></a>
-<a href="https://www.researchgate.net/profile/Tiong_Sik_Ng/" target="_blank"><i aria-hidden="true" class="fa-brands fa-researchgate" style="color:turquoise"></i></a>
-<a href="https://www.linkedin.com/in/tiong-sik-ng-521031145/" target="_blank"><i aria-hidden="true" class="fa-brands fa-linkedin" style="color:#228dda"></i></a>
-</p>
-</h2>
-<ul>
-</ul>
-<a class="btn-rounded-white" download="resume.pdf" href="files/Resume.pdf">Resume</a>
-<a class="btn-rounded-black" download="curriculum_vitae.pdf" href="files/Curriculum_Vitae.pdf">Curriculum Vitae</a>
-</div>
-<!-- End #lead-content -->
-<div id="lead-overlay"></div>
-<div id="lead-down">
-<span>
-<i aria-hidden="true" class="fa fa-chevron-down"></i>
-</span>
-</div>
-<!-- End #lead-down -->
-</div>
-<!-- End #lead -->
-<div id="about">
-<div class="container">
-<div class="row">
-<div class="col-md-4">
-<h2 class="heading"><span class="lang-en">About Me</span><span class="lang-ko" style="display:none;">소개</span></h2>
-</div>
-<div class="col-md-8">
-<p>
-<li id="dateItem"> Last Updated:   </li>
-<li> Yonsei University, South Korea - Doctorate in Engineering. (연세대학교, 대한민국 - 공학 박사 학위.)</li>
-<li> Fields: Deep Learning, Biometrics Security, Cryptography and Security </li>
-</p>
-<script>
-                        const today = new Date();
-                        const year = today.getFullYear();
-                        const month = String(today.getMonth() + 1).padStart(2, '0');
-                        const day = String(today.getDate()).padStart(2, '0');
 
-                        const weekdays = ['일', '월', '화', '수', '목', '금', '토'];
-                        const weekday = weekdays[today.getDay()];
+		<div id="lead">
+			<div id="lead-content">
+				<h1>
+          <span class="lang-en">Tiong-Sik Ng</span>
+          <span class="lang-ko">황충식</span>
+          <span class="lang-ja">ン・ティオング・シーク</span>
+          <span class="lang-ch" style="display:none;">黄忠植</span> </h1>
+				<h2 class="heading">
+					<p>
+						<a href="https://github.com/tiongsikng/" target="_blank">
+							<i aria-hidden="true" class="fa fa-github" style="color:gray"></i>
+						</a>
+						<a href="https://scholar.google.com/citations?user=oT2_EAEAAAAJ&amp;hl=en/" target="_blank">
+							<i aria-hidden="true" class="fa-brands fa-google-scholar" style="color:skyblue"></i>
+						</a>
+						<a href="https://orcid.org/0000-0001-7248-3935/" target="_blank">
+							<i aria-hidden="true" class="fa-brands fa-orcid" style="color:lawngreen"></i>
+						</a>
+						<a href="https://www.researchgate.net/profile/Tiong_Sik_Ng/" target="_blank">
+							<i aria-hidden="true" class="fa-brands fa-researchgate" style="color:turquoise"></i>
+						</a>
+						<a href="https://www.linkedin.com/in/tiong-sik-ng-521031145/" target="_blank">
+							<i aria-hidden="true" class="fa-brands fa-linkedin" style="color:#228dda"></i>
+						</a>
+					</p>
+				</h2>
+				<ul>
+				</ul>
+				<a class="btn-rounded-white" download="resume.pdf" href="files/Resume.pdf">Resume</a>
+				<a class="btn-rounded-black" download="curriculum_vitae.pdf" href="files/Curriculum_Vitae.pdf">Curriculum Vitae</a>
+			</div>
 
-                        const koreanDate = `${year}년 ${month}월 ${day}일 (${weekday})`;
+			<div id="lead-overlay"></div>
+			<div id="lead-down">
+				<span>
+					<i aria-hidden="true" class="fa fa-chevron-down"></i>
+				</span>
+			</div>
 
-                        document.getElementById("dateItem").textContent += koreanDate;
-                    </script>
-</div>
-</div>
-</div>
-</div>
-<!-- End #about -->
-<div class="background-alt" id="experience">
-<h2 class="heading"><span class="lang-en">Employment Experience</span><span class="lang-ko" style="display:none;">경력</span></h2>
-<div id="experience-timeline">
-<div data-date="March 2019 – August 2019">
-<h3>Recogine Technology Sdn. Bhd.</h3>
-<h4>Research and Development Engineer</h4>
-<p>
-<li><span class="lang-en">Developed computer vision models for vehicle classification and license plate recognition (LPR) using TensorFlow and Keras.</span><span class="lang-ko" style="display:none;">TensorFlow와 Keras를 사용하여 차량 분류 및 번호판 인식(LPR)을 위한 컴퓨터 비전 모델을 개발함.</span></li>
-<li><span class="lang-en">Automated data preprocessing pipelines with Bash scripts and conducted model performance evaluations.</span><span class="lang-ko" style="display:none;">Bash 스크립트를 사용하여 데이터 전처리 파이프라인을 자동화하고 모델 성능을 평가함.</span></li>
-<li><span class="lang-en">Contributed to real-time visual inference systems deployed in transport monitoring.</span><span class="lang-ko" style="display:none;">교통 모니터링에 배치된 실시간 시각 추론 시스템에 기여함.</span></li>
-<li><span class="lang-en">Integrated Docker to containerize CV workflows for testing and reproducibility.</span><span class="lang-ko" style="display:none;">테스트와 재현성을 위해 Docker를 통합하여 컴퓨터 비전 워크플로우를 컨테이너화함.</span></li>
-</p>
-</div>
-<div data-date="September 2017 – December 2017">
-<h3>Hitachi Hokenso Sdn. Bhd.</h3>
-<h4>Application Engineer</h4>
-<p>
-<li><span class="lang-en">Maintained and deployed enterprise-grade backend systems using the Java Spring Framework and Oracle WebLogic Server.</span><span class="lang-ko" style="display:none;">Java Spring Framework와 Oracle WebLogic Server를 사용하여 기업용 백엔드 시스템을 유지 및 배포함.</span></li>
-<li><span class="lang-en">Designed SQL stored procedures and generated operational reports via Jasper Framework.</span><span class="lang-ko" style="display:none;">SQL 저장 프로시저를 설계하고 Jasper Framework를 통해 운영 보고서를 생성함.</span></li>
-<li><span class="lang-en">Applied version control and collaborative development using Git for backend modules.</span><span class="lang-ko" style="display:none;">백엔드 모듈을 위해 Git을 사용하여 버전 관리 및 협업 개발을 수행함.</span></li>
-</p>
-</div>
-<div data-date="September 2016 – August 2017">
-<h3>Multimedia University</h3>
-<h4>Research Assistant</h4>
-<p>
-<li><span class="lang-en">Conducted academic research on digital signature schemes and provable security, with a focus on tight reduction techniques.</span><span class="lang-ko" style="display:none;">디지털 서명 스킴과 증명 가능한 보안에 대한 학술 연구를 수행했으며, 특히 타이트 리덕션 기법에 중점을 둠.</span></li>
-<li><span class="lang-en">Assisted in formalizing authentication protocols suitable for privacy-preserving or safety-critical systems, contributing to publication-oriented cryptographic analysis.</span><span class="lang-ko" style="display:none;">프라이버시 보호 또는 안전이 중요한 시스템에 적합한 인증 프로토콜을 공식화하는 데 기여하며, 학술 논문 중심의 암호 분석에 기여함.</span></li>
-</p>
-</div>
-<div data-date="March 2015 – May 2015">
-<h3>NetEon Sdn. Bhd.</h3>
-<h4>Technical Assistant (Internship)</h4>
-<p><span class="lang-en">Learnt  how  to  interface  computer  hardware for industrial purposes, such as soldering and adding components in circuit boards and also configuring radio antennas.</span><span class="lang-ko" style="display:none;">산업용으로 컴퓨터 하드웨어를 인터페이스하는 방법을 학습함 (예: 회로 기판 납땜, 부품 추가, 무선 안테나 구성 등).</span></p>
-</div>
-</div>
-</div>
-<!-- End #experience -->
-<div id="education">
-<h2 class="heading"><span class="lang-en">Education</span><span class="lang-ko" style="display:none;">학력</span></h2>
-<div class="education-block">
-<h3>Yonsei University</h3>
-<span class="education-date">2020 - 2025</span>
-<h4>Doctorate of Engineering</h4>
-<p><span class="lang-en">On the Realization of Conditional Periocular-Face Biometrics for Flexible Deployment</span><span class="lang-ko" style="display:none; text-align:left;">유연한 배포를 위한 조건부 눈 주위-얼굴 생체인식의 구현</span></p>
-</div>
-<!-- End .education-block -->
-<div class="education-block">
-<h3>Multimedia University</h3>
-<span class="education-date">2016 - 2019</span>
-<h4>Master of Science in Information Technology</h4>
-<p><span class="lang-en">Design of Tight Security Reduction for Signature Schemes</span><span class="lang-ko" style="display:none; text-align:left;">서명 스킴을 위한 타이트 보안 리덕션 설계</span></p>
-</div>
-<!-- End .education-block -->
-<div class="education-block">
-<h3>Multimedia University</h3>
-<span class="education-date">2012 - 2016</span>
-<h4>Bachelor of Engineering (Hons.) Electronics Majoring in Computer</h4>
-<p><span class="lang-en">Secure Digital Medical Certificate System: Identity-Based Signatures</span><span class="lang-ko" style="display:none;">안전한 디지털 진단서 시스템: ID 기반 서명</span></p>
-</div>
-<!-- End .education-block -->
-</div>
-<!-- End #education -->
-<div class="background-alt" id="projects">
-<h2 class="heading"><span class="lang-en">Projects</span><span class="lang-ko" style="display:none;">프로젝트</span></h2>
-<div class="container">
-<div class="row">
-<div class="project shadow-large">
-<div class="project-image">
-<img src="images/doctorate_project.jpg"/>
-</div>
-<!-- End .project-image -->
-<div class="project-info">
-<h3>NRF Project (S. Korea): Multimodal Biometrics Conditioning and Data-driven Template Hashing (Member - Ph.D. Researcher)</h3>
-<p><span class="lang-en">Researched advanced facial and periocular based recognition techniques using AI. Worked on improving security by protecting biometric data with special encryption methods. Developed innovative methods to recognize faces even when partially covered by masks or sunglasses.</span><span class="lang-ko" style="display:none;">AI를 활용한 고급 얼굴 및 눈 주위 인식 기술을 연구함. 생체 데이터를 특수한 암호화 방식으로 보호하여 보안을 향상시킴. 마스크나 선글라스로 부분적으로 가려진 얼굴도 인식할 수 있는 혁신적인 방법을 개발함.</span></p>
-</div>
-<!-- End .project-info -->
-</div>
-<!-- End .project -->
-<div class="project shadow-large">
-<div class="project-image">
-<img src="images/MySEAL.PNG"/>
-</div>
-<!-- End .project-image -->
-<div class="project-info">
-<h3>Malaysian Digital Signature Algorithm Proposal: TNC Signature Scheme (MySEAL)</h3>
-<p><span class="lang-en">Proposed the TNC Signature, compatible with Schnorr signatures, providing full security proof and implementation using C and Libgcrypt for both discrete logarithm and elliptic curve settings.</span><span class="lang-ko" style="display:none;">Schnorr 서명과 호환되는 TNC 서명을 제안하였고, 이산 로그 및 타원 곡선 설정 모두에서 C 및 Libgcrypt를 사용하여 완전한 보안 증명과 구현을 제공함.</span></p>
-<a href="https://mykripto.cybersecurity.my/index.php/files/101/AKBA-MySEAL/8/MySEAL---TNCSeminar-Slide.pdf">Slides for Technical Report</a>
-</div>
-<!-- End .project-info -->
-</div>
-<!-- End .project -->
-<div class="project shadow-large">
-<div class="project-image">
-<img src="images/master_project.PNG"/>
-</div>
-<!-- End .project-image -->
-<div class="project-info">
-<h3>FRGS Project (Malaysia): Tight Security Reduction Techniques for Cryptography Primitives (Member - M. Sc. Researcher)</h3>
-<p><span class="lang-en">Studied the effectiveness and techniques of security reduction in cryptographic schemes. Applied security reduction methods to enhance the security of existing digital signature schemes.</span><span class="lang-ko" style="display:none;">암호 스킴에서의 보안 리덕션 기법 및 효율성을 연구함. 기존 디지털 서명 스킴의 보안을 강화하기 위해 보안 리덕션 방법을 적용함.</span></p>
-</div>
-<!-- End .project-info -->
-</div>
-<!-- End .project -->
-<div class="project shadow-large">
-<div class="project-image">
-<img src="images/bachelors_project.PNG"/>
-</div>
-<!-- End .project-image -->
-<div class="project-info">
-<h3>ITEX Exhibition 2016: An Online Digital Medical Certificate System Using Identity-Based Signature (Member - Undergraduate Project)</h3>
-<p><span class="lang-en">Implemented Cha-Cheon's IBS and ECC-based ElGamal encryption using Java Applet, integrating QR code-based digital signature generation on Android with web server verification.</span><span class="lang-ko" style="display:none;">Java Applet을 사용하여 Cha-Cheon IBS 및 ECC 기반 ElGamal 암호화를 구현하였고, 안드로이드에서 QR 코드 기반 디지털 서명 생성을 웹 서버 검증과 통합함.</span></p>
-</div>
-<!-- End .project-info -->
-</div>
-<!-- End .project -->
-</div>
-</div>
-</div>
-<!-- End #projects -->
-<div ,="" class="optional-section" id="publications">
-<h2 class="heading"><span class="lang-en">Selected Publications</span><span class="lang-ko" style="display:none;">선택된 논문</span></h2>
-<ul>
-<li style="display:block; text-align:center;"><b>Ng, T. S.,</b> Kim, J., &amp; Teoh, A. B. J. <br/>
-<a href="https://ieeexplore.ieee.org/document/10962269">
-                    Flexible Secure Biometrics: A Protected Modality-Invariant Face-Periocular Recognition System.</a><br/>
-<i>IEEE Transactions on Information Forensics and Security, vol. 20,</i>
-                pp. 4610-4621, 2025.
-            </li>
-<li style="display:block; text-align:center;"><b>Ng, T. S.,</b> &amp; Teoh, A. B. J. <br/>
-<a href="https://www.sciencedirect.com/science/article/abs/pii/S1568494625003552">
-                    Attention-aware ensemble learning for face-periocular cross-modality matching.</a><br/>
-<i>Applied Soft Computing, vol. 175,</i>
-                pp. 113044, 2024.
-            </li>
-<li style="display:block; text-align:center;">Tan, S.Y., <b>Ng, T. S.,</b>, &amp; Heng, S.H. <br/>
-<a href="https://link.springer.com/chapter/10.1007/978-981-96-0954-3_13">
-                    Efficient Fork-Free BLS Multi-signature Scheme with Incremental Signing.</a><br/>
-<i>International Conference on Provable Security (ProvSec),</i>
-                pp. 250-268, 2024.
-            </li>
-<li style="display:block; text-align:center;"><b>Ng, T. S.,</b> Chai, J. C. L., Low, C. Y., &amp; Teoh, A. B. J.  <br/>
-<a href="https://ieeexplore.ieee.org/abstract/document/10418204/">
-                    Self-Attentive Contrastive Learning for Conditioned Periocular and Face Biometrics. </a><br/>
-<i>IEEE Transactions on Information Forensics and Security, vol. 19,</i>
-                pp. 3251-3264, 2024.
-            </li>
-<li style="display:block; text-align:center;"><b>Ng, T. S.,</b> Low, C. Y., Chai, J. C. L., &amp; Teoh, A. B. J.  <br/>
-<a href="https://ieeexplore.ieee.org/abstract/document/10201879">
-                    On the Representation Learning of Conditional Biometrics for Flexible Deployment. </a><br/>
-<i>IEEE Access, vol. 11,</i>
-                pp. 82338-82350, 2023.
-            </li>
-<li style="display:block; text-align:center;">Chai, J. C. L., <b>Ng, T. S.,</b> Low, C. Y., Park, J., &amp; Teoh, A. B. J. <br/>
-<a href="https://openaccess.thecvf.com/content/CVPR2023/html/Chai_Recognizability_Embedding_Enhancement_for_Very_Low-Resolution_Face_Recognition_and_Quality_CVPR_2023_paper.html">
-                    Recognizability embedding enhancement for very low-resolution face recognition and quality estimation. </a> <br/>
-<i>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR),</i>
-                pp. 9957-9967, 2023.
-            </li>
-<li style="display:block; text-align:center;"><b>Ng, T. S.,</b> Low, C. Y., Chai, J. C. L., &amp; Teoh, A. B. J.  <br/>
-<a href="https://ieeexplore.ieee.org/abstract/document/9956636/">
-                    Conditional Multimodal Biometrics Embedding Learning For Periocular and Face in the Wild. </a><br/>
-<i>International Conference on Pattern Recognition (ICPR),</i>
-                pp. 812-818, 2022.
-            </li>
-<li style="display:block; text-align:center;"><b>Ng, T. S.,</b> &amp; Teoh, A. B. J.  <br/>
-<a href="https://link.springer.com/chapter/10.1007/978-3-030-94763-7_23">
-                    Fuzzy MP - A Fuzzy Digital Signature Scheme with Biometrics. </a><br/>
-<i>International Conference on Mobile Networks and Management (EAI-MONAMI),</i>
-                pp. 299-315, 2022.
-            </li>
-<li style="display:block; text-align:center;"><b>Ng, T. S.,</b> Tan, S. Y., &amp; Chin, J. J.  <br/>
-<a href="https://link.springer.com/chapter/10.1007/978-3-030-34339-2_15">
-                    Improving Signature Schemes With Tight Security Reductions. </a><br/>
-<i>International Conference on Information Security Practice and Experience (ISPEC),</i>
-                pp. 273-292, 2019.
-            </li>
-<li style="display:block; text-align:center;"><b>Ng, T. S.,</b> Tan, S. Y., &amp; Chin, J. J.  <br/>
-<a href="https://link.springer.com/chapter/10.1007/978-3-319-90775-8_13">
-                    A Variant of BLS Signature Scheme with Tight Security Reduction. </a><br/>
-<i>International Conference on Mobile Networks and Management (EAI-MONAMI),</i>
-                pp. 150-163, 2017.
-            </li>
-<li style="display:block; text-align:center;"><b>Ng, T. S.,</b> Tan, S. Y., &amp; Chin, J. J.  <br/>
-<a href="https://ieeexplore.ieee.org/abstract/document/8191014/">
-                    A Variant of Schnorr Signature Scheme with Tight Security Reduction. </a><br/>
-<i>International Conference on Information and Communication Technology Convergence (ICTC),</i>
-                pp. 411-415, 2017.
-            </li>
-</ul>
-</div>
-<!-- End #publications -->
-<section class="background-alt" id="skills">
-<h2 class="heading"><span class="lang-en">Skills</span><span class="lang-ko" style="display:none;">기술</span></h2>
-<!-- Skills Categories -->
-<div class="optional-section-block">
-<h3>Technical Skills</h3>
-<ul>
-<li><strong>Development:</strong> PyTorch, Docker, TensorFlow</li>
-<li><strong>Programming:</strong> Python, Android Java, Java SE, .NET, C++</li>
-<li><strong>OS Software:</strong> Windows .NET, Android, Windows Phone</li>
-<li><strong>Scripting:</strong> Linux Ubuntu Bash, HTML &amp; CSS</li>
-</ul>
-</div>
-<!-- Deep Learning -->
-<div class="optional-section-block">
-<h3>Deep Learning Modeling</h3>
-<ul>
-<li><strong>Computer Vision:</strong> Convolutional Neural Networks, Vision Transformers, Hybrid CNN-Transformers</li>
-<li><strong>Text-to-Speech (TTS):</strong> VALL-E</li>
-<li><strong>Multimodal Image-to-Text:</strong> Hybrid Multimodal Transformers, CLIP</li>
-</ul>
-</div>
-<!-- Languages -->
-<div class="optional-section-block">
-<h3><span class="lang-en">Languages</span><span class="lang-ko" style="display:none;">언어</span></h3>
-<ul>
-<li><strong>Spoken:</strong> English (Native), Chinese Mandarin (Fluent), Bahasa Melayu (Fluent)</li>
-<li>TOEIC: 970/990 <em>(December 2022)</em></li>
-<li>TOEFL: 96/120 <em>(July 2018)</em></li>
-</ul>
-</div>
-<!-- Others -->
-<div class="optional-section-block">
-<h3><span class="lang-en">Others</span><span class="lang-ko" style="display:none;">기타</span></h3>
-<ul>
-<li><strong>Professional Body:</strong> Registered Graduate Engineer under Board of Engineers Malaysia (BEM) <em>(GE158045A)</em></li>
-</ul>
-</div>
-<!-- Add more blocks as needed -->
-</section>
-<div id="contact">
-<h2><span class="lang-en">Get in Touch</span><span class="lang-ko" style="display:none;">연락하기</span></h2>
-<div id="contact-form">
-<form action="https://formspree.io/f/mvoewlqz" method="POST">
-<input name="_subject" type="hidden" value="Contact request from personal website"/>
-<input data-placeholder-en="Your email" data-placeholder-ko="이메일 주소" name="_replyto" placeholder="Your email" required="" type="email"/>
-<textarea data-placeholder-en="Your message" data-placeholder-ko="메시지 입력" name="message" placeholder="Your message" required=""></textarea>
-<button type="submit"><span class="lang-en">Send</span><span class="lang-ko" style="display:none;">보내기</span></button>
-</form>
-</div>
-<!-- End #contact-form -->
-</div>
-<!-- End #contact -->
-<footer>
-<div class="container">
-<div class="row">
-<div class="col-sm-5 copyright">
-<p>
-                        Copyright © <span id="current-year">2024-2025</span> TIONG-SIK NG
-                    </p>
-</div>
-<div class="col-sm-2 top">
-<span id="to-top">
-<i aria-hidden="true" class="fa fa-chevron-up"></i>
-</span>
-</div>
-<div class="col-sm-5 social">
-<ul>
-<li>
-<a href="https://ryanfitzgerald.github.io/devportfolio/" target="_blank"><i aria-hidden="true" class="fa fa-github"></i> Original Template</a>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</footer>
-<!-- End footer -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="js/scripts.min.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const lang = localStorage.getItem("language") || "en";
-    if (lang === "ko") {
-      document.body.classList.add("lang-ko");
-    }
-  });
+			</div>
 
-  function toggleLanguage() {
-    const body = document.body;
-    const isKorean = body.classList.toggle("lang-ko");
-    localStorage.setItem("language", isKorean ? "ko" : "en");
-  }
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const lang = localStorage.getItem("language") || "en";
-  if (lang === "ko") {
-    document.body.classList.add("lang-ko");
-    updatePlaceholders("ko");
-  } else {
-    updatePlaceholders("en");
-  }
-});
+		<div id="about">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4">
+						<h2 class="heading">
+							<span class="lang-en">About Me</span>
+							<span class="lang-ko" style="display:none;">소개</span>
+              <span class="lang-ja" style="display:none;">自己紹介</span>
+              <span class="lang-ch" style="display:none;">关于我</span> </h2>
+					</div>
+					<div class="col-md-8">
+						<p>
+						</p>
+						<li id="dateItem">
+              <span class="lang-en">Last Updated:</span>
+              <span class="lang-ko" style="display:none;">최종 업데이트:</span>
+              <span class="lang-ja" style="display:none;">最終更新日：</span>
+              <span class="lang-ch" style="display:none;">最后更新：</span> <span class="date lang-en"></span>
+              <span class="date lang-ko" style="display:none;"></span>
+              <span class="date lang-ja" style="display:none;"></span>
+              <span class="date lang-ch" style="display:none;"></span> </li>
+						<li>
+							<span class="lang-en">Yonsei University, South Korea – Doctorate in Engineering.</span>
+              <span class="lang-ko" style="display:none;">연세대학교, 대한민국 – 공학 박사 학위.</span>
+              <span class="lang-ja" style="display:none;">延世大学校（韓国）– 工学博士号取得</span>
+              <span class="lang-ch" style="display:none;">韩国延世大学 – 工学博士学位。</span> </li>
+						<li>
+							<span class="lang-en">Fields: Deep Learning, Biometrics Security, Cryptography and Security</span>
+              <span class="lang-ko" style="display:none;">전문 분야: 딥러닝, 생체 인식 보안, 암호학 및 보안</span>
+            <span class="lang-ja" style="display:none;">専門分野：ディープラーニング、バイオメトリクスセキュリティ、暗号学とセキュリティ</span>
+            <span class="lang-ch" style="display:none;">专业领域：深度学习、生物识别安全、密码学与安全</span> </li>
+						<p></p>
+						<script>
+              const today = new Date();
+              const year = today.getFullYear();
+              const month = today.getMonth() + 1;
+              const day = today.getDate();
+              const wd = today.getDay(); // Get the day of the week (0 for Sunday, 6 for Saturday)
+              const weekdaysEn = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+              const weekdaysKo = ['일', '월', '화', '수', '목', '금', '토'];
+              const weekdaysJa = ['日', '月', '火', '水', '木', '金', '土'];
+              const weekdaysCh = ['日', '一', '二', '三', '四', '五', '六']; // Added for Chinese
 
-function toggleLanguage() {
-  const body = document.body;
-  const isKorean = body.classList.toggle("lang-ko");
-  const newLang = isKorean ? "ko" : "en";
-  localStorage.setItem("language", newLang);
-  updatePlaceholders(newLang);
-}
+              const enDate = `${year}.${String(month).padStart(2,'0')}.${String(day).padStart(2,'0')} (${weekdaysEn[wd]})`;
+              const koDate = `${year}년 ${month}월 ${day}일 (${weekdaysKo[wd]})`;
+              const jaDate = `${year}年${month}月${day}日（${weekdaysJa[wd]}）`;
+              const chDate = `${year}年${month}月${day}日 (星期${weekdaysCh[wd]})`; // Added for Chinese
 
-function updatePlaceholders(lang) {
-  const emailInput = document.querySelector("input[name='_replyto']");
-  const messageBox = document.querySelector("textarea[name='message']");
-  if (emailInput) emailInput.placeholder = emailInput.getAttribute("data-placeholder-" + lang);
-  if (messageBox) messageBox.placeholder = messageBox.getAttribute("data-placeholder-" + lang);
-}
-</script></body>
+              document.querySelector('.date.lang-en').textContent = enDate;
+              document.querySelector('.date.lang-ko').textContent = koDate;
+              document.querySelector('.date.lang-ja').textContent = jaDate;
+              document.querySelector('.date.lang-ch').textContent = chDate; // Added for Chinese
+            </script>
+					</div>
+				</div>
+			</div>
+		</div>
+
+    <script>
+      document.querySelectorAll('[data-date-en]').forEach(el => {
+        el.querySelector('.lang-en').textContent = el.getAttribute('data-date-en');
+        el.querySelector('.lang-ko').textContent = el.getAttribute('data-date-ko');
+        el.querySelector('.lang-ja').textContent = el.getAttribute('data-date-ja');
+        el.querySelector('.lang-ch').textContent = el.getAttribute('data-date-ch'); // Added for Chinese
+      });
+    </script>
+
+		<div class="background-alt" id="experience">
+			<h2 class="heading">
+				<span class="lang-en">Employment Experience</span>
+        <span class="lang-ko" style="display:none;">경력</span>
+        <span class="lang-ja" style="display:none;">職務経験</span>
+        <span class="lang-ch" style="display:none;">工作经验</span> </h2>
+			<div id="experience-timeline">
+				<div data-date="March 2019 – August 2019">
+					<h3>Recogine Technology Sdn. Bhd.</h3>
+					<h4>Research and Development Engineer</h4>
+          <span class="timeline-date lang-en"></span>
+          <span class="timeline-date lang-ko" style="display:none;"></span>
+          <span class="timeline-date lang-ja" style="display:none;"></span>
+          <span class="timeline-date lang-ch" style="display:none;"></span>
+					<p>
+					</p>
+					<li>
+						<span class="lang-en">Developed computer vision models for vehicle classification and license plate recognition (LPR) using TensorFlow and Keras.</span>
+						<span class="lang-ko" style="display:none;">TensorFlow와 Keras를 사용하여 차량 분류 및 번호판 인식(LPR)을 위한 컴퓨터 비전 모델을 개발함.</span>
+            <span class="lang-ja" style="display:none;">TensorFlowとKerasを使用して、車両分類およびナンバープレート認識（LPR）のためのコンピュータビジョンモデルを開発。</span>
+            <span class="lang-ch" style="display:none;">使用TensorFlow和Keras开发了用于车辆分类和车牌识别（LPR）的计算机视觉模型。</span> </li>
+					<li>
+						<span class="lang-en">Automated data preprocessing pipelines with Bash scripts and conducted model performance evaluations.</span>
+						<span class="lang-ko" style="display:none;">Bash 스크립트를 사용하여 데이터 전처리 파이프라인을 자동화하고 모델 성능을 평가함.</span>
+            <span class="lang-ja" style="display:none;">Bashスクリプトでデータ前処理パイプラインを自動化し、モデル性能評価を実施。</span>
+            <span class="lang-ch" style="display:none;">使用Bash脚本自动化数据预处理流程并进行模型性能评估。</span> </li>
+					<li>
+						<span class="lang-en">Contributed to real-time visual inference systems deployed in transport monitoring.</span>
+						<span class="lang-ko" style="display:none;">교통 모니터링에 배치된 실시간 시각 추론 시스템에 기여함.</span>
+            <span class="lang-ja" style="display:none;">交通監視に導入されたリアルタイム視覚推論システムに貢献。</span>
+            <span class="lang-ch" style="display:none;">为部署在交通监控中的实时视觉推理系统做出了贡献。</span> </li>
+					<li>
+						<span class="lang-en">Integrated Docker to containerize CV workflows for testing and reproducibility.</span>
+						<span class="lang-ko" style="display:none;">테스트와 재현성을 위해 Docker를 통합하여 컴퓨터 비전 워크플로우를 컨테이너화함.</span>
+            <span class="lang-ja" style="display:none;">テストと再現性のためにDockerを統合し、CVワークフローをコンテナ化。</span>
+            <span class="lang-ch" style="display:none;">集成Docker以容器化CV工作流程，便于测试和复现。</span> </li>
+					<p></p>
+				</div>
+
+				<div data-date="September 2017 – December 2017" data-date-ko="2017년 9월 – 2017년 12월" data-date-ja="2017年9月 – 2017年12月" data-date-ch="2017年9月 – 2017年12月">
+					<h3>Hitachi Hokenso Sdn. Bhd.</h3>
+					<h4>Application Engineer</h4>
+          <span class="timeline-date lang-en"></span>
+          <span class="timeline-date lang-ko" style="display:none;"></span>
+          <span class="timeline-date lang-ja" style="display:none;"></span>
+          <span class="timeline-date lang-ch" style="display:none;"></span>
+					<p>
+					</p>
+					<li>
+						<span class="lang-en">Maintained and deployed enterprise-grade backend systems using the Java Spring Framework and Oracle WebLogic Server.</span>
+						<span class="lang-ko" style="display:none;">Java Spring Framework와 Oracle WebLogic Server를 사용하여 기업용 백엔드 시스템을 유지 및 배포함.</span>
+            <span class="lang-ja" style="display:none;">Java Spring FrameworkとOracle WebLogic Serverを使用して、エンタープライズグレードのバックエンドシステムを保守・展開。</span>
+            <span class="lang-ch" style="display:none;">使用Java Spring框架和Oracle WebLogic Server维护和部署企业级后端系统。</span> </li>
+					<li>
+						<span class="lang-en">Designed SQL stored procedures and generated operational reports via Jasper Framework.</span>
+						<span class="lang-ko" style="display:none;">SQL 저장 프로시저를 설계하고 Jasper Framework를 통해 운영 보고서를 생성함.</span>
+            <span class="lang-ja" style="display:none;">SQLストアドプロシージャを設計し、Jasper Frameworkを介して運用レポートを生成。</span>
+            <span class="lang-ch" style="display:none;">设计SQL存储过程，并通过Jasper框架生成运营报告。</span> </li>
+					<li>
+						<span class="lang-en">Applied version control and collaborative development using Git for backend modules.</span>
+						<span class="lang-ko" style="display:none;">백엔드 모듈을 위해 Git을 사용하여 버전 관리 및 협업 개발을 수행함.</span>
+            <span class="lang-ja" style="display:none;">バックエンドモジュールのためにGitを使用してバージョン管理と共同開発を適用。</span>
+            <span class="lang-ch" style="display:none;">对后端模块使用Git进行版本控制和协作开发。</span> </li>
+					<p></p>
+				</div>
+				<div data-date="September 2016 – August 2017" data-date-ko="2016년 9월 – 2017년 8월" data-date-ja="2016年9月 – 2017年8月" data-date-ch="2016年9月 – 2017年8月">
+					<h3>Multimedia University</h3>
+					<h4>Research Assistant</h4>
+          <span class="timeline-date lang-en"></span>
+          <span class="timeline-date lang-ko" style="display:none;"></span>
+          <span class="timeline-date lang-ja" style="display:none;"></span>
+          <span class="timeline-date lang-ch" style="display:none;"></span>
+					<p>
+					</p>
+					<li>
+						<span class="lang-en">Conducted academic research on digital signature schemes and provable security, with a focus on tight reduction techniques.</span>
+						<span class="lang-ko" style="display:none;">디지털 서명 스킴과 증명 가능한 보안에 대한 학술 연구를 수행했으며, 특히 타이트 리덕션 기법에 중점을 둠.</span>
+            <span class="lang-ja" style="display:none;">デジタル署名スキームと証明可能なセキュリティに関する学術研究を実施し、特にタイトな削減技術に焦点を当てた。</span>
+            <span class="lang-ch" style="display:none;">进行数字签名方案和可证明安全性方面的学术研究，重点关注紧密归约技术。</span> </li>
+					<li>
+						<span class="lang-en">Assisted in formalizing authentication protocols suitable for privacy-preserving or safety-critical systems, contributing to publication-oriented cryptographic analysis.</span>
+						<span class="lang-ko" style="display:none;">프라이버시 보호 또는 안전이 중요한 시스템에 적합한 인증 프로토콜을 공식화하는 데 기여하며, 학술 논문 중심의 암호 분석에 기여함.</span>
+            <span class="lang-ja" style="display:none;">プライバシー保護または安全性が重要なシステムに適した認証プロトコルの形式化を支援し、出版志向の暗号解析に貢献。</span>
+            <span class="lang-ch" style="display:none;">协助形式化适用于隐私保护或安全关键系统的认证协议，为面向出版的密码分析做出贡献。</span> </li>
+					<p></p>
+				</div>
+				<div data-date="March 2015 – May 2015" data-date-ko="2015년 3월 – 2015년 5월" data-date-ja="2015年3月 – 2015年5月" data-date-ch="2015年3月 – 2015年5月">
+					<h3>NetEon Sdn. Bhd.</h3>
+					<h4>Technical Assistant (Internship)</h4>
+          <span class="timeline-date lang-en"></span>
+          <span class="timeline-date lang-ko" style="display:none;"></span>
+          <span class="timeline-date lang-ja" style="display:none;"></span>
+          <span class="timeline-date lang-ch" style="display:none;"></span>
+					<p>
+						<span class="lang-en">Learnt  how  to  interface  computer  hardware for industrial purposes, such as soldering and adding components in circuit boards and also configuring radio antennas.</span>
+						<span class="lang-ko" style="display:none;">산업용으로 컴퓨터 하드웨어를 인터페이스하는 방법을 학습함 (예: 회로 기판 납땜, 부품 추가, 무선 안테나 구성 등).</span>
+            <span class="lang-ja" style="display:none;">工業目的でのコンピュータハードウェアのインターフェース方法を習得（例：回路基板のはんだ付け、部品追加、無線アンテナの設定など）。</span>
+            <span class="lang-ch" style="display:none;">学习了如何为工业目的连接计算机硬件，例如在电路板上焊接和添加组件，以及配置无线电天线。</span> </p>
+				</div>
+			</div>
+		</div>
+
+		<div id="education">
+			<h2 class="heading">
+				<span class="lang-en">Education</span>
+				<span class="lang-ko" style="display:none;">학력</span>
+        <span class="lang-ja" style="display:none;">学歴</span>
+        <span class="lang-ch" style="display:none;">教育背景</span> </h2>
+			<div class="education-block">
+				<h3>Yonsei University</h3>
+				<span class="education-date">2020 - 2025</span>
+				<h4>Doctorate of Engineering</h4>
+				<p>
+					<span class="lang-en">On the Realization of Conditional Periocular-Face Biometrics for Flexible Deployment</span>
+					<span class="lang-ko" style="display:none; text-align:left;">유연한 배포를 위한 조건부 눈 주위-얼굴 생체인식의 구현</span>
+          <span class="lang-ja" style="display:none; text-align:left;">柔軟な展開のための条件付き眼周囲・顔生体認証の実現</span>
+          <span class="lang-ch" style="display:none; text-align:left;">条件性眼周面部生物识别在灵活部署中的实现</span> </p>
+			</div>
+
+			<div class="education-block">
+				<h3>Multimedia University</h3>
+				<span class="education-date">2016 - 2019</span>
+				<h4>Master of Science in Information Technology</h4>
+				<p>
+					<span class="lang-en">Design of Tight Security Reduction for Signature Schemes</span>
+					<span class="lang-ko" style="display:none; text-align:left;">서명 스킴을 위한 타이트 보안 리덕션 설계</span>
+          <span class="lang-ja" style="display:none; text-align:left;">署名スキームにおけるタイトなセキュリティ削減の設計</span>
+          <span class="lang-ch" style="display:none; text-align:left;">签名方案的紧密安全归约设计</span> </p>
+			</div>
+
+			<div class="education-block">
+				<h3>Multimedia University</h3>
+				<span class="education-date">2012 - 2016</span>
+				<h4>Bachelor of Engineering (Hons.) Electronics Majoring in Computer</h4>
+				<p>
+					<span class="lang-en">Secure Digital Medical Certificate System: Identity-Based Signatures</span>
+					<span class="lang-ko" style="display:none;">안전한 디지털 진단서 시스템: ID 기반 서명</span>
+          <span class="lang-ja" style="display:none;">安全なデジタル医療証明書システム：IDベース署名</span>
+          <span class="lang-ch" style="display:none;">安全数字医疗证明系统：基于身份的签名</span> </p>
+			</div>
+
+			</div>
+
+		<div class="background-alt" id="projects">
+			<h2 class="heading">
+				<span class="lang-en">Projects</span>
+				<span class="lang-ko" style="display:none;">프로젝트</span>
+        <span class="lang-ja" style="display:none;">プロジェクト</span>
+        <span class="lang-ch" style="display:none;">项目</span> </h2>
+			<div class="container">
+				<div class="row">
+					<div class="project shadow-large">
+						<div class="project-image">
+							<img src="images/doctorate_project.jpg">
+						</div>
+
+						<div class="project-info">
+							<h3>NRF Project (S. Korea): Multimodal Biometrics Conditioning and Data-driven Template Hashing (Member - Ph.D. Researcher)</h3>
+							<p>
+								<span class="lang-en">Researched advanced facial and periocular based recognition techniques using AI. Worked on improving security by protecting biometric data with special encryption methods. Developed innovative methods to recognize faces even when partially covered by masks or sunglasses.</span>
+								<span class="lang-ko" style="display:none;">AI를 활용한 고급 얼굴 및 눈 주위 인식 기술을 연구함. 생체 데이터를 특수한 암호화 방식으로 보호하여 보안을 향상시킴. 마스크나 선글라스로 부분적으로 가려진 얼굴도 인식할 수 있는 혁신적인 방법을 개발함.</span>
+                <span class="lang-ja" style="display:none;">AIを用いた高度な顔および眼周囲認識技術を研究。特殊な暗号化方法で生体認証データを保護し、セキュリティ向上に取り組んだ。マスクやサングラスで部分的に覆われた顔でも認識できる革新的な方法を開発。</span>
+                <span class="lang-ch" style="display:none;">研究了使用人工智能的先进面部和眼周生物识别技术。通过特殊的加密方法保护生物识别数据，致力于提高安全性。开发了创新方法，即使在部分被口罩或太阳镜遮盖的情况下也能识别人脸。</span> </p>
+						</div>
+
+						</div>
+
+					<div class="project shadow-large">
+						<div class="project-image">
+							<img src="images/MySEAL.PNG">
+						</div>
+
+						<div class="project-info">
+							<h3>Malaysian Digital Signature Algorithm Proposal: TNC Signature Scheme (MySEAL)</h3>
+							<p>
+								<span class="lang-en">Proposed the TNC Signature, compatible with Schnorr signatures, providing full security proof and implementation using C and Libgcrypt for both discrete logarithm and elliptic curve settings.</span>
+								<span class="lang-ko" style="display:none;">Schnorr 서명과 호환되는 TNC 서명을 제안하였고, 이산 로그 및 타원 곡선 설정 모두에서 C 및 Libgcrypt를 사용하여 완전한 보안 증명과 구현을 제공함.</span>
+                <span class="lang-ja" style="display:none;">Schnorr署名と互換性のあるTNC署名を提案し、離散対数および楕円曲線設定の両方でCおよびLibgcryptを使用した完全なセキュリティ証明と実装を提供。</span>
+                <span class="lang-ch" style="display:none;">提出了TNC签名，与Schnorr签名兼容，使用C和Libgcrypt在离散对数和椭圆曲线设置中提供了完整的安全证明和实现。</span> </p>
+							<a href="https://mykripto.cybersecurity.my/index.php/files/101/AKBA-MySEAL/8/MySEAL---TNCSeminar-Slide.pdf">Slides for Technical Report</a>
+						</div>
+
+						</div>
+
+					<div class="project shadow-large">
+						<div class="project-image">
+							<img src="images/master_project.PNG">
+						</div>
+
+						<div class="project-info">
+							<h3>FRGS Project (Malaysia): Tight Security Reduction Techniques for Cryptography Primitives (Member - M. Sc. Researcher)</h3>
+							<p>
+								<span class="lang-en">Studied the effectiveness and techniques of security reduction in cryptographic schemes. Applied security reduction methods to enhance the security of existing digital signature schemes.</span>
+								<span class="lang-ko" style="display:none;">암호 스킴에서의 보안 리덕션 기법 및 효율성을 연구함. 기존 디지털 서명 스킴의 보안을 강화하기 위해 보안 리덕션 방법을 적용함.</span>
+                <span class="lang-ja" style="display:none;">暗号スキームにおけるセキュリティ削減の有効性と技術を研究。既存のデジタル署名スキームのセキュリティを強化するためにセキュリティ削減方法を適用。</span>
+                <span class="lang-ch" style="display:none;">研究了密码方案中安全归约的有效性和技术。应用安全归约方法增强现有数字签名方案的安全性。</span> </p>
+						</div>
+
+						</div>
+
+					<div class="project shadow-large">
+						<div class="project-image">
+							<img src="images/bachelors_project.PNG">
+						</div>
+
+						<div class="project-info">
+							<h3>ITEX Exhibition 2016: An Online Digital Medical Certificate System Using Identity-Based Signature (Member - Undergraduate Project)</h3>
+							<p>
+								<span class="lang-en">Implemented Cha-Cheon's IBS and ECC-based ElGamal encryption using Java Applet, integrating QR code-based digital signature generation on Android with web server verification.</span>
+								<span class="lang-ko" style="display:none;">Java Applet을 사용하여 Cha-Cheon IBS 및 ECC 기반 ElGamal 암호화를 구현하였고, 안드로이드에서 QR 코드 기반 디지털 서명 생성을 웹 서버 검증과 통합함.</span>
+                <span class="lang-ja" style="display:none;">Javaアプレットを使用してCha-CheonのIBSとECCベースのElGamal暗号化を実装し、AndroidでのQRコードベースのデジタル署名生成とウェブサーバー検証を統合。</span>
+                <span class="lang-ch" style="display:none;">使用Java Applet实现了Cha-Cheon的IBS和基于ECC的ElGamal加密，并集成了基于QR码的Android数字签名生成与Web服务器验证。</span> </p>
+						</div>
+
+						</div>
+
+					</div>
+			</div>
+		</div>
+
+		<div ,="" class="optional-section" id="publications">
+			<h2 class="heading">
+				<span class="lang-en">Selected Publications</span>
+				<span class="lang-ko" style="display:none;">선택된 논문</span>
+        <span class="lang-ja" style="display:none;">主要論文</span>
+        <span class="lang-ch" style="display:none;">精选出版物</span> </h2>
+			<ul>
+				<li style="display:block; text-align:center;">
+					<b>Ng, T. S.,</b>
+					Kim, J., &amp; Teoh, A. B. J.
+					<br>
+					<a href="https://ieeexplore.ieee.org/document/10962269">
+						Flexible Secure Biometrics: A Protected Modality-Invariant Face-Periocular Recognition System.</a>
+					<br>
+					<i>IEEE Transactions on Information Forensics and Security, vol. 20,</i>
+					pp. 4610-4621, 2025.
+				</li>
+				<li style="display:block; text-align:center;">
+					<b>Ng, T. S.,</b>
+					&amp; Teoh, A. B. J.
+					<br>
+					<a href="https://www.sciencedirect.com/science/article/abs/pii/S1568494625003552">
+						Attention-aware ensemble learning for face-periocular cross-modality matching.</a>
+					<br>
+					<i>Applied Soft Computing, vol. 175,</i>
+					pp. 113044, 2024.
+				</li>
+				<li style="display:block; text-align:center;">Tan, S.Y.,
+					<b>Ng, T. S.,</b>, &amp; Heng, S.H.
+					<br>
+					<a href="https://link.springer.com/chapter/10.1007/978-981-96-0954-3_13">
+						Efficient Fork-Free BLS Multi-signature Scheme with Incremental Signing.</a>
+					<br>
+					<i>International Conference on Provable Security (ProvSec),</i>
+					pp. 250-268, 2024.
+				</li>
+				<li style="display:block; text-align:center;">
+					<b>Ng, T. S.,</b>
+					Chai, J. C. L., Low, C. Y., &amp; Teoh, A. B. J.
+					<br>
+					<a href="https://ieeexplore.ieee.org/abstract/document/10418204/">
+						Self-Attentive Contrastive Learning for Conditioned Periocular and Face Biometrics.
+					</a>
+					<br>
+					<i>IEEE Transactions on Information Forensics and Security, vol. 19,</i>
+					pp. 3251-3264, 2024.
+				</li>
+				<li style="display:block; text-align:center;">
+					<b>Ng, T. S.,</b>
+					Low, C. Y., Chai, J. C. L., &amp; Teoh, A. B. J.
+					<br>
+					<a href="https://ieeexplore.ieee.org/abstract/document/10201879">
+						On the Representation Learning of Conditional Biometrics for Flexible Deployment.
+					</a>
+					<br>
+					<i>IEEE Access, vol. 11,</i>
+					pp. 82338-82350, 2023.
+				</li>
+				<li style="display:block; text-align:center;">Chai, J. C. L.,
+					<b>Ng, T. S.,</b>
+					Low, C. Y., Park, J., &amp; Teoh, A. B. J.
+					<br>
+					<a href="https://openaccess.thecvf.com/content/CVPR2023/html/Chai_Recognizability_Embedding_Enhancement_for_Very_Low-Resolution_Face_Recognition_and_Quality_CVPR_2023_paper.html">
+						Recognizability embedding enhancement for very low-resolution face recognition and quality estimation.
+					</a>
+					<br>
+					<i>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR),</i>
+					pp. 9957-9967, 2023.
+				</li>
+				<li style="display:block; text-align:center;">
+					<b>Ng, T. S.,</b>
+					Low, C. Y., Chai, J. C. L., &amp; Teoh, A. B. J.
+					<br>
+					<a href="https://ieeexplore.ieee.org/abstract/document/9956636/">
+						Conditional Multimodal Biometrics Embedding Learning For Periocular and Face in the Wild.
+					</a>
+					<br>
+					<i>International Conference on Pattern Recognition (ICPR),</i>
+					pp. 812-818, 2022.
+				</li>
+				<li style="display:block; text-align:center;">
+					<b>Ng, T. S.,</b>
+					&amp; Teoh, A. B. J.
+					<br>
+					<a href="https://link.springer.com/chapter/10.1007/978-3-030-94763-7_23">
+						Fuzzy MP - A Fuzzy Digital Signature Scheme with Biometrics.
+					</a>
+					<br>
+					<i>International Conference on Mobile Networks and Management (EAI-MONAMI),</i>
+					pp. 299-315, 2022.
+				</li>
+				<li style="display:block; text-align:center;">
+					<b>Ng, T. S.,</b>
+					Tan, S. Y., &amp; Chin, J. J.
+					<br>
+					<a href="https://link.springer.com/chapter/10.1007/978-3-030-34339-2_15">
+						Improving Signature Schemes With Tight Security Reductions.
+					</a>
+					<br>
+					<i>International Conference on Information Security Practice and Experience (ISPEC),</i>
+					pp. 273-292, 2019.
+				</li>
+				<li style="display:block; text-align:center;">
+					<b>Ng, T. S.,</b>
+					Tan, S. Y., &amp; Chin, J. J.
+					<br>
+					<a href="https://link.springer.com/chapter/10.1007/978-3-319-90775-8_13">
+						A Variant of BLS Signature Scheme with Tight Security Reduction.
+					</a>
+					<br>
+					<i>International Conference on Mobile Networks and Management (EAI-MONAMI),</i>
+					pp. 150-163, 2017.
+				</li>
+				<li style="display:block; text-align:center;">
+					<b>Ng, T. S.,</b>
+					Tan, S. Y., &amp; Chin, J. J.
+					<br>
+					<a href="https://ieeexplore.ieee.org/abstract/document/8191014/">
+						A Variant of Schnorr Signature Scheme with Tight Security Reduction.
+					</a>
+					<br>
+					<i>International Conference on Information and Communication Technology Convergence (ICTC),</i>
+					pp. 411-415, 2017.
+				</li>
+			</ul>
+		</div>
+
+		<section class="background-alt" id="skills">
+			<h2 class="heading">
+				<span class="lang-en">Skills</span>
+				<span class="lang-ko" style="display:none;">기술</span>
+        <span class="lang-ja" style="display:none;">スキル</span>
+        <span class="lang-ch" style="display:none;">技能</span> 
+      </h2>
+
+			<div class="optional-section-block">
+				<h3>
+          <span class="lang-en">Technical Skills:</span>
+          <span class="lang-ko" style="display:none;">전문 기술:</span>
+          <span class="lang-ja" style="display:none;">技術スキル:</span>
+          <span class="lang-ch" style="display:none;">专业技能:</span>
+        </h3>
+				<ul>
+					<li>
+						<strong>
+              <span class="lang-en">Development:</span>
+              <span class="lang-ko" style="display:none;">개발:</span>
+              <span class="lang-ja" style="display:none;">開発:</span>
+              <span class="lang-ch" style="display:none;">开发：</span>
+            </strong>
+						PyTorch, Docker, TensorFlow</li>
+					<li>
+						<strong>
+              <span class="lang-en">Programming:</span>
+              <span class="lang-ko" style="display:none;">프로그래밍:</span>
+              <span class="lang-ja" style="display:none;">プログラミング:</span>
+              <span class="lang-ch" style="display:none;">编程：</span>
+            </strong>
+						Python, Android Java, Java SE, .NET, C++</li>
+					<li>
+						<strong>
+              <span class="lang-en">OS Software:</span>
+              <span class="lang-ko" style="display:none;">운영체제 소프트웨어:</span>
+              <span class="lang-ja" style="display:none;">OS ソフトウェア:</span>
+              <span class="lang-ch" style="display:none;">操作系统软件：</span>
+            </strong>
+						Windows .NET, Android, Windows Phone</li>
+					<li>
+						<strong>
+              <span class="lang-en">Scripting:</span>
+              <span class="lang-ko" style="display:none;">스크립팅:</span>
+              <span class="lang-ja" style="display:none;">スクリプト:</span>
+              <span class="lang-ch" style="display:none;">脚本编写：</span>
+            </strong>
+						Linux Ubuntu Bash, HTML &amp; CSS</li>
+				</ul>
+			</div>
+
+			<div class="optional-section-block">
+				<h3>Deep Learning Modeling</h3>
+				<ul>
+					<li>
+						<strong>
+              <span class="lang-en">Computer Vision:</span>
+              <span class="lang-ko" style="display:none;">컴퓨터 비전:</span>
+              <span class="lang-ja" style="display:none;">コンピュータビジョン:</span>
+              <span class="lang-ch" style="display:none;">计算机视觉：</span>
+            </strong>
+						Convolutional Neural Networks, Vision Transformers, Hybrid CNN-Transformers</li>
+					<li>
+						<strong>
+              <span class="lang-en">Text-to-Speech (TTS):</span>
+              <span class="lang-ko" style="display:none;">텍스트 음성 변환 (TTS):</span>
+              <span class="lang-ja" style="display:none;">テキスト音声変換 (TTS):</span>
+              <span class="lang-ch" style="display:none;">文本转语音 (TTS)：</span>
+            </strong>
+						VALL-E</li>
+					<li>
+						<strong>
+              <span class="lang-en">Multimodal Image-to-Text:</span>
+              <span class="lang-ko" style="display:none;">다중 모달 이미지→텍스트:</span>
+              <span class="lang-ja" style="display:none;">マルチモーダル画像→テキスト:</span>
+              <span class="lang-ch" style="display:none;">多模态图像转文本：</span>
+            </strong>
+						Hybrid Multimodal Transformers, CLIP</li>
+				</ul>
+			</div>
+
+			<div class="optional-section-block">
+				<h3>
+					<span class="lang-en">Languages</span>
+					<span class="lang-ko" style="display:none;">언어</span>
+          <span class="lang-ja" style="display:none;">言語</span>
+          <span class="lang-ch" style="display:none;">语言</span> </h3>
+				<ul>
+					<li>
+						<strong>
+              <span class="lang-en">Spoken:</span>
+              <span class="lang-ko" style="display:none;">구사 언어:</span>
+              <span class="lang-ja" style="display:none;">話せる言語:</span>
+              <span class="lang-ch" style="display:none;">口语：</span>
+            </strong>
+						English (Native), Chinese Mandarin (Fluent), Bahasa Melayu (Fluent)</li>
+					<li>TOEIC: 970/990
+						<em>(December 2022)</em>
+					</li>
+					<li>TOEFL: 96/120
+						<em>(July 2018)</em>
+					</li>
+				</ul>
+			</div>
+
+			<div class="optional-section-block">
+				<h3>
+					<span class="lang-en">Others</span>
+					<span class="lang-ko" style="display:none;">기타</span>
+          <span class="lang-ja" style="display:none;">その他</span>
+          <span class="lang-ch" style="display:none;">其他</span> </h3>
+				<ul>
+					<li>
+						<strong>
+              <span class="lang-en">Professional Body:</span>
+              <span class="lang-ko" style="display:none;">전문 단체:</span>
+              <span class="lang-ja" style="display:none;">専門団体:</span>
+              <span class="lang-ch" style="display:none;">专业机构：</span>
+            </strong>
+						Registered Graduate Engineer under Board of Engineers Malaysia (BEM)
+						<em>(GE158045A)</em>
+					</li>
+				</ul>
+			</div>
+
+			</section>
+		<div id="contact">
+			<h2>
+				<span class="lang-en">Get in Touch</span>
+				<span class="lang-ko" style="display:none;">연락하기</span>
+        <span class="lang-ja" style="display:none;">お問い合わせ</span>
+        <span class="lang-ch" style="display:none;">联系我</span> </h2>
+			<div id="contact-form">
+				<form action="https://formspree.io/f/mvoewlqz" method="POST">
+					<input name="_subject" type="hidden" value="Contact request from personal website">
+					<input data-placeholder-en="Your email" data-placeholder-ko="이메일 주소" data-placeholder-ja="あなたのメールアドレス" data-placeholder-ch="您的电子邮件" name="_replyto" placeholder="Your email" required="" type="email"> <textarea data-placeholder-en="Your message" data-placeholder-ko="메시지 입력" data-placeholder-ja="メッセージを入力" data-placeholder-ch="您的消息" name="message" placeholder="Your message" required=""></textarea> <button type="submit">
+						<span class="lang-en">Send</span>
+						<span class="lang-ko" style="display:none;">보내기</span>
+            <span class="lang-ja" style="display:none;">送信</span>
+            <span class="lang-ch" style="display:none;">发送</span> </button>
+				</form>
+			</div>
+
+			</div>
+
+		<footer>
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-5 copyright">
+						<p>
+							Copyright ©
+							<span id="current-year">2024-2025</span>
+							TIONG-SIK NG
+						</p>
+					</div>
+					<div class="col-sm-2 top">
+						<span id="to-top">
+							<i aria-hidden="true" class="fa fa-chevron-up"></i>
+						</span>
+					</div>
+					<div class="col-sm-5 social">
+						<ul>
+							<li>
+								<a href="https://ryanfitzgerald.github.io/devportfolio/" target="_blank">
+									<i aria-hidden="true" class="fa fa-github"></i>
+									Original Template</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+      <p style="font-size: 0.9em; text-align: center; margin-top: 30px;">
+        <em>
+          <span class="lang-en">Translations are for reference only. English is my primary language.</span>
+          <span class="lang-ko" style="display:none;">번역은 참고용으로 제공되며, 영어가 저의 주요 사용 언어입니다.</span>
+          <span class="lang-ja" style="display:none;">翻訳は参考のために提供されており、英語が主な使用言語です。</span>
+          <span class="lang-ch" style="display:none;">翻译仅供参考，英语为我的主要语言。</span>
+        </em>
+      </p>
+
+		</footer>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="js/scripts.min.js"></script>
+	</body>
 </html>

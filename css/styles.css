@@ -8,7 +8,10 @@ Issues: https://github.com/RyanFitzgerald/devportfolio-template/issues
 Description: This file contains all the styles associated with the page
 that don't come from third party libraries. This file gets compiled using
 Gulp and send to the /css folder which is then loaded on the page.
-*/body{
+*/
+
+
+body{
 font-family:'Lato', sans-serif;font-size:16px}
 body.active{
 overflow:hidden;z-index:-1}
@@ -398,6 +401,32 @@ body.dark-mode .heading:after {
   background: hsl(0, 83%, 53%);
   color: #ffffff;
 }
+body.dark-mode #language-icon {
+  color: #ffffff;
+  background:#000000;
+}
+body.dark-mode #lang-control {
+  color: #ffffff;
+  background:#000000;
+}
+body.dark-mode #lang-toggle {
+  color: #ffffff;
+  background:#000000;
+}
+#lang-menu {
+  background-color: #000 !important;
+  border-color: #444 !important;
+}
+
+#lang-menu li {
+  color: #fff !important;
+}
+
+/* optional: highlight on hover */
+#lang-menu li:hover {
+  background-color: #222 !important;
+}
+
 body.dark-mode .background-alt {
   background: #383737;
 }
