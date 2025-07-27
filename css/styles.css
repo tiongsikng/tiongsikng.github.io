@@ -117,7 +117,7 @@ color:#fff;font-weight:900;font-size:5em;text-transform:uppercase;letter-spacing
 #lead-content h2{
 color:#a0cfee;font-weight:500;font-size:2.25em;margin-bottom:15px}
 #lead-overlay{
-position:absolute;height:100%;width:100%;top:0;right:0;bottom:0;left:0;background:rgba(0, 6, 10, 0.8);z-index:1}
+position:absolute;height:100%;width:100%;top:0;right:0;bottom:0;left:0;background: rgba(0, 6, 10, 0.3);z-index:1}
 #lead-down{
 position:absolute;left:0;right:0;width:100%;text-align:center;z-index:10;bottom:15px;color:#fff}
 #lead-down span{
@@ -224,6 +224,81 @@ color:#374054;margin-bottom:50px}
 display:block;margin:0 auto;padding:0;max-width:800px}
 #publications li{
 display:inline-block;margin:7px;padding:5px 10px;color:#374054;background:#e4e4ea;list-style:none;cursor:default;font-size:1.2em}
+.publication-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0;
+}
+.pub-entry {
+  margin-bottom: 10px;
+  border-left: 3px solid #ccc;
+  padding-left: 10px;
+}
+details {
+  display: block;
+  margin-bottom: 1em;
+}
+details summary {
+  display: list-item;
+  cursor: pointer;
+  user-select: none;
+  list-style: revert;
+}
+/* details summary::after {
+  content: "▼";
+}
+details[open] summary::after {
+  content: "▲";
+} */
+
+.pub-entry summary {
+  font-weight: 600;
+  cursor: pointer;
+  color: #007acc;
+}
+.pub-body {
+  font-size: 0.9em;
+  margin-top: 6px;
+}
+.pub-entry .pub-index {
+  font-weight: bold;
+  margin-right: 5px;
+}
+.pub-title {
+  font-weight: 500;
+  color: #007acc;
+  text-decoration: none;
+}
+.pub-title:hover {
+  text-decoration: underline;
+}
+.pub-meta {
+  font-size: 0.85em;
+  color: #555;
+}
+.pub-label {
+  font-weight: bold;
+  color: #444;
+  margin-right: 6px;
+}
+.pub-details {
+  margin-top: 6px;
+  padding-left: 6px;
+  transition: all 0.3s ease;
+}
+/* Responsive fallback to single column on small screens */
+@media (max-width: 768px) {
+  .publication-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+
 #contact{
 padding:50px 15px;background:#3498db;text-align:center}
 #contact h2{

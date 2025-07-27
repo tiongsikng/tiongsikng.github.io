@@ -34,19 +34,19 @@
       body.lang-en .lang-en { display: inline !important; }
       body.lang-en .lang-ko { display: none !important; }
       body.lang-en .lang-ja { display: none !important; }
-      body.lang-en .lang-ch { display: none !important; } /* Added for Chinese */
+      body.lang-en .lang-ch { display: none !important; }
 
       body.lang-ko .lang-ko { display: inline !important; }
       body.lang-ko .lang-en { display: none !important; }
       body.lang-ko .lang-ja { display: none !important; }
-      body.lang-ko .lang-ch { display: none !important; } /* Added for Chinese */
+      body.lang-ko .lang-ch { display: none !important; }
 
       body.lang-ja .lang-ja { display: inline !important; }
       body.lang-ja .lang-en { display: none !important; }
       body.lang-ja .lang-ko { display: none !important; }
-      body.lang-ja .lang-ch { display: none !important; } /* Added for Chinese */
+      body.lang-ja .lang-ch { display: none !important; }
 
-      body.lang-ch .lang-ch { display: inline !important; } /* Added for Chinese */
+      body.lang-ch .lang-ch { display: inline !important; }
       body.lang-ch .lang-en { display: none !important; }
       body.lang-ch .lang-ko { display: none !important; }
       body.lang-ch .lang-ja { display: none !important; }
@@ -103,38 +103,47 @@
     }
 
     function setLanguage(lang) {
-      document.body.classList.remove("lang-en", "lang-ko", "lang-ja", "lang-ch"); // Added lang-ch
-      document.body.classList.add("lang-" + lang);
-      localStorage.setItem("language", lang);
-      document.getElementById("current-lang").textContent = lang.toUpperCase(); // Update button text
-      updatePlaceholders(lang);
-      updateTimelineDates(lang); // Call the new date update function
-    }
-  </script>
+		document.body.classList.remove("lang-en", "lang-ko", "lang-ja", "lang-ch");
+		document.body.classList.add("lang-" + lang);
+		localStorage.setItem("language", lang);
+		document.getElementById("current-lang").textContent = lang.toUpperCase();
+
+		// ADD THIS LINE:
+		const flagMap = { en: '🇺🇸', ko: '🇰🇷', ja: '🇯🇵', ch: '🇨🇳' };
+		document.getElementById("current-flag").textContent = flagMap[lang];
+
+		updatePlaceholders(lang);
+		updateTimelineDates(lang);
+		}
+  	</script>
 
     <div id="lang-control" style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
       <button id="lang-toggle" style="cursor: pointer; display: flex; align-items: center; gap: 4px;">
-        <i class="fa fa-globe" id="language-icon"></i>
-        <span id="current-lang">EN</span>
-        <i class="fa fa-caret-down" style="margin-left:4px;"></i>
-      </button>
+		<i class="fa fa-globe" id="language-icon"></i>
+		<span id="current-flag">🇺🇸</span> <!-- NEW -->
+		<span id="current-lang">EN</span>
+		<i class="fa fa-caret-down" style="margin-left:4px;"></i>
+		</button>
       <ul id="lang-menu" style="list-style:none; margin:0; padding:4px; display:none; background:#fff; border:1px solid #ccc;">
-        <li data-lang="en" style="padding:4px; cursor:pointer;">English</li>
-        <li data-lang="ko" style="padding:4px; cursor:pointer;">한국어</li>
-        <li data-lang="ja" style="padding:4px; cursor:pointer;">日本語</li>
-        <li data-lang="ch" style="padding:4px; cursor:pointer;">中文</li> </ul>
+		<li data-lang="en" style="padding:4px; cursor:pointer;">🇺🇸 English</li>
+		<li data-lang="ko" style="padding:4px; cursor:pointer;">🇰🇷 한국어</li>
+		<li data-lang="ja" style="padding:4px; cursor:pointer;">🇯🇵 日本語</li>
+		<li data-lang="ch" style="padding:4px; cursor:pointer;">🇨🇳 中文</li>
+	</ul>
     </div>
      <script>
       document.addEventListener("DOMContentLoaded", () => {
         const toggleBtn = document.getElementById('lang-toggle');
         const menu = document.getElementById('lang-menu');
         const label = document.getElementById('current-lang');
-        const langs = { en: 'EN', ko: 'KO', ja: 'JA', ch: 'CH' }; // Added for Chinese
+        const langs = { en: 'EN', ko: 'KO', ja: 'JA', ch: 'CH' };
+		const flag = document.getElementById('current-flag'); // new
+		const flags = { en: '🇺🇸', ko: '🇰🇷', ja: '🇯🇵', ch: '🇨🇳' };
 
         // Open/close the dropdown
         toggleBtn.addEventListener('click', e => {
-          menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-        });
+			menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+		});
 
         // Handle language selection
         menu.querySelectorAll('li').forEach(item => {
@@ -151,7 +160,9 @@
 
         // Initialize from localStorage
         const saved = localStorage.getItem('language') || 'en';
-        setLanguage(saved);
+		label.textContent = langs[saved];
+		flag.textContent = flags[saved]; // ← INITIAL FLAG
+		setLanguage(saved);
       });
     </script>
 		<button id="theme-toggle" onclick="toggleMode()" style="position: fixed; top: 10px; right: 10px; z-index: 1000;">
@@ -552,128 +563,109 @@
 			<h2 class="heading">
 				<span class="lang-en">Selected Publications</span>
 				<span class="lang-ko" style="display:none;">선택된 논문</span>
-        <span class="lang-ja" style="display:none;">主要論文</span>
-        <span class="lang-ch" style="display:none;">精选出版物</span> </h2>
-			<ul>
-				<li style="display:block; text-align:center;">
-					<b>Ng, T. S.,</b>
-					Kim, J., &amp; Teoh, A. B. J.
-					<br>
-					<a href="https://ieeexplore.ieee.org/document/10962269">
-						Flexible Secure Biometrics: A Protected Modality-Invariant Face-Periocular Recognition System.</a>
-					<br>
-					<i>IEEE Transactions on Information Forensics and Security, vol. 20,</i>
-					pp. 4610-4621, 2025.
-				</li>
-				<li style="display:block; text-align:center;">
-					<b>Ng, T. S.,</b>
-					&amp; Teoh, A. B. J.
-					<br>
-					<a href="https://www.sciencedirect.com/science/article/abs/pii/S1568494625003552">
-						Attention-aware ensemble learning for face-periocular cross-modality matching.</a>
-					<br>
-					<i>Applied Soft Computing, vol. 175,</i>
-					pp. 113044, 2024.
-				</li>
-				<li style="display:block; text-align:center;">Tan, S.Y.,
-					<b>Ng, T. S.,</b>, &amp; Heng, S.H.
-					<br>
-					<a href="https://link.springer.com/chapter/10.1007/978-981-96-0954-3_13">
-						Efficient Fork-Free BLS Multi-signature Scheme with Incremental Signing.</a>
-					<br>
-					<i>International Conference on Provable Security (ProvSec),</i>
-					pp. 250-268, 2024.
-				</li>
-				<li style="display:block; text-align:center;">
-					<b>Ng, T. S.,</b>
-					Chai, J. C. L., Low, C. Y., &amp; Teoh, A. B. J.
-					<br>
-					<a href="https://ieeexplore.ieee.org/abstract/document/10418204/">
-						Self-Attentive Contrastive Learning for Conditioned Periocular and Face Biometrics.
-					</a>
-					<br>
-					<i>IEEE Transactions on Information Forensics and Security, vol. 19,</i>
-					pp. 3251-3264, 2024.
-				</li>
-				<li style="display:block; text-align:center;">
-					<b>Ng, T. S.,</b>
-					Low, C. Y., Chai, J. C. L., &amp; Teoh, A. B. J.
-					<br>
-					<a href="https://ieeexplore.ieee.org/abstract/document/10201879">
-						On the Representation Learning of Conditional Biometrics for Flexible Deployment.
-					</a>
-					<br>
-					<i>IEEE Access, vol. 11,</i>
-					pp. 82338-82350, 2023.
-				</li>
-				<li style="display:block; text-align:center;">Chai, J. C. L.,
-					<b>Ng, T. S.,</b>
-					Low, C. Y., Park, J., &amp; Teoh, A. B. J.
-					<br>
-					<a href="https://openaccess.thecvf.com/content/CVPR2023/html/Chai_Recognizability_Embedding_Enhancement_for_Very_Low-Resolution_Face_Recognition_and_Quality_CVPR_2023_paper.html">
-						Recognizability embedding enhancement for very low-resolution face recognition and quality estimation.
-					</a>
-					<br>
-					<i>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR),</i>
-					pp. 9957-9967, 2023.
-				</li>
-				<li style="display:block; text-align:center;">
-					<b>Ng, T. S.,</b>
-					Low, C. Y., Chai, J. C. L., &amp; Teoh, A. B. J.
-					<br>
-					<a href="https://ieeexplore.ieee.org/abstract/document/9956636/">
-						Conditional Multimodal Biometrics Embedding Learning For Periocular and Face in the Wild.
-					</a>
-					<br>
-					<i>International Conference on Pattern Recognition (ICPR),</i>
-					pp. 812-818, 2022.
-				</li>
-				<li style="display:block; text-align:center;">
-					<b>Ng, T. S.,</b>
-					&amp; Teoh, A. B. J.
-					<br>
-					<a href="https://link.springer.com/chapter/10.1007/978-3-030-94763-7_23">
-						Fuzzy MP - A Fuzzy Digital Signature Scheme with Biometrics.
-					</a>
-					<br>
-					<i>International Conference on Mobile Networks and Management (EAI-MONAMI),</i>
-					pp. 299-315, 2022.
-				</li>
-				<li style="display:block; text-align:center;">
-					<b>Ng, T. S.,</b>
-					Tan, S. Y., &amp; Chin, J. J.
-					<br>
-					<a href="https://link.springer.com/chapter/10.1007/978-3-030-34339-2_15">
-						Improving Signature Schemes With Tight Security Reductions.
-					</a>
-					<br>
-					<i>International Conference on Information Security Practice and Experience (ISPEC),</i>
-					pp. 273-292, 2019.
-				</li>
-				<li style="display:block; text-align:center;">
-					<b>Ng, T. S.,</b>
-					Tan, S. Y., &amp; Chin, J. J.
-					<br>
-					<a href="https://link.springer.com/chapter/10.1007/978-3-319-90775-8_13">
-						A Variant of BLS Signature Scheme with Tight Security Reduction.
-					</a>
-					<br>
-					<i>International Conference on Mobile Networks and Management (EAI-MONAMI),</i>
-					pp. 150-163, 2017.
-				</li>
-				<li style="display:block; text-align:center;">
-					<b>Ng, T. S.,</b>
-					Tan, S. Y., &amp; Chin, J. J.
-					<br>
-					<a href="https://ieeexplore.ieee.org/abstract/document/8191014/">
-						A Variant of Schnorr Signature Scheme with Tight Security Reduction.
-					</a>
-					<br>
-					<i>International Conference on Information and Communication Technology Convergence (ICTC),</i>
-					pp. 411-415, 2017.
-				</li>
-			</ul>
+				<span class="lang-ja" style="display:none;">主要論文</span>
+				<span class="lang-ch" style="display:none;">精选出版物</span> </h2>
+			<div class="publication-grid">
+
+        <div class="pub-entry">
+				<span class="pub-label">[Journal]</span>
+				<span class="pub-authors">Gao C., Yang Z., <b>Ng, T. S.</b>, Zhu M. & Teoh, A. B. J.</span><br>
+				<a href="https://ieeexplore.ieee.org/document/11020755" target="_blank" class="pub-title">
+				Bridging the Divide Between Left and Right Palmprints for Cross-Chirality Verification.</a><br>
+				<span class="pub-meta"><i>IEEE Internet of Things Journal, vol.12, no.15</i>, pp. 32046–32057, 2025.</span>
+			  </div>
+
+        <div class="pub-entry">
+          <span class="pub-label">[Journal]</span>
+          <span class="pub-authors"><b>Ng, T. S.</b>, Kim, J., & Teoh, A. B. J.</span><br>
+          <a href="https://ieeexplore.ieee.org/document/10962269" target="_blank" class="pub-title">
+          Flexible Secure Biometrics: A Protected Modality-Invariant Face-Periocular Recognition System.</a><br>
+          <span class="pub-meta"><i>IEEE Transactions on Information Forensics and Security, vol. 20</i>, pp. 4610–4621, 2025.</span>
+        </div>
+
+        <div class="pub-entry">
+          <span class="pub-label">[Journal]</span>
+          <span class="pub-authors"><b>Ng, T. S.</b>, & Teoh, A. B. J.</span><br>
+          <a href="https://www.sciencedirect.com/science/article/abs/pii/S1568494625003552" target="_blank" class="pub-title">
+          Attention-aware ensemble learning for face-periocular cross-modality matching.</a><br>
+          <span class="pub-meta"><i>Applied Soft Computing, vol. 175</i>, pp. 113044, 2024.</span>
+        </div>
+
+        <div class="pub-entry">
+          <span class="pub-label">[Conference]</span>
+          <span class="pub-authors">Tan, S.Y., <b>Ng, T. S.</b>, & Heng, S.H.</span><br>
+          <a href="https://link.springer.com/chapter/10.1007/978-981-96-0954-3_13" target="_blank" class="pub-title">
+          Efficient Fork-Free BLS Multi-signature Scheme with Incremental Signing.</a><br>
+          <span class="pub-meta"><i>International Conference on Provable Security (ProvSec)</i>, pp. 250–268, 2024.</span>
+        </div>
+
+        <div class="pub-entry">
+          <span class="pub-label">[Journal]</span>
+          <span class="pub-authors"><b>Ng, T. S.</b>, Chai, J. C. L., Low, C. Y., & Teoh, A. B. J.</span><br>
+          <a href="https://ieeexplore.ieee.org/abstract/document/10418204/" target="_blank" class="pub-title">
+          Self-Attentive Contrastive Learning for Conditioned Periocular and Face Biometrics.</a><br>
+          <span class="pub-meta"><i>IEEE Transactions on Information Forensics and Security, vol. 19</i>, pp. 3251–3264, 2024.</span>
+        </div>
+
+        <div class="pub-entry">
+          <span class="pub-label">[Journal]</span>
+          <span class="pub-authors"><b>Ng, T. S.</b>, Low, C. Y., Chai, J. C. L., & Teoh, A. B. J.</span><br>
+          <a href="https://ieeexplore.ieee.org/abstract/document/10201879" target="_blank" class="pub-title">
+          On the Representation Learning of Conditional Biometrics for Flexible Deployment.</a><br>
+          <span class="pub-meta"><i>IEEE Access, vol. 11</i>, pp. 82338–82350, 2023.</span>
+        </div>
+
+        <div class="pub-entry">
+          <span class="pub-label">[Conference]</span>
+          <span class="pub-authors">Chai, J. C. L., <b>Ng, T. S.</b>, Low, C. Y., Park, J., & Teoh, A. B. J.</span><br>
+          <a href="https://openaccess.thecvf.com/content/CVPR2023/html/Chai_Recognizability_Embedding_Enhancement_for_Very_Low-Resolution_Face_Recognition_and_Quality_CVPR_2023_paper.html" target="_blank" class="pub-title">
+          Recognizability embedding enhancement for very low-resolution face recognition and quality estimation.</a><br>
+          <span class="pub-meta"><i>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</i>, pp. 9957–9967, 2023.</span>
+        </div>
+
+        <div class="pub-entry">
+          <span class="pub-label">[Conference]</span>
+          <span class="pub-authors"><b>Ng, T. S.</b>, Low, C. Y., Chai, J. C. L., & Teoh, A. B. J.</span><br>
+          <a href="https://ieeexplore.ieee.org/abstract/document/9956636/" target="_blank" class="pub-title">
+          Conditional Multimodal Biometrics Embedding Learning For Periocular and Face in the Wild.</a><br>
+          <span class="pub-meta"><i>International Conference on Pattern Recognition (ICPR)</i>, pp. 812–818, 2022.</span>
+        </div>
+
+        <div class="pub-entry">
+          <span class="pub-label">[Conference]</span>
+          <span class="pub-authors"><b>Ng, T. S.</b>, & Teoh, A. B. J.</span><br>
+          <a href="https://link.springer.com/chapter/10.1007/978-3-030-94763-7_23" target="_blank" class="pub-title">
+          Fuzzy MP - A Fuzzy Digital Signature Scheme with Biometrics.</a><br>
+          <span class="pub-meta"><i>International Conference on Mobile Networks and Management (EAI-MONAMI)</i>, pp. 299–315, 2022.</span>
+        </div>
+
+        <div class="pub-entry">
+          <span class="pub-label">[Conference]</span>
+          <span class="pub-authors"><b>Ng, T. S.</b>, Tan, S. Y., & Chin, J. J.</span><br>
+          <a href="https://link.springer.com/chapter/10.1007/978-3-030-34339-2_15" target="_blank" class="pub-title">
+          Improving Signature Schemes With Tight Security Reductions.</a><br>
+          <span class="pub-meta"><i>International Conference on Information Security Practice and Experience (ISPEC)</i>, pp. 273–292, 2019.</span>
+        </div>
+
+        <div class="pub-entry">
+          <span class="pub-label">[Conference]</span>
+          <span class="pub-authors"><b>Ng, T. S.</b>, Tan, S. Y., & Chin, J. J.</span><br>
+          <a href="https://link.springer.com/chapter/10.1007/978-3-319-90775-8_13" target="_blank" class="pub-title">
+          A Variant of BLS Signature Scheme with Tight Security Reduction.</a><br>
+          <span class="pub-meta"><i>International Conference on Mobile Networks and Management (EAI-MONAMI)</i>, pp. 150–163, 2017.</span>
+        </div>
+
+        <div class="pub-entry">
+          <span class="pub-label">[Conference]</span>
+          <span class="pub-authors"><b>Ng, T. S.</b>, Tan, S. Y., & Chin, J. J.</span><br>
+          <a href="https://ieeexplore.ieee.org/abstract/document/8191014/" target="_blank" class="pub-title">
+          A Variant of Schnorr Signature Scheme with Tight Security Reduction.</a><br>
+          <span class="pub-meta"><i>International Conference on Information and Communication Technology Convergence (ICTC)</i>, pp. 411–415, 2017.</span>
+        </div>
+
 		</div>
+
+	</div>
 
 		<section class="background-alt" id="skills">
 			<h2 class="heading">
@@ -685,10 +677,10 @@
 
 			<div class="optional-section-block">
 				<h3>
-          <span class="lang-en">Technical Skills:</span>
-          <span class="lang-ko" style="display:none;">전문 기술:</span>
-          <span class="lang-ja" style="display:none;">技術スキル:</span>
-          <span class="lang-ch" style="display:none;">专业技能:</span>
+          <span class="lang-en">Technical Skills</span>
+          <span class="lang-ko" style="display:none;">전문 기술</span>
+          <span class="lang-ja" style="display:none;">技術スキル</span>
+          <span class="lang-ch" style="display:none;">专业技能</span>
         </h3>
 				<ul>
 					<li>
