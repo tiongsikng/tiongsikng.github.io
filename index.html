@@ -87,20 +87,40 @@
       if (messageBox) messageBox.placeholder = messageBox.getAttribute("data-placeholder-" + lang);
     }
 
-    // New function to update dates in the timeline
     function updateTimelineDates(lang) {
-      document.querySelectorAll('#experience-timeline > div[data-date-en]').forEach(block => {
+      document.querySelectorAll('#experience-timeline [data-date-en]').forEach(block => {
+        const dateEn = block.getAttribute('data-date-en') || block.getAttribute('data-date');
+        const dateKo = block.getAttribute('data-date-ko') || dateEn;
+        const dateJa = block.getAttribute('data-date-ja') || dateEn;
+        const dateCh = block.getAttribute('data-date-ch') || dateEn;
+
         const dateSpanEn = block.querySelector('.timeline-date.lang-en');
         const dateSpanKo = block.querySelector('.timeline-date.lang-ko');
         const dateSpanJa = block.querySelector('.timeline-date.lang-ja');
         const dateSpanCh = block.querySelector('.timeline-date.lang-ch');
 
-        if (dateSpanEn) dateSpanEn.textContent = block.getAttribute('data-date-en');
-        if (dateSpanKo) dateSpanKo.textContent = block.getAttribute('data-date-ko');
-        if (dateSpanJa) dateSpanJa.textContent = block.getAttribute('data-date-ja');
-        if (dateSpanCh) dateSpanCh.textContent = block.getAttribute('data-date-ch');
+        if (dateSpanEn) dateSpanEn.textContent = dateEn;
+        if (dateSpanKo) dateSpanKo.textContent = dateKo;
+        if (dateSpanJa) dateSpanJa.textContent = dateJa;
+        if (dateSpanCh) dateSpanCh.textContent = dateCh;
+
+        // Also update the left-side vtimeline date bubble
+        const blockWrapper = block.closest('.vtimeline-block');
+        if (blockWrapper) {
+          const bubble = blockWrapper.querySelector('.vtimeline-date');
+          if (bubble) {
+            let newText = dateEn;
+            if (lang === 'ko') newText = dateKo;
+            else if (lang === 'ja') newText = dateJa;
+            else if (lang === 'ch') newText = dateCh;
+
+            bubble.textContent = newText;
+          }
+        }
       });
     }
+
+
 
     function setLanguage(lang) {
 		document.body.classList.remove("lang-en", "lang-ko", "lang-ja", "lang-ch");
@@ -305,39 +325,43 @@
             <span class="lang-ch" style="display:none;">专业领域：深度学习、生物识别安全、密码学与安全</span> </li>
 						<p></p>
 						<script>
-              const today = new Date();
-              const year = today.getFullYear();
-              const month = today.getMonth() + 1;
-              const day = today.getDate();
-              const wd = today.getDay(); // Get the day of the week (0 for Sunday, 6 for Saturday)
-              const weekdaysEn = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-              const weekdaysKo = ['일', '월', '화', '수', '목', '금', '토'];
-              const weekdaysJa = ['日', '月', '火', '水', '木', '金', '土'];
-              const weekdaysCh = ['日', '一', '二', '三', '四', '五', '六']; // Added for Chinese
+            fetch("https://api.github.com/repos/tiongsikng/tiongsikng.github.io/commits?path=index.html")
+              .then(response => response.json())
+              .then(data => {
+                const lastCommit = data[0].commit.author.date;
+                const dateObj = new Date(lastCommit);
 
-              const enDate = `${year}.${String(month).padStart(2,'0')}.${String(day).padStart(2,'0')} (${weekdaysEn[wd]})`;
-              const koDate = `${year}년 ${month}월 ${day}일 (${weekdaysKo[wd]})`;
-              const jaDate = `${year}年${month}月${day}日（${weekdaysJa[wd]}）`;
-              const chDate = `${year}年${month}月${day}日 (星期${weekdaysCh[wd]})`; // Added for Chinese
+                // Format YYYY.MM.DD for multi-language
+                const year = dateObj.getFullYear();
+                const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+                const day = String(dateObj.getDate()).padStart(2, '0');
 
-              document.querySelector('.date.lang-en').textContent = enDate;
-              document.querySelector('.date.lang-ko').textContent = koDate;
-              document.querySelector('.date.lang-ja').textContent = jaDate;
-              document.querySelector('.date.lang-ch').textContent = chDate; // Added for Chinese
+                const weekdaysEn = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+                const weekdaysKo = ['일','월','화','수','목','금','토'];
+                const weekdaysJa = ['日','月','火','水','木','金','土'];
+                const weekdaysCh = ['日','一','二','三','四','五','六'];
+
+                const wd = dateObj.getDay();
+
+                document.querySelector('.date.lang-en').textContent =
+                  `${year}.${month}.${day} (${weekdaysEn[wd]})`;
+
+                document.querySelector('.date.lang-ko').textContent =
+                  `${year}년 ${month}월 ${day}일 (${weekdaysKo[wd]})`;
+
+                document.querySelector('.date.lang-ja').textContent =
+                  `${year}年${month}月${day}日（${weekdaysJa[wd]}）`;
+
+                document.querySelector('.date.lang-ch').textContent =
+                  `${year}年${month}月${day}日 (星期${weekdaysCh[wd]})`;
+              })
+              .catch(err => console.error("GitHub API error:", err));
             </script>
+
 					</div>
 				</div>
 			</div>
 		</div>
-
-    <script>
-      document.querySelectorAll('[data-date-en]').forEach(el => {
-        el.querySelector('.lang-en').textContent = el.getAttribute('data-date-en');
-        el.querySelector('.lang-ko').textContent = el.getAttribute('data-date-ko');
-        el.querySelector('.lang-ja').textContent = el.getAttribute('data-date-ja');
-        el.querySelector('.lang-ch').textContent = el.getAttribute('data-date-ch'); // Added for Chinese
-      });
-    </script>
 
 		<div class="background-alt" id="experience">
 			<h2 class="heading">
@@ -346,15 +370,50 @@
         <span class="lang-ja" style="display:none;">職務経験</span>
         <span class="lang-ch" style="display:none;">工作经验</span> </h2>
 			<div id="experience-timeline">
-				<div data-date="March 2019 – August 2019">
+        <div
+          data-date="April 2025 - Present"
+          data-date-en="April 2025 - Present"
+          data-date-ko="2025년 4월 - 현재"
+          data-date-ja="2025年4月 - 現在"
+          data-date-ch="2025年4月 - 至今"
+        >
+          <h3>주식회사 플라카 (Placa Inc.)</h3>
+          <h4>AI and Software Technology Development Engineer</h4>
+          <li>
+            <span class="lang-en">Architected and deployed an Amazon Connect + Lex V2 (ko_KR) automated call system integrating Lambda, S3, DynamoDB, and CloudWatch, enabling real-time utterance capture, AI-powered response handling, and natural conversational flows for Korean-speaking users.</span>
+            <span class="lang-ko" style="display:none;">Lambda, S3, DynamoDB, CloudWatch를 통합한 Amazon Connect + Lex V2(ko_KR) 자동화 콜 시스템을 구축하여 실시간 발화 캡처, AI 기반 응답 처리, 자연스러운 한국어 대화 흐름을 구현함.</span>
+            <span class="lang-ja" style="display:none;">Lambda，S3，DynamoDB，CloudWatch を統合した Amazon Connect + Lex V2（ko_KR）自動通話システムを構築し、リアルタイム発話取得、AI応答処理、自然な韓国語会話フローを実現。</span>
+            <span class="lang-ch" style="display:none;">构建并部署基于 Amazon Connect + Lex V2（ko_KR）的自动化呼叫系统，整合 Lambda、S3、DynamoDB、CloudWatch，实现实时语音捕获、AI 驱动响应处理，以及自然的韩语对话流程。</span>
+          </li>
+          <li>
+            <span class="lang-en">Designed and trained text-to-speech voice generation systems including FishSpeech, OpenVoice, and ElevenLabs adapters, implementing caching, filler generation, and temperature-controlled synthesis. Previously developed Korean phoneme-aware TTS training pipelines for XTTS and VALL-E models.</span>
+            <span class="lang-ko" style="display:none;">FishSpeech, OpenVoice, ElevenLabs 어댑터 등 TTS 음성 생성 시스템을 설계·개발하고 캐싱, 필러 생성, 온도 제어 합성을 적용함. 이전에는 XTTS 및 VALL-E 기반 한국어 음소 학습 파이프라인을 개발함.</span>
+            <span class="lang-ja" style="display:none;">FishSpeech，OpenVoice，ElevenLabs アダプタなどの TTS 音声生成システムを設計・開発し、キャッシュ・フィラー生成・温度制御合成を実装。以前には XTTS および VALL-E を用いた韓国語音素学習パイプラインを構築。</span>
+            <span class="lang-ch" style="display:none;">设计与开发 FishSpeech，OpenVoice，ElevenLabs 适配器等 TTS 语音生成系统，并实现缓存、填充音生成与温度控制合成。此前亦开发基于 XTTS 与 VALL-E 的韩语音素训练管线。</span>
+          </li>
+          <li>
+            <span class="lang-en">Built and fine-tuned a company-specific, insurance-oriented Korean chatbot engine, including dataset curation, intent classification, retrieval-augmented response generation, and evaluation tooling for internal testing.</span>
+            <span class="lang-ko" style="display:none;">보험 도메인에 특화된 사내 한국어 챗봇 엔진을 구축·개선하고, 데이터셋 구축, 의도 분류, RAG 기반 응답 생성, 내부 테스트용 평가 도구를 개발함.</span>
+            <span class="lang-ja" style="display:none;">保険領域特化の社内向け韓国語チャットボットエンジンを構築・改良し、データセット作成、意図分類、RAG 応答生成、内部評価ツールを開発。</span>
+            <span class="lang-ch" style="display:none;">构建并优化公司专用的保险推广型韩语聊天机器人，包括数据集整理、意图分类、RAG 检索式回答生成，以及内部测试评估工具的开发。</span>
+          </li>
+          <li>
+            <span class="lang-en">Integrated and configured FreeSWITCH and SIP softphone environments, establishing RTC bridging, internal routing, and telephony support for hybrid communication flows.</span>
+            <span class="lang-ko" style="display:none;">FreeSWITCH 및 SIP 소프트폰 환경을 통합·구성하여 RTC 브리징, 내부 라우팅, 하이브리드 통신 흐름을 지원함.</span>
+            <span class="lang-ja" style="display:none;">FreeSWITCH と SIP ソフトフォン環境を統合し、RTC ブリッジング、内部ルーティング、ハイブリッド通信フローを実現。</span>
+            <span class="lang-ch" style="display:none;">集成并配置 FreeSWITCH 与 SIP 软电话环境，实现 RTC 桥接、内部路由及混合式通信流程。</span>
+          </li>
+          <p></p>
+        </div>
+				<div
+          data-date="March 2019 - August 2019"
+          data-date-en="March 2019 - August 2019"
+          data-date-ko="2019년 3월 - 2019년 8월"
+          data-date-ja="2019年3月 - 2019年8月"
+          data-date-ch="2019年3月 - 2019年8月"
+        >
 					<h3>Recogine Technology Sdn. Bhd.</h3>
 					<h4>Research and Development Engineer</h4>
-          <span class="timeline-date lang-en"></span>
-          <span class="timeline-date lang-ko" style="display:none;"></span>
-          <span class="timeline-date lang-ja" style="display:none;"></span>
-          <span class="timeline-date lang-ch" style="display:none;"></span>
-					<p>
-					</p>
 					<li>
 						<span class="lang-en">Developed computer vision models for vehicle classification and license plate recognition (LPR) using TensorFlow and Keras.</span>
 						<span class="lang-ko" style="display:none;">TensorFlow와 Keras를 사용하여 차량 분류 및 번호판 인식(LPR)을 위한 컴퓨터 비전 모델을 개발함.</span>
@@ -378,15 +437,14 @@
 					<p></p>
 				</div>
 
-				<div data-date="September 2017 – December 2017" data-date-ko="2017년 9월 – 2017년 12월" data-date-ja="2017年9月 – 2017年12月" data-date-ch="2017年9月 – 2017年12月">
-					<h3>Hitachi Hokenso Sdn. Bhd.</h3>
+				<div 
+          data-date="September 2017 - December 2017"
+          data-date-en="September 2017 - December 2017"
+          data-date-ko="2017년 9월 - 2017년 12월"
+          data-date-ja="2017年9月 - 2017年12月"
+          data-date-ch="2017年9月 - 2017年12月"
+        >
 					<h4>Application Engineer</h4>
-          <span class="timeline-date lang-en"></span>
-          <span class="timeline-date lang-ko" style="display:none;"></span>
-          <span class="timeline-date lang-ja" style="display:none;"></span>
-          <span class="timeline-date lang-ch" style="display:none;"></span>
-					<p>
-					</p>
 					<li>
 						<span class="lang-en">Maintained and deployed enterprise-grade backend systems using the Java Spring Framework and Oracle WebLogic Server.</span>
 						<span class="lang-ko" style="display:none;">Java Spring Framework와 Oracle WebLogic Server를 사용하여 기업용 백엔드 시스템을 유지 및 배포함.</span>
@@ -404,15 +462,15 @@
             <span class="lang-ch" style="display:none;">对后端模块使用Git进行版本控制和协作开发。</span> </li>
 					<p></p>
 				</div>
-				<div data-date="September 2016 – August 2017" data-date-ko="2016년 9월 – 2017년 8월" data-date-ja="2016年9月 – 2017年8月" data-date-ch="2016年9月 – 2017年8月">
+				<div 
+          data-date="September 2016 - August 2017"
+          data-date-en="September 2016 - August 2017"
+          data-date-ko="2016년 9월 - 2017년 08월"
+          data-date-ja="2016年9月 - 2017年08月"
+          data-date-ch="2016年9月 - 2017年08月"
+        >
 					<h3>Multimedia University</h3>
 					<h4>Research Assistant</h4>
-          <span class="timeline-date lang-en"></span>
-          <span class="timeline-date lang-ko" style="display:none;"></span>
-          <span class="timeline-date lang-ja" style="display:none;"></span>
-          <span class="timeline-date lang-ch" style="display:none;"></span>
-					<p>
-					</p>
 					<li>
 						<span class="lang-en">Conducted academic research on digital signature schemes and provable security, with a focus on tight reduction techniques.</span>
 						<span class="lang-ko" style="display:none;">디지털 서명 스킴과 증명 가능한 보안에 대한 학술 연구를 수행했으며, 특히 타이트 리덕션 기법에 중점을 둠.</span>
@@ -423,16 +481,17 @@
 						<span class="lang-ko" style="display:none;">프라이버시 보호 또는 안전이 중요한 시스템에 적합한 인증 프로토콜을 공식화하는 데 기여하며, 학술 논문 중심의 암호 분석에 기여함.</span>
             <span class="lang-ja" style="display:none;">プライバシー保護または安全性が重要なシステムに適した認証プロトコルの形式化を支援し、出版志向の暗号解析に貢献。</span>
             <span class="lang-ch" style="display:none;">协助形式化适用于隐私保护或安全关键系统的认证协议，为面向出版的密码分析做出贡献。</span> </li>
-					<p></p>
 				</div>
-				<div data-date="March 2015 – May 2015" data-date-ko="2015년 3월 – 2015년 5월" data-date-ja="2015年3月 – 2015年5月" data-date-ch="2015年3月 – 2015年5月">
+        <div 
+          data-date="March 2015 - May 2015"
+          data-date-en="March 2015 - May 2015"
+          data-date-ko="2015년 3월 - 2015년 05월"
+          data-date-ja="2015年3月 - 2015年05月"
+          data-date-ch="2015年3月 - 2015年05月"
+        >
 					<h3>NetEon Sdn. Bhd.</h3>
 					<h4>Technical Assistant (Internship)</h4>
-          <span class="timeline-date lang-en"></span>
-          <span class="timeline-date lang-ko" style="display:none;"></span>
-          <span class="timeline-date lang-ja" style="display:none;"></span>
-          <span class="timeline-date lang-ch" style="display:none;"></span>
-					<p>
+          <p>
 						<span class="lang-en">Learnt  how  to  interface  computer  hardware for industrial purposes, such as soldering and adding components in circuit boards and also configuring radio antennas.</span>
 						<span class="lang-ko" style="display:none;">산업용으로 컴퓨터 하드웨어를 인터페이스하는 방법을 학습함 (예: 회로 기판 납땜, 부품 추가, 무선 안테나 구성 등).</span>
             <span class="lang-ja" style="display:none;">工業目的でのコンピュータハードウェアのインターフェース方法を習得（例：回路基板のはんだ付け、部品追加、無線アンテナの設定など）。</span>
@@ -734,9 +793,9 @@
               <span class="lang-en">Text-to-Speech (TTS):</span>
               <span class="lang-ko" style="display:none;">텍스트 음성 변환 (TTS):</span>
               <span class="lang-ja" style="display:none;">テキスト音声変換 (TTS):</span>
-              <span class="lang-ch" style="display:none;">文本转语音 (TTS)：</span>
+              <span class="lang-ch" style="display:none;">文本转语音 (TTS):</span>
             </strong>
-						VALL-E</li>
+						FishSpeech, OpenVoice, XTTS, VALL-E</li>
 					<li>
 						<strong>
               <span class="lang-en">Multimodal Image-to-Text:</span>
