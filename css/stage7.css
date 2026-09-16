@@ -1,0 +1,160 @@
+/* Stage 7 — restore the hero's visual machinery without reverting to hand-drawn icons. */
+
+.hero-visual-v6 { overflow:hidden; }
+
+/* Replace the regression-like straight network with curved data-flow trajectories. */
+.hero-vector-layer {
+  position:absolute;
+  inset:4% 1% 5% 0;
+  z-index:1;
+  color:var(--accent);
+  pointer-events:none;
+  transform:translate(calc(var(--mx) * 5px),calc(var(--my) * 3px));
+  transition:transform .18s ease-out;
+}
+.hero-vector-layer svg { width:100%; height:100%; overflow:visible; }
+.data-path {
+  fill:none;
+  stroke:url(#flowGradient);
+  stroke-width:1.35;
+  stroke-linecap:round;
+  opacity:.34;
+  stroke-dasharray:5 12;
+  animation:heroDash 16s linear infinite;
+}
+.path-b { animation-duration:21s; animation-direction:reverse; opacity:.26; }
+.path-c { animation-duration:25s; opacity:.19; }
+.path-d { animation-duration:19s; animation-direction:reverse; opacity:.22; }
+.accent-path {
+  stroke:currentColor;
+  stroke-width:1.8;
+  opacity:.44;
+  stroke-dasharray:2 10;
+  animation-duration:11s;
+}
+@keyframes heroDash { to { stroke-dashoffset:-180; } }
+
+/* A compact representation/transform box in the middle gives the flow an actual 'engine'. */
+.transform-core {
+  position:absolute;
+  left:44%;
+  top:37%;
+  width:188px;
+  height:164px;
+  z-index:2;
+  transform:translate(-50%,-50%) translate(calc(var(--mx) * 6px),calc(var(--my) * -4px));
+  pointer-events:none;
+}
+.core-frame {
+  position:absolute;
+  inset:17px;
+  border:1px solid color-mix(in srgb,var(--accent) 52%,transparent);
+  background:linear-gradient(145deg,color-mix(in srgb,var(--panel) 58%,transparent),color-mix(in srgb,var(--accent) 8%,transparent));
+  box-shadow:0 18px 54px color-mix(in srgb,var(--accent) 12%,transparent),inset 0 0 0 1px color-mix(in srgb,var(--text-strong) 4%,transparent);
+  backdrop-filter:blur(4px);
+}
+.core-frame::before,
+.core-frame::after {
+  content:"";
+  position:absolute;
+  width:24px;
+  height:24px;
+  border-color:var(--accent);
+  opacity:.7;
+}
+.core-frame::before { left:-6px; top:-6px; border-left:2px solid; border-top:2px solid; }
+.core-frame::after { right:-6px; bottom:-6px; border-right:2px solid; border-bottom:2px solid; }
+.core-label {
+  position:absolute;
+  left:12px;
+  top:9px;
+  color:var(--muted);
+  font-size:.62rem;
+  font-weight:800;
+  letter-spacing:.16em;
+}
+.core-grid {
+  position:absolute;
+  left:18px;
+  right:18px;
+  top:37px;
+  bottom:18px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
+}
+.core-grid span {
+  border-radius:3px;
+  background:color-mix(in srgb,var(--accent) 14%,transparent);
+  border:1px solid color-mix(in srgb,var(--accent) 34%,transparent);
+  box-shadow:inset 0 0 12px color-mix(in srgb,var(--accent) 8%,transparent);
+}
+.core-grid span:nth-child(3n+1),.core-grid span:nth-child(5n) { background:color-mix(in srgb,var(--accent) 36%,transparent); }
+.core-grid span:nth-child(7),.core-grid span:nth-child(10) { background:color-mix(in srgb,var(--accent) 60%,transparent); }
+.core-scan {
+  position:absolute;
+  left:13px;
+  right:13px;
+  top:36px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  box-shadow:0 0 15px color-mix(in srgb,var(--accent) 60%,transparent);
+  animation:scanCore 4.8s ease-in-out infinite;
+}
+@keyframes scanCore { 0%,100% { transform:translateY(0); opacity:.22; } 50% { transform:translateY(89px); opacity:.72; } }
+.core-axis { position:absolute; background:color-mix(in srgb,var(--accent) 18%,transparent); }
+.axis-x { height:1px; left:10px; right:10px; top:50%; }
+.axis-y { width:1px; top:30px; bottom:10px; left:50%; }
+.core-connector { position:absolute; top:50%; width:58px; height:1px; background:linear-gradient(90deg,transparent,var(--accent)); opacity:.45; }
+.connector-left { right:calc(100% - 25px); transform:rotate(8deg); transform-origin:right; }
+.connector-right { left:calc(100% - 25px); background:linear-gradient(90deg,var(--accent),transparent); transform:rotate(-7deg); transform-origin:left; }
+
+/* Keep the point cloud, but make it a swarm around the transform core instead of a plotted line. */
+.neural-cloud {
+  left:24%;
+  top:14%;
+  width:57%;
+  height:64%;
+  z-index:2;
+  opacity:.72;
+}
+.neural-cloud::before,
+.neural-cloud::after { display:none !important; }
+.neural-cloud span {
+  animation:nodeDrift 6s ease-in-out infinite alternate;
+}
+.neural-cloud span:nth-child(2n) { animation-delay:-1.4s; }
+.neural-cloud span:nth-child(3n) { animation-delay:-2.8s; }
+@keyframes nodeDrift {
+  from { transform:translate(-2px,3px) scale(.9); }
+  to { transform:translate(4px,-4px) scale(1.12); }
+}
+
+/* Symbols remain strong anchors, but the centre machinery becomes the visual focus. */
+.symbol-observe { top:13%; }
+.symbol-represent { left:27%; bottom:6%; }
+.symbol-protect { top:19%; }
+.symbol-orb-fingerprint i { opacity:.83; }
+.symbol-orb-brain i { opacity:.7; }
+.symbol-orb-network i { opacity:.86; }
+.symbol-orb-shield i { opacity:.8; }
+.symbol-orb-key i { opacity:.88; }
+
+.hero-flow-band { opacity:.16; }
+.hero-flow-band::after { opacity:.55; }
+.hero-flow-band-a { transform:rotate(-11deg); }
+.hero-flow-band-b { transform:rotate(7deg); }
+.hero-flow-band-c { transform:rotate(-5deg); }
+
+@media (prefers-reduced-motion:reduce) {
+  .data-path,.core-scan,.neural-cloud span { animation:none !important; }
+}
+
+@media (max-width:1180px) {
+  .transform-core { width:164px; height:145px; left:45%; top:39%; }
+  .core-grid { gap:5px; }
+}
+@media (max-width:700px) {
+  .transform-core { transform:translate(-50%,-50%) scale(.72); left:47%; top:41%; }
+  .hero-vector-layer { opacity:.72; }
+}

@@ -1,0 +1,144 @@
+/* Stage 13 — consolidated profile links, real logos, broader supervision, expanded methods. */
+
+/* Hero: role + CV as one semantic row; profile destinations remain separate below. */
+.hero-role-row {
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:14px 18px;
+  margin:14px 0 0;
+}
+.hero-role-row .hero-role { margin:0 !important; }
+.hero-cv-link {
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  min-height:42px;
+  padding:0 15px;
+  border:1px solid color-mix(in srgb,var(--accent) 62%,var(--border));
+  border-radius:10px;
+  color:var(--accent) !important;
+  background:color-mix(in srgb,var(--accent-faint) 62%,transparent);
+  font-size:1rem;
+  font-weight:700;
+  letter-spacing:.01em;
+  white-space:nowrap;
+}
+.hero-cv-link i { font-size:1.08em; }
+.hero-cv-link:hover {
+  color:#fff !important;
+  background:var(--accent);
+  border-color:var(--accent);
+  transform:translateY(-1px);
+}
+.hero-actions { margin-top:20px !important; gap:9px !important; }
+.hero-actions a {
+  min-height:48px !important;
+  padding:0 14px !important;
+  font-size:1.03rem !important;
+}
+
+/* Big section titles: icons act as small visual anchors, not separate badges. */
+.section-title-icon {
+  display:inline-block;
+  margin-right:.34em;
+  color:var(--accent);
+  font-size:.72em;
+  vertical-align:.08em;
+}
+.heading .section-icon { color:var(--accent); }
+
+/* Real affiliation logos: wide enough for wordmarks while square crests remain centered. */
+#experience-timeline > .experience-card-v4 {
+  grid-template-columns:152px minmax(0,1fr) !important;
+  gap:24px !important;
+}
+.employment-logo-placeholder {
+  width:142px !important;
+  height:92px !important;
+  border-radius:14px !important;
+  background:#fff !important;
+  border:1px solid color-mix(in srgb,var(--border) 80%,#d9dde4) !important;
+  padding:8px !important;
+}
+.employment-logo-placeholder img {
+  width:100% !important;
+  height:100% !important;
+  object-fit:contain !important;
+  padding:0 !important;
+}
+#education .education-block.education-card-v5 {
+  grid-template-columns:132px minmax(0,1fr) !important;
+  gap:24px !important;
+}
+.education-logo-placeholder {
+  width:120px !important;
+  height:104px !important;
+  border-radius:14px !important;
+  background:#fff !important;
+  border:1px solid color-mix(in srgb,var(--border) 80%,#d9dde4) !important;
+  padding:8px !important;
+}
+.education-logo-placeholder img {
+  width:100% !important;
+  height:100% !important;
+  object-fit:contain !important;
+  padding:0 !important;
+}
+
+/* Methods: six cards form a balanced 2-column system. */
+.methods-grid { grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+.models-card .pill-row span { white-space:normal; }
+.professional-card { align-content:start; }
+.professional-card .professional-detail {
+  grid-column:1 / -1;
+  margin:13px 0 1px;
+  padding:12px 14px;
+  border:1px solid var(--border);
+  border-radius:11px;
+  background:color-mix(in srgb,var(--accent-faint) 58%,var(--surface));
+  color:var(--text-strong);
+  font-size:1.09rem;
+  line-height:1.5;
+  font-weight:600;
+}
+.professional-card .professional-detail em { color:var(--accent); font-style:normal; }
+
+/* Slightly give all featured publications room for their star, regardless of grid position. */
+#publications .pub-entry.pub-featured { padding-right:44px !important; }
+
+@media (max-width:900px) {
+  #experience-timeline > .experience-card-v4 { grid-template-columns:118px minmax(0,1fr) !important; gap:18px !important; }
+  .employment-logo-placeholder { width:108px !important; height:78px !important; }
+  #education .education-block.education-card-v5 { grid-template-columns:105px minmax(0,1fr) !important; gap:18px !important; }
+  .education-logo-placeholder { width:94px !important; height:88px !important; }
+}
+
+@media (max-width:700px) {
+  .hero-role-row { align-items:flex-start; gap:10px; }
+  .hero-cv-link { min-height:40px; font-size:.96rem; }
+  .hero-actions { gap:7px !important; }
+  .hero-actions a { min-height:45px !important; padding:0 12px !important; font-size:.95rem !important; }
+  #experience-timeline > .experience-card-v4,
+  #education .education-block.education-card-v5 {
+    grid-template-columns:1fr !important;
+  }
+  .employment-logo-placeholder,
+  .education-logo-placeholder {
+    width:124px !important;
+    height:78px !important;
+  }
+  .methods-grid { grid-template-columns:1fr !important; }
+}
+
+/* Stage 14: localized institution names + Placa parent-company note */
+.company-parent-note {
+  margin: -0.1rem 0 0.55rem;
+  color: var(--muted, #6f7886);
+  font-size: 0.88em;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+body.dark-mode .company-parent-note {
+  color: #bfc3ca;
+}

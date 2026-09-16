@@ -1,0 +1,131 @@
+/* Stage 6 — icon-led hero, stronger type scale, unified section subtitles, project grid correction. */
+
+/* Scale: the page is allowed to scroll; text should feel intentional, not miniature. */
+body { font-size:21px; }
+.desktop-nav a { font-size:1.14rem; }
+.language-button { min-width:106px; height:52px; padding:0 17px; font-size:1.1rem; }
+.language-menu li { font-size:1.1rem; }
+.icon-button { width:52px; height:52px; font-size:1.16rem; }
+
+.hero-role { font-size:1.32rem; }
+.hero-actions { gap:10px; max-width:780px; }
+.hero-actions a { min-height:50px; padding:0 15px; font-size:1.1rem; border-radius:12px; }
+.hero-actions a i { font-size:1.27rem; }
+.hero-topics { margin-top:28px; gap:10px 22px; font-size:1.13rem; }
+.hero-topics span { padding:4px 0 4px 17px; }
+.hero-topics span::before { width:7px; height:7px; top:.68em; }
+
+/* Official/recognisable service colours, restricted to the brand marks. */
+.hero-actions .scholar-link i,.contact-links .scholar-link i { color:#4285f4 !important; }
+.hero-actions .orcid-link i,.contact-links .orcid-link i { color:#a6ce39 !important; }
+.hero-actions .linkedin-link i,.contact-links .linkedin-link i { color:#0a66c2 !important; }
+.hero-actions .researchgate-link i,.contact-links .researchgate-link i { color:#00ccbb !important; }
+html.theme-dark .hero-actions .github-link i,html.theme-dark .contact-links .github-link i { color:#f4f4f4 !important; }
+html:not(.theme-dark) .hero-actions .github-link i,html:not(.theme-dark) .contact-links .github-link i { color:#181717 !important; }
+
+/* Icon-led research hero. The recognisable forms come from Font Awesome, not hand-drawn SVG outlines. */
+.hero-visual-v6 { min-height:560px; position:relative; color:var(--accent); isolation:isolate; --mx:0; --my:0; }
+.hero-visual-v6 .visual-glow { position:absolute; inset:3% -2% 0 0; background:radial-gradient(ellipse at 50% 48%,var(--hero-glow),transparent 63%); filter:blur(7px); }
+.hero-visual-v6 .visual-microgrid { position:absolute; inset:1% 0 4% 1%; opacity:.22; background-image:radial-gradient(circle,var(--accent) 1px,transparent 1.2px); background-size:20px 20px; mask-image:linear-gradient(112deg,transparent,#000 16%,#000 82%,transparent); }
+.hero-flow-band { position:absolute; left:3%; right:1%; height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); opacity:.26; transform-origin:center; }
+.hero-flow-band::after { content:""; position:absolute; inset:-20px 0; border-top:1px solid color-mix(in srgb,var(--accent) 35%,transparent); border-radius:50%; }
+.hero-flow-band-a { top:34%; transform:rotate(-7deg); }
+.hero-flow-band-b { top:52%; transform:rotate(4deg); opacity:.18; }
+.hero-flow-band-c { top:68%; transform:rotate(-3deg); opacity:.14; }
+
+.symbol-cluster { position:absolute; display:flex; align-items:center; gap:15px; z-index:3; color:var(--text-strong); }
+.symbol-cluster .cluster-index { color:var(--accent); font-size:.92rem; font-weight:800; letter-spacing:.08em; align-self:flex-start; padding-top:8px; }
+.cluster-copy { display:flex; flex-direction:column; min-width:180px; }
+.cluster-copy strong { font-family:var(--serif); font-size:1.5rem; line-height:1.05; color:var(--text-strong); }
+.cluster-copy small { margin-top:7px; color:var(--muted); font-size:.84rem; font-weight:700; letter-spacing:.075em; text-transform:uppercase; line-height:1.35; }
+.symbol-orb { display:grid; place-items:center; color:var(--accent); filter:drop-shadow(0 8px 18px color-mix(in srgb,var(--accent) 18%,transparent)); }
+.symbol-orb i { display:block; }
+.symbol-observe { left:1%; top:17%; transform:translate(calc(var(--mx)*-2px),calc(var(--my)*-1px)); }
+.symbol-orb-fingerprint i { font-size:8.9rem; opacity:.88; }
+.symbol-represent { left:30%; bottom:8%; transform:translate(calc(var(--mx)*2px),calc(var(--my)*-2px)); }
+.representation-icons { width:170px; height:125px; position:relative; flex:none; }
+.symbol-orb-brain { position:absolute; left:4px; top:0; }
+.symbol-orb-brain i { font-size:6.8rem; opacity:.76; }
+.symbol-orb-network { position:absolute; right:0; bottom:1px; }
+.symbol-orb-network i { font-size:5.3rem; opacity:.94; }
+.symbol-protect { right:0; top:23%; transform:translate(calc(var(--mx)*3px),calc(var(--my)*2px)); }
+.protection-icons { width:170px; height:145px; position:relative; flex:none; }
+.symbol-orb-shield { position:absolute; left:0; top:0; }
+.symbol-orb-shield i { font-size:8.1rem; opacity:.82; }
+.symbol-orb-key { position:absolute; right:0; bottom:4px; transform:rotate(-8deg); }
+.symbol-orb-key i { font-size:5rem; opacity:.96; }
+.neural-cloud { position:absolute; left:20%; top:18%; width:61%; height:58%; z-index:1; opacity:.82; }
+.neural-cloud span { position:absolute; left:var(--x); top:var(--y); width:var(--s); height:var(--s); border-radius:50%; background:var(--accent); box-shadow:0 0 22px color-mix(in srgb,var(--accent) 48%,transparent); }
+.neural-cloud::before,.neural-cloud::after { content:""; position:absolute; inset:13% 4% 18% 5%; background:linear-gradient(24deg,transparent 47%,color-mix(in srgb,var(--accent) 24%,transparent) 48%,color-mix(in srgb,var(--accent) 24%,transparent) 49%,transparent 50%),linear-gradient(-19deg,transparent 47%,color-mix(in srgb,var(--accent) 20%,transparent) 48%,color-mix(in srgb,var(--accent) 20%,transparent) 49%,transparent 50%); opacity:.8; }
+.hero-visual-v6 .visual-sequence { bottom:0; right:2%; left:auto; font-size:.79rem; }
+
+/* All section subtitles/notes live directly beneath the heading and align left. */
+.section-title-row { display:block !important; margin-bottom:30px !important; }
+.section-title-row > div { width:100%; }
+.section-title-row h2 { margin-bottom:0 !important; }
+.section-note { max-width:1050px !important; margin:10px 0 0 !important; text-align:left !important; font-size:1.25rem !important; line-height:1.58; }
+.retained-section > .section-subtitle { width:min(100%,var(--shell)) !important; max-width:var(--shell) !important; margin:8px auto 30px !important; text-align:left !important; font-size:1.25rem !important; line-height:1.58; }
+
+/* Content scale +15-ish percent without inflating the containing cards. */
+.about-copy p { font-size:1.32rem !important; line-height:1.68; }
+.updated-line { font-size:1.07rem; }
+.news-card li { font-size:1.1rem; }
+.research-card h3 { font-size:1.82rem; }
+.research-card p { font-size:1.18rem; }
+.topic-list span,.pill-row span { font-size:1rem; padding:7px 11px; }
+.pub-title { font-size:1.42rem; }
+.pub-entry:first-child .pub-title { font-size:1.6rem; }
+.pub-label { font-size:.98rem; }
+.pub-authors { font-size:1.09rem; }
+.pub-meta { font-size:1.06rem !important; }
+.project-info h3 { font-size:1.55rem !important; }
+.project-info p { font-size:1.18rem !important; line-height:1.55; }
+.project-info a { font-size:1.1rem; }
+.teaching-card h3,.method-card h3 { font-size:1.62rem; }
+.teaching-card p { font-size:1.17rem; }
+.method-note { font-size:1.08rem; }
+#experience-timeline h3,.education-card-v5 h3 { font-size:1.78rem !important; }
+#experience-timeline h4,.education-card-v5 h4 { font-size:1.29rem !important; }
+.experience-date,.education-card-v5 .education-date { font-size:1.09rem; }
+#experience-timeline li { font-size:1.17rem; }
+.education-card-v5 p,.education-card-v5 p span { font-size:1.18rem !important; }
+.contact-section p { font-size:1.24rem; }
+.contact-links a { font-size:1.16rem; }
+
+/* The blank first Projects cell came from Bootstrap .row pseudo-elements becoming CSS-grid items. */
+#projects .row::before,#projects .row::after { content:none !important; display:none !important; }
+
+/* Dark-mode reading contrast: never use dark/navy editorial copy on charcoal. */
+html.theme-dark .section-heading-block h2,
+html.theme-dark .section-title-row h2,
+html.theme-dark .retained-section > .heading,
+html.theme-dark .retained-section > h2.heading { color:#fbf8f9 !important; }
+html.theme-dark .section-note,html.theme-dark .section-subtitle { color:#d6cfd2 !important; }
+
+@media (max-width:1180px) {
+  .symbol-orb-fingerprint i { font-size:7.8rem; }
+  .symbol-orb-brain i { font-size:6rem; }
+  .symbol-orb-network i { font-size:4.7rem; }
+  .symbol-orb-shield i { font-size:7rem; }
+  .symbol-orb-key i { font-size:4.4rem; }
+  .cluster-copy strong { font-size:1.35rem; }
+  .cluster-copy small { font-size:.76rem; }
+}
+@media (max-width:960px) {
+  .hero-visual-v6 { min-height:530px; max-width:820px; width:100%; margin:0 auto; }
+  .symbol-observe { left:2%; }
+  .symbol-protect { right:1%; }
+  .symbol-represent { left:29%; }
+}
+@media (max-width:700px) {
+  body { font-size:18px; }
+  .hero-actions a { font-size:1rem; padding:0 13px; min-height:48px; }
+  .hero-topics { font-size:1rem; gap:8px 16px; }
+  .hero-visual-v6 { min-height:470px; }
+  .symbol-cluster { transform:scale(.78) !important; transform-origin:left center; }
+  .symbol-observe { left:-2%; top:15%; }
+  .symbol-represent { left:19%; bottom:8%; }
+  .symbol-protect { right:-11%; top:24%; }
+  .section-note,.retained-section > .section-subtitle { font-size:1.08rem !important; }
+  .about-copy p { font-size:1.12rem !important; }
+}

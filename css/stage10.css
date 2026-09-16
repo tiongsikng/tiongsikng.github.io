@@ -1,0 +1,172 @@
+/* Stage 10 — typographic polish, navigation scale, CV alignment, education rhythm. */
+
+/* Header: stronger hierarchy and a more substantial control scale. */
+.nav-shell {
+  width:min(calc(100% - 40px),1380px);
+  min-height:92px;
+  gap:30px;
+}
+.brand {
+  font-size:2.05rem;
+  line-height:1;
+  letter-spacing:-.02em;
+}
+.desktop-nav {
+  gap:25px;
+}
+.desktop-nav a {
+  font-size:1.21rem;
+  line-height:1;
+}
+.language-button {
+  min-width:116px;
+  height:58px;
+  padding:0 18px;
+  gap:10px;
+  font-size:1.18rem;
+}
+.language-button img {
+  width:25px;
+  height:17px;
+}
+.language-menu li {
+  font-size:1.15rem;
+  padding:11px 12px;
+}
+.icon-button {
+  width:58px;
+  height:58px;
+  border-radius:15px;
+  font-size:1.35rem;
+}
+#theme-toggle.theme-button {
+  font-size:1.55rem !important;
+}
+#theme-toggle.theme-button i {
+  font-size:1.55rem;
+  line-height:1;
+}
+
+/* Teaching / supervision: mirror the visual scale of Employment Experience. */
+.teaching-card {
+  padding:19px 20px;
+}
+.teaching-card h3 {
+  font-size:1.78rem !important;
+  line-height:1.22;
+  margin-bottom:4px;
+}
+.teaching-card p {
+  font-size:1.29rem !important;
+  line-height:1.48;
+  margin-bottom:11px;
+}
+.teaching-card .pill-row {
+  gap:8px;
+}
+.teaching-card .pill-row span {
+  font-size:1.17rem !important;
+  line-height:1.25;
+  padding:8px 12px;
+}
+
+/* Methods & tools: use the same title / subtitle / detail hierarchy. */
+.method-card {
+  padding:18px 19px;
+}
+.method-card h3 {
+  font-size:1.78rem !important;
+  line-height:1.22;
+  margin-bottom:4px;
+}
+.method-note {
+  font-size:1.29rem !important;
+  line-height:1.48;
+}
+.method-card .pill-row {
+  gap:8px;
+  margin-top:11px;
+}
+.method-card .pill-row span {
+  font-size:1.17rem !important;
+  line-height:1.25;
+  padding:8px 12px;
+}
+
+/* Employment: bullet marker begins on the same left edge as the role/date block. */
+#experience-timeline .employment-content > li {
+  display:list-item;
+  list-style:none;
+  position:relative;
+  margin-left:0 !important;
+  padding-left:1.45em;
+}
+#experience-timeline .employment-content > li::before {
+  content:"•";
+  position:absolute;
+  left:0;
+  top:0;
+  color:var(--accent);
+  font-size:1.05em;
+  line-height:1.55;
+}
+
+/* Education follows the employment rhythm: institution -> degree -> period -> research title. */
+.education-card-v5 h3 {
+  margin-bottom:3px !important;
+}
+.education-card-v5 h4 {
+  margin:0 0 3px !important;
+}
+.education-card-v5 .education-date {
+  display:block;
+  margin:0 0 11px !important;
+  font-size:1.09rem !important;
+  line-height:1.4;
+  color:var(--accent) !important;
+  font-weight:700;
+}
+.education-card-v5 p {
+  margin-bottom:0;
+}
+
+/* Keep dark-mode detail text comfortably readable at the new scale. */
+html.theme-dark .teaching-card p,
+html.theme-dark .method-note,
+html.theme-dark .education-card-v5 p,
+html.theme-dark .education-card-v5 p span {
+  color:#e3dde0 !important;
+}
+html.theme-dark .teaching-card .pill-row span,
+html.theme-dark .method-card .pill-row span {
+  color:#e8e2e4 !important;
+}
+
+@media (max-width:1240px) {
+  .nav-shell { width:min(calc(100% - 32px),1240px); gap:20px; }
+  .brand { font-size:1.78rem; }
+  .desktop-nav { gap:18px; }
+  .desktop-nav a { font-size:1.08rem; }
+  .language-button { min-width:102px; height:54px; font-size:1.08rem; }
+  .icon-button { width:54px; height:54px; }
+}
+
+@media (max-width:1050px) {
+  .desktop-nav { gap:13px; }
+  .desktop-nav a { font-size:.98rem; }
+}
+
+@media (max-width:860px) {
+  .nav-shell { min-height:78px; }
+  .brand { font-size:1.7rem; }
+  .language-button { min-width:98px; height:50px; font-size:1rem; }
+  .icon-button { width:50px; height:50px; }
+  #theme-toggle.theme-button,#theme-toggle.theme-button i { font-size:1.35rem !important; }
+}
+
+@media (max-width:700px) {
+  .teaching-card h3,.method-card h3 { font-size:1.5rem !important; }
+  .teaching-card p,.method-note { font-size:1.12rem !important; }
+  .teaching-card .pill-row span,.method-card .pill-row span { font-size:1rem !important; }
+  .brand { font-size:1.48rem; }
+}

@@ -1,0 +1,153 @@
+/* Stage 9 — atomic field + larger, tighter research/publication typography. */
+
+/* Generic three-orbit atom field: a thicker moving motif behind the feature map. */
+.atom-field {
+  position:absolute;
+  left:31%;
+  top:23%;
+  width:390px;
+  height:300px;
+  z-index:2;
+  color:var(--accent);
+  pointer-events:none;
+  opacity:.46;
+  transform:translate(calc(var(--mx)*1px),calc(var(--my)*1px));
+  filter:drop-shadow(0 0 12px color-mix(in srgb,var(--accent) 14%,transparent));
+}
+.atom-orbit {
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:355px;
+  height:126px;
+  margin-left:-177.5px;
+  margin-top:-63px;
+  border:2.35px solid currentColor;
+  border-radius:50%;
+  opacity:.48;
+  transform-origin:50% 50%;
+  will-change:transform;
+}
+.atom-orbit-a { transform:rotate(4deg); animation:atomDriftA 18s ease-in-out infinite alternate; }
+.atom-orbit-b { transform:rotate(62deg); animation:atomDriftB 21s ease-in-out infinite alternate; opacity:.37; }
+.atom-orbit-c { transform:rotate(-58deg); animation:atomDriftC 24s ease-in-out infinite alternate; opacity:.31; }
+.atom-nucleus {
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:13px;
+  height:13px;
+  margin:-6.5px 0 0 -6.5px;
+  border-radius:50%;
+  background:currentColor;
+  opacity:.58;
+  box-shadow:0 0 0 7px color-mix(in srgb,var(--accent) 10%,transparent),0 0 24px color-mix(in srgb,var(--accent) 36%,transparent);
+  animation:atomPulse 4.8s ease-in-out infinite;
+}
+@keyframes atomDriftA {
+  0% { transform:rotate(0deg) scaleX(1); }
+  45% { transform:rotate(10deg) scaleX(1.035) translateY(-2px); }
+  100% { transform:rotate(3deg) scaleX(.985) translateY(3px); }
+}
+@keyframes atomDriftB {
+  0% { transform:rotate(58deg) scaleX(.98); }
+  50% { transform:rotate(67deg) scaleX(1.025) translateX(3px); }
+  100% { transform:rotate(61deg) scaleX(1.01) translateX(-3px); }
+}
+@keyframes atomDriftC {
+  0% { transform:rotate(-63deg) scaleX(1.015); }
+  55% { transform:rotate(-53deg) scaleX(.985) translateY(3px); }
+  100% { transform:rotate(-59deg) scaleX(1.035) translateY(-2px); }
+}
+@keyframes atomPulse {
+  0%,100% { transform:scale(.82); opacity:.42; }
+  50% { transform:scale(1.22); opacity:.78; }
+}
+
+/* Keep the feature map visibly in front of the atom field. */
+.transform-core { z-index:4; }
+.symbol-cluster { z-index:5; }
+.neural-cloud { z-index:3; }
+
+/* Research: more readable type, less wasted vertical space between the number and title. */
+.research-card {
+  min-height:0;
+  padding:18px 20px 18px;
+}
+.research-card .card-top {
+  display:block;
+  min-height:0;
+  margin-bottom:6px;
+}
+.research-card .card-number {
+  display:block;
+  font-size:1.28rem;
+  line-height:1;
+  font-weight:600;
+  letter-spacing:.01em;
+}
+.research-card .research-icon {
+  position:absolute;
+  top:18px;
+  right:20px;
+  width:57px;
+  height:57px;
+  font-size:1.58rem;
+}
+.research-card h3 {
+  margin:0 76px 7px 0;
+  font-size:2.05rem;
+  line-height:1.15;
+}
+.research-card p {
+  margin:0;
+  max-width:95%;
+  font-size:1.34rem;
+  line-height:1.46;
+}
+.research-card .topic-list {
+  margin-top:11px;
+  gap:7px;
+}
+.research-card .topic-list span {
+  font-size:1.08rem;
+  padding:7px 11px;
+}
+
+/* Publications: smaller surfaces, larger text. */
+#publications .publication-grid { gap:10px; }
+#publications .pub-entry {
+  min-height:0;
+  padding:14px 17px !important;
+  border-radius:10px;
+}
+#publications .pub-entry:first-child {
+  min-height:0;
+  padding:16px 29% 16px 18px !important;
+}
+.pub-title {
+  font-size:1.58rem;
+  line-height:1.28;
+}
+.pub-entry:first-child .pub-title { font-size:1.76rem; }
+.pub-label { font-size:1.03rem; }
+.pub-authors { font-size:1.16rem; line-height:1.43; }
+.pub-meta { font-size:1.12rem !important; line-height:1.42; }
+
+@media (prefers-reduced-motion:reduce) {
+  .atom-orbit,.atom-nucleus { animation:none !important; }
+}
+@media (max-width:1180px) {
+  .atom-field { left:32%; top:25%; width:340px; height:270px; transform:scale(.9); transform-origin:center; }
+  .research-card h3 { font-size:1.86rem; }
+  .research-card p { font-size:1.22rem; }
+  .pub-title { font-size:1.44rem; }
+}
+@media (max-width:700px) {
+  .atom-field { left:23%; top:27%; transform:scale(.7); transform-origin:center; opacity:.35; }
+  .research-card h3 { margin-right:64px; font-size:1.62rem; }
+  .research-card p { font-size:1.08rem; }
+  .research-card .research-icon { width:50px; height:50px; right:16px; top:16px; }
+  #publications .pub-entry:first-child { padding:15px 16px !important; }
+  .pub-title,.pub-entry:first-child .pub-title { font-size:1.35rem; }
+}

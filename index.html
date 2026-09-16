@@ -1,1151 +1,948 @@
 <!DOCTYPE html>
-<html class="no-js dark-mode" lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta content="IE=edge" http-equiv="X-UA-Compatible">
-		<meta content="width=device-width, initial-scale=1" name="viewport">
-		<title>Tiong-Sik Ng | Portfolio</title>
-		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon">
-		<link href="favicon.ico" rel="icon" type="image/x-icon">
-		<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
-		<link href="libs/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-		<link href="css/bootstrap.min.css" rel="stylesheet">
-		<link href="css/styles.css" rel="stylesheet">
-		<link href="css/dark-mode.css" id="dark-style" rel="stylesheet">
-		<script crossorigin="anonymous" src="https://kit.fontawesome.com/9135e9eba9.js"></script>
-		<script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const body = document.body;
-        const icon = document.getElementById("theme-icon"); // Get icon here
-        const prefersLight = localStorage.getItem("theme") === "light";
 
-        if (prefersLight) {
-          body.classList.remove("dark-mode");
-          if (icon) icon.className = "fa fa-moon"; // Light mode, show moon
-        } else {
-          body.classList.add("dark-mode");
-          if (icon) icon.className = "fa fa-sun"; // Dark mode, show sun
-        }
-      });
-
-		</script>
-
-    <style>
-      body.lang-en .lang-en { display: inline !important; }
-      body.lang-en .lang-ko { display: none !important; }
-      body.lang-en .lang-ja { display: none !important; }
-      body.lang-en .lang-ch { display: none !important; }
-
-      body.lang-ko .lang-ko { display: inline !important; }
-      body.lang-ko .lang-en { display: none !important; }
-      body.lang-ko .lang-ja { display: none !important; }
-      body.lang-ko .lang-ch { display: none !important; }
-
-      body.lang-ja .lang-ja { display: inline !important; }
-      body.lang-ja .lang-en { display: none !important; }
-      body.lang-ja .lang-ko { display: none !important; }
-      body.lang-ja .lang-ch { display: none !important; }
-
-      body.lang-ch .lang-ch { display: inline !important; }
-      body.lang-ch .lang-en { display: none !important; }
-      body.lang-ch .lang-ko { display: none !important; }
-      body.lang-ch .lang-ja { display: none !important; }
-		</style>
-
-	</head>
-
-	<body class="dark-mode lang-en">
-		<script>
-    // Initialize theme and language on load
-    document.addEventListener("DOMContentLoaded", () => {
-      // Theme
-      const icon = document.getElementById("theme-icon");
-      const theme = localStorage.getItem("theme") || "dark";
-      if (theme === "light") {
-        document.body.classList.remove("dark-mode");
-        icon.className = "fa fa-moon";
-      } else {
-        document.body.classList.add("dark-mode");
-        icon.className = "fa fa-sun";
-      }
-      // Language
-      const savedLang = localStorage.getItem("language") || "en";
-      setLanguage(savedLang);
-    });
-
-    function toggleMode() {
-      const icon = document.getElementById("theme-icon");
-      const isDark = document.body.classList.toggle("dark-mode");
-      localStorage.setItem("theme", isDark ? "dark" : "light");
-      icon.className = isDark ? "fa fa-sun" : "fa fa-moon";
-    }
-
-    function updatePlaceholders(lang) {
-      const emailInput = document.querySelector("input[name='_replyto']");
-      const messageBox = document.querySelector("textarea[name='message']");
-      if (emailInput) emailInput.placeholder = emailInput.getAttribute("data-placeholder-" + lang);
-      if (messageBox) messageBox.placeholder = messageBox.getAttribute("data-placeholder-" + lang);
-    }
-
-    function updateTimelineDates(lang) {
-      document.querySelectorAll('#experience-timeline [data-date-en]').forEach(block => {
-        const dateEn = block.getAttribute('data-date-en') || block.getAttribute('data-date');
-        const dateKo = block.getAttribute('data-date-ko') || dateEn;
-        const dateJa = block.getAttribute('data-date-ja') || dateEn;
-        const dateCh = block.getAttribute('data-date-ch') || dateEn;
-
-        const dateSpanEn = block.querySelector('.timeline-date.lang-en');
-        const dateSpanKo = block.querySelector('.timeline-date.lang-ko');
-        const dateSpanJa = block.querySelector('.timeline-date.lang-ja');
-        const dateSpanCh = block.querySelector('.timeline-date.lang-ch');
-
-        if (dateSpanEn) dateSpanEn.textContent = dateEn;
-        if (dateSpanKo) dateSpanKo.textContent = dateKo;
-        if (dateSpanJa) dateSpanJa.textContent = dateJa;
-        if (dateSpanCh) dateSpanCh.textContent = dateCh;
-
-        // Also update the left-side vtimeline date bubble
-        const blockWrapper = block.closest('.vtimeline-block');
-        if (blockWrapper) {
-          const bubble = blockWrapper.querySelector('.vtimeline-date');
-          if (bubble) {
-            let newText = dateEn;
-            if (lang === 'ko') newText = dateKo;
-            else if (lang === 'ja') newText = dateJa;
-            else if (lang === 'ch') newText = dateCh;
-
-            bubble.textContent = newText;
-          }
-        }
-      });
-    }
-
-
-
-    function setLanguage(lang) {
-		document.body.classList.remove("lang-en", "lang-ko", "lang-ja", "lang-ch");
-		document.body.classList.add("lang-" + lang);
-		localStorage.setItem("language", lang);
-		document.getElementById("current-lang").textContent = lang.toUpperCase();
-
-		// ADD THIS LINE:
-		const flagMap = {
-      en: "icons/us.svg",
-      ko: "icons/kr.svg",
-      ja: "icons/jp.svg",
-      ch: "icons/cn.svg"
-    };
-
-    const flagAltMap = {
-      en: "English",
-      ko: "Korean",
-      ja: "Japanese",
-      ch: "Chinese"
-    };
-
-    const currentFlag = document.getElementById("current-flag");
-    currentFlag.src = flagMap[lang];
-    currentFlag.alt = flagAltMap[lang];
-
-		updatePlaceholders(lang);
-		updateTimelineDates(lang);
-		}
-  	</script>
-
-    <script>
-      document.getElementById("current-year").textContent = "2024-" + new Date().getFullYear();
-    </script>
-
-    <div id="lang-control" style="position: fixed; top: 10px; left: 10px; z-index: 1000;">
-      <button id="lang-toggle" style="cursor: pointer; display: flex; align-items: center; gap: 4px;">
-        <img id="current-flag" src="icons/us.svg" alt="English" style="width:20px; height:auto;">
-        <span id="current-lang">EN</span>
-        <i class="fa fa-caret-down" style="margin-left:4px;"></i>
-      </button>
-      <ul id="lang-menu" style="list-style:none; margin:0; padding:4px; display:none; background:#fff; border:1px solid #ccc;">
-		<li data-lang="en" style="padding:4px; cursor:pointer;">
-      <img src="icons/us.svg" alt="English" style="width:20px; height:auto;"> English
-    </li>
-    <li data-lang="ko" style="padding:4px; cursor:pointer;">
-      <img src="icons/kr.svg" alt="Korean" style="width:20px; height:auto;"> 한국어
-    </li>
-    <li data-lang="ja" style="padding:4px; cursor:pointer;">
-      <img src="icons/jp.svg" alt="Japanese" style="width:20px; height:auto;"> 日本語
-    </li>
-    <li data-lang="ch" style="padding:4px; cursor:pointer;">
-      <img src="icons/cn.svg" alt="Chinese" style="width:20px; height:auto;"> 中文
-    </li>
-	</ul>
-    </div>
-     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const toggleBtn = document.getElementById('lang-toggle');
-        const menu = document.getElementById('lang-menu');
-        const label = document.getElementById('current-lang');
-        const langs = { en: 'EN', ko: 'KO', ja: 'JA', ch: 'CH' };
-		const flag = document.getElementById('current-flag'); // new
-		const flags = { en: '🇺🇸', ko: '🇰🇷', ja: '🇯🇵', ch: '🇨🇳' };
-
-        // Open/close the dropdown
-        toggleBtn.addEventListener('click', e => {
-			menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-		});
-
-        // Handle language selection
-        menu.querySelectorAll('li').forEach(item => {
-          item.addEventListener('click', () => {
-            const chosen = item.getAttribute('data-lang');
-            // 1) Update the visible label
-            label.textContent = langs[chosen];
-            // 2) Toggle your <body> class to show that language
-            setLanguage(chosen); // Use the existing setLanguage function
-            // 3) Hide the menu
-            menu.style.display = 'none';
-          });
-        });
-
-        // Initialize from localStorage
-        const saved = localStorage.getItem('language') || 'en';
-		label.textContent = langs[saved];
-		// flag.textContent = flags[saved]; // ← INITIAL FLAG
-		setLanguage(saved);
-      });
-    </script>
-		<button id="theme-toggle" onclick="toggleMode()" style="position: fixed; top: 10px; right: 10px; z-index: 1000;">
-			<i class="fa fa-moon" id="theme-icon"></i>
-		</button>
-		
-		<div class="shadow-large" id="mobile-menu-open">
-			<i aria-hidden="true" class="fa fa-bars"></i>
-		</div>
-
-		<header>
-  <div id="mobile-menu-close">
-    <span>Close</span>
-    <i aria-hidden="true" class="fa fa-times"></i>
-  </div>
-  <ul class="shadow" id="menu">
-    <li>
-      <a href="#about">
-        <span class="lang-en">About</span>
-        <span class="lang-ko" style="display:none;">소개</span>
-        <span class="lang-ja" style="display:none;">紹介</span>
-        <span class="lang-ch" style="display:none;">关于</span> </a>
-    </li>
-    <li>
-      <a href="#experience">
-        <span class="lang-en">Experience</span>
-        <span class="lang-ko" style="display:none;">경력</span>
-        <span class="lang-ja" style="display:none;">経歴</span>
-        <span class="lang-ch" style="display:none;">经历</span> </a>
-    </li>
-    <li>
-      <a href="#education">
-        <span class="lang-en">Education</span>
-        <span class="lang-ko" style="display:none;">학력</span>
-        <span class="lang-ja" style="display:none;">学歴</span>
-        <span class="lang-ch" style="display:none;">教育背景</span> </a>
-    </li>
-    <li>
-      <a href="#projects">
-        <span class="lang-en">Projects</span>
-        <span class="lang-ko" style="display:none;">프로젝트</span>
-        <span class="lang-ja" style="display:none;">プロジェクト</span>
-        <span class="lang-ch" style="display:none;">项目</span> </a>
-    </li>
-    <li>
-      <a href="#publications">
-        <span class="lang-en">Publications</span>
-        <span class="lang-ko" style="display:none;">논문</span>
-        <span class="lang-ja" style="display:none;">論文</span>
-        <span class="lang-ch" style="display:none;">出版物</span> </a>
-    </li>
-    <li>
-      <a href="#skills">
-        <span class="lang-en">Skills</span>
-        <span class="lang-ko" style="display:none;">기술</span>
-        <span class="lang-ja" style="display:none;">スキル</span>
-        <span class="lang-ch" style="display:none;">技能</span> </a>
-    </li>
-    <li>
-      <a href="#contact">
-        <span class="lang-en">Contact</span>
-        <span class="lang-ko" style="display:none;">연락처</span>
-        <span class="lang-ja" style="display:none;">連絡先</span>
-        <span class="lang-ch" style="display:none;">联系方式</span> </a>
-    </li>
-  </ul>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Tiong-Sik Ng — biometrics, computer vision, and cryptography researcher and Assistant Professor at Xiamen University Malaysia." name="description"/>
+<meta content="#f7f9fc" name="theme-color"/>
+<title>Tiong-Sik Ng | Research Portfolio</title>
+<link href="favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&amp;display=swap" rel="stylesheet"/>
+<link href="libs/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
+<link href="css/bootstrap.min.css" rel="stylesheet"/>
+<link href="css/styles.css" rel="stylesheet"/>
+<link href="css/redesign.css" rel="stylesheet"/>
+<link href="css/refinement.css" rel="stylesheet"/>
+<link href="css/stage3.css" rel="stylesheet"/>
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/9135e9eba9.js"></script>
+<script>
+    (function () {
+      const saved = localStorage.getItem('theme');
+      const dark = saved ? saved === 'dark' : true;
+      document.documentElement.classList.toggle('theme-dark', dark);
+    })();
+  </script>
+<link href="css/stage4.css" rel="stylesheet"/>
+<link href="css/stage5.css" rel="stylesheet"/><link href="css/stage6.css" rel="stylesheet"/><link href="css/stage7.css" rel="stylesheet"/><link href="css/stage8.css" rel="stylesheet"/><link href="css/stage9.css" rel="stylesheet"/><link href="css/stage10.css" rel="stylesheet"/><link href="css/stage11.css" rel="stylesheet"/><link href="css/stage12.css" rel="stylesheet"/><link href="css/stage13.css" rel="stylesheet"/></head>
+<body class="lang-en">
+<header class="site-header" id="site-header">
+<div class="nav-shell">
+<a aria-label="Tiong-Sik Ng home" class="brand" href="#top">Tiong-Sik Ng</a>
+<nav aria-label="Primary navigation" class="desktop-nav">
+<a href="#about"><span class="lang-en">About</span><span class="lang-ko">소개</span><span class="lang-ja">紹介</span><span class="lang-ch">关于</span></a>
+<a href="#research"><span class="lang-en">Research</span><span class="lang-ko">연구</span><span class="lang-ja">研究</span><span class="lang-ch">研究</span></a>
+<a href="#publications"><span class="lang-en">Publications</span><span class="lang-ko">논문</span><span class="lang-ja">論文</span><span class="lang-ch">出版物</span></a>
+<a href="#projects"><span class="lang-en">Projects</span><span class="lang-ko">프로젝트</span><span class="lang-ja">プロジェクト</span><span class="lang-ch">项目</span></a>
+<a href="#teaching"><span class="lang-en">Teaching</span><span class="lang-ko">교육</span><span class="lang-ja">教育</span><span class="lang-ch">教学</span></a>
+<a href="#experience"><span class="lang-en">Experience</span><span class="lang-ko">경력</span><span class="lang-ja">経歴</span><span class="lang-ch">经历</span></a>
+<a href="#education"><span class="lang-en">Education</span><span class="lang-ko">학력</span><span class="lang-ja">学歴</span><span class="lang-ch">教育</span></a>
+</nav>
+<div class="nav-actions">
+<div class="language-control">
+<button aria-expanded="false" aria-haspopup="true" class="icon-button language-button" id="lang-toggle">
+<img alt="English" id="current-flag" src="icons/us.svg"/><span id="current-lang">EN</span><i class="fa fa-angle-down"></i>
+</button>
+<ul class="language-menu" id="lang-menu">
+<li data-lang="en"><img alt="" src="icons/us.svg"/> English</li>
+<li data-lang="ko"><img alt="" src="icons/kr.svg"/> 한국어</li>
+<li data-lang="ja"><img alt="" src="icons/jp.svg"/> 日本語</li>
+<li data-lang="ch"><img alt="" src="icons/cn.svg"/> 中文</li>
+</ul>
+</div>
+<button aria-label="Toggle light and dark mode" class="icon-button theme-button" id="theme-toggle"><i class="fa fa-sun-o" id="theme-icon"></i></button>
+<button aria-label="Open navigation" class="icon-button menu-button" id="menu-toggle"><i class="fa fa-bars"></i></button>
+</div>
+</div>
+<nav aria-label="Mobile navigation" class="mobile-nav" id="mobile-nav">
+<a href="#about">About</a><a href="#research">Research</a><a href="#publications">Publications</a><a href="#projects">Projects</a><a href="#teaching">Teaching</a><a href="#experience">Experience</a><a href="#education">Education</a><a href="#methods">Methods &amp; Tools</a><a href="#contact">Contact</a>
+</nav>
 </header>
+<main id="top">
+<section class="hero-section" id="lead">
+<div class="hero-shell">
+<div class="hero-copy">
+<p class="eyebrow"><span class="lang-en">Research · Teaching · Development</span><span class="lang-ko">연구 · 교육 · 개발</span><span class="lang-ja">研究 · 教育 · 開発</span><span class="lang-ch">研究 · 教学 · 开发</span></p>
+<h1><span class="lang-en">Tiong-Sik Ng</span><span class="lang-ko">황충식</span><span class="lang-ja">ン・ティオング・シーク</span><span class="lang-ch">黄忠植</span></h1>
+<h2 class="hero-tagline">
+<span class="lang-en">Biometrics, computer vision, and cryptography researcher.</span>
+<span class="lang-ko">생체인식, 컴퓨터 비전 및 암호학 연구자.</span>
+<span class="lang-ja">生体認証、コンピュータビジョン、暗号学の研究者。</span>
+<span class="lang-ch">生物识别、计算机视觉与密码学研究者。</span>
+</h2>
+<div class="hero-role-row"><p class="hero-role">
+<span class="lang-en">Assistant Professor (Cybersecurity) · Xiamen University Malaysia</span>
+<span class="lang-ko">조교수 (사이버보안) · 샤먼대학교 말레이시아캠퍼스</span>
+<span class="lang-ja">助教 (サイバー保護) · 厦門大学マレーシア校</span>
+<span class="lang-ch">助理教授 (网络安全) · 厦门大学马来西亚分校</span>
+</p><a class="hero-cv-link" href="files/Resume_CV.pdf" target="_blank"><i class="fa-solid fa-file-lines"></i> Curriculum Vitae</a></div>
+<div class="hero-actions"><a class="brand-link github-link" href="https://github.com/tiongsikng/" rel="noopener" target="_blank"><i class="fa fa-github"></i><span>GitHub</span></a><a class="brand-link scholar-link" href="https://scholar.google.com/citations?user=oT2_EAEAAAAJ&amp;hl=en" rel="noopener" target="_blank"><i class="fa fa-graduation-cap"></i><span>Scholar</span></a><a class="brand-link orcid-link" href="https://orcid.org/0000-0001-7248-3935/" rel="noopener" target="_blank"><i class="fa-brands fa-orcid"></i><span>ORCID</span></a><a class="brand-link researchgate-link" href="https://www.researchgate.net/profile/Tiong_Sik_Ng/" rel="noopener" target="_blank"><i class="fa-brands fa-researchgate"></i><span>ResearchGate</span></a><a class="brand-link linkedin-link" href="https://www.linkedin.com/in/tiong-sik-ng-521031145/" rel="noopener" target="_blank"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a></div>
+<div aria-label="Research topics" class="hero-topics">
+<span>Flexible Biometrics</span><span>Template Protection</span><span>Multimodal Learning</span><span>Provable Security</span>
+</div>
+</div>
+<div aria-hidden="true" class="hero-visual hero-visual-v6" id="hero-visual">
+<div class="visual-glow"></div>
+<div class="visual-microgrid"></div>
+<div class="hero-flow-band hero-flow-band-a"></div>
+<div class="hero-flow-band hero-flow-band-b"></div>
+<div class="hero-flow-band hero-flow-band-c"></div>
+<div aria-hidden="true" class="hero-vector-layer">
+<svg preserveaspectratio="none" viewbox="0 0 920 560">
+<defs>
+<lineargradient id="flowGradient" x1="0" x2="1"><stop offset="0%" stop-color="currentColor" stop-opacity="0"></stop><stop offset="18%" stop-color="currentColor" stop-opacity=".5"></stop><stop offset="72%" stop-color="currentColor" stop-opacity=".72"></stop><stop offset="100%" stop-color="currentColor" stop-opacity="0"></stop></lineargradient>
+</defs>
+<path class="data-path path-a" d="M52 244 C190 92 318 160 420 244 S662 356 868 186"></path>
+<path class="data-path path-b" d="M70 348 C222 246 314 334 430 286 S650 126 850 246"></path>
+<path class="data-path path-c" d="M124 118 C252 214 320 182 422 194 S650 260 822 376"></path>
+<path class="data-path path-d" d="M126 430 C248 302 356 404 478 342 S686 250 824 318"></path>
+<path class="data-path accent-path" d="M240 286 C332 218 392 228 458 274 S594 350 692 292"></path>
+<g class="hero-constellation">
+<path class="connector-line line-obs-core" d="M154 150 C230 118 300 160 389 211"></path>
+<path class="connector-line line-core-protect" d="M438 220 C530 168 635 142 760 156"></path>
+<path class="connector-line line-core-represent" d="M414 274 C399 340 358 395 322 455"></path>
+<path class="connector-line line-represent-protect" d="M342 444 C470 402 604 365 752 286"></path>
+<path class="connector-line line-cross" d="M214 252 C344 298 474 330 626 312 S770 246 836 225"></path>
+<path class="connector-line line-return" d="M737 190 C670 267 586 298 500 286 S336 246 258 205"></path>
+<circle class="connector-node n1" cx="198" cy="139" r="4"></circle>
+<circle class="connector-node n2" cx="282" cy="162" r="5"></circle>
+<circle class="connector-node n3" cx="369" cy="204" r="4"></circle>
+<circle class="connector-node n4" cx="505" cy="184" r="5"></circle>
+<circle class="connector-node n5" cx="621" cy="151" r="4"></circle>
+<circle class="connector-node n6" cx="718" cy="153" r="5"></circle>
+<circle class="connector-node n7" cx="396" cy="330" r="4"></circle>
+<circle class="connector-node n8" cx="356" cy="399" r="5"></circle>
+<circle class="connector-node n9" cx="470" cy="398" r="4"></circle>
+<circle class="connector-node n10" cx="584" cy="363" r="5"></circle>
+<circle class="connector-node n11" cx="691" cy="318" r="4"></circle>
+<circle class="connector-node n12" cx="535" cy="314" r="3.5"></circle>
+</g>
+</svg>
+</div>
+<div aria-hidden="true" class="atom-field">
+<span class="atom-orbit atom-orbit-a"></span>
+<span class="atom-orbit atom-orbit-b"></span>
+<span class="atom-orbit atom-orbit-c"></span>
+<i class="atom-nucleus"></i>
+</div>
+<div aria-hidden="true" class="transform-core">
+<div class="core-frame">
+<div class="core-label">FEATURE MAP</div>
+<div class="core-grid">
+<span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
+<div class="core-axis axis-x"></div><div class="core-axis axis-y"></div>
+<div class="core-scan"></div>
+</div>
+<div class="core-connector connector-left"></div><div class="core-connector connector-right"></div>
+</div>
+<div class="symbol-cluster symbol-observe">
+<span class="cluster-index">01</span>
+<div class="symbol-orb symbol-orb-fingerprint"><i class="fa-solid fa-fingerprint"></i></div>
+<div class="cluster-copy"><strong>Perceive</strong><small>Biometrics · Computer Vision</small></div>
+</div>
+<div class="symbol-cluster symbol-represent">
+<span class="cluster-index">02</span>
+<div class="representation-icons">
+<div class="symbol-orb symbol-orb-brain"><i class="fa-solid fa-brain"></i></div>
+<div class="symbol-orb symbol-orb-network"><i class="fa-solid fa-diagram-project"></i></div>
+</div>
+<div class="cluster-copy"><strong>Represent</strong><small>Multimodal Domain Alignment · Representation Learning</small></div>
+</div>
+<div class="symbol-cluster symbol-protect">
+<span class="cluster-index">03</span>
+<div class="protection-icons">
+<div class="symbol-orb symbol-orb-shield"><i class="fa-solid fa-shield-halved"></i></div>
+<div class="symbol-orb symbol-orb-key"><i class="fa-solid fa-key"></i></div>
+</div>
+<div class="cluster-copy"><strong>Secure</strong><small>Biometric Template Protection · Cryptography</small></div>
+</div>
+<div aria-hidden="true" class="neural-cloud">
+<span style="--x:8%;--y:35%;--s:9px"></span><span style="--x:18%;--y:18%;--s:6px"></span><span style="--x:28%;--y:48%;--s:11px"></span>
+<span style="--x:37%;--y:27%;--s:7px"></span><span style="--x:46%;--y:58%;--s:13px"></span><span style="--x:55%;--y:33%;--s:8px"></span>
+<span style="--x:64%;--y:63%;--s:10px"></span><span style="--x:73%;--y:42%;--s:7px"></span><span style="--x:83%;--y:68%;--s:12px"></span>
+<span style="--x:91%;--y:31%;--s:6px"></span>
+</div>
+<div class="visual-sequence"><span>Perceive</span><i></i><span>Represent</span><i></i><span>Secure</span></div>
+</div>
+</div>
+<a aria-label="Scroll to about" class="scroll-cue" href="#about"><span></span></a>
+</section>
+<section class="site-section about-section" id="about">
+<div class="section-shell about-grid">
+<div class="section-heading-block">
+<p class="section-kicker"><span class="lang-en">About</span><span class="lang-ko">소개</span><span class="lang-ja">紹介</span><span class="lang-ch">关于</span></p>
+<h2><i aria-hidden="true" class="fa-solid fa-circle-user section-title-icon"></i>
+<span class="lang-en">Research across recognition, vision, and security.</span>
+<span class="lang-ko">인식, 비전 및 보안을 아우르는 연구.</span>
+<span class="lang-ja">認識・ビジョン・セキュリティを横断する研究。</span>
+<span class="lang-ch">跨越识别、视觉与安全的研究。</span>
+</h2>
+<p class="updated-line"><span class="lang-en">Last updated</span><span class="lang-ko">최종 업데이트</span><span class="lang-ja">最終更新</span><span class="lang-ch">最后更新</span> · <span id="updated-date">September 2026</span></p>
+</div>
+<div class="about-copy">
+<p>
+<span class="lang-en">I am an Assistant Professor at Xiamen University Malaysia. My work lies at the intersection of biometrics, computer vision, and cryptography, with a focus on flexible and privacy-aware biometric recognition. I am particularly interested in systems that remain reliable under practical conditions such as occlusion, modality mismatch, low image quality, and real-world deployment constraints.</span>
+<span class="lang-ko">저는 샤먼대학교 말레이시아캠퍼스의 조교수입니다. 생체인식, 컴퓨터 비전 및 암호학의 접점에서 연구하며, 유연하고 프라이버시를 고려한 생체인식에 중점을 두고 있습니다. 특히 가림, 모달리티 불일치, 낮은 영상 품질 및 실제 배포 제약과 같은 현실적인 조건에서도 안정적으로 동작하는 시스템에 관심이 있습니다.</span>
+<span class="lang-ja">厦門大学マレーシア校の助教として、生体認証、コンピュータビジョン、暗号学の接点に取り組んでいます。柔軟性とプライバシーを考慮した生体認証を中心に、遮蔽、モダリティ不一致、低画質、実環境での展開制約といった条件下でも安定して機能するシステムに関心があります。</span>
+<span class="lang-ch">我是厦门大学马来西亚分校的助理教授，研究位于生物识别、计算机视觉与密码学的交叉领域，重点关注灵活且注重隐私的生物识别方法。我尤其关注在遮挡、模态不匹配、低图像质量以及实际部署限制等条件下仍能保持可靠性的系统。</span>
+</p>
+<p>
+<span class="lang-en">I received my Doctorate in Engineering from Yonsei University, where my doctoral research focused on conditional periocular-face biometrics for flexible deployment. My broader interests include representation learning, biometric template protection, multimodal learning, and provable security. Alongside research, I teach and supervise undergraduate and postgraduate students in computing and cybersecurity-related areas.</span>
+<span class="lang-ko">연세대학교에서 공학 박사 학위를 받았으며, 박사 연구에서는 유연한 배포를 위한 조건부 눈 주위-얼굴 생체인식에 중점을 두었습니다. 보다 넓은 관심 분야는 표현 학습, 생체 템플릿 보호, 멀티모달 학습 및 증명 가능한 보안을 포함합니다. 연구와 함께 컴퓨팅 및 사이버보안 관련 분야에서 학부 및 대학원 학생을 가르치고 지도하고 있습니다.</span>
+<span class="lang-ja">延世大学校で工学博士号を取得し、博士研究では柔軟な展開を目的とした条件付き眼周囲・顔生体認証に取り組みました。より広い関心には、表現学習、生体テンプレート保護、マルチモーダル学習、証明可能安全性が含まれます。研究と並行して、コンピューティングおよびサイバーセキュリティ関連分野で学部・大学院教育と研究指導を行っています。</span>
+<span class="lang-ch">我在延世大学获得工学博士学位，博士研究聚焦于面向灵活部署的条件性眼周-人脸生物识别。更广泛的研究兴趣包括表征学习、生物模板保护、多模态学习与可证明安全性。同时，我也负责计算与网络安全相关领域的本科与研究生教学及研究指导。</span>
+</p>
+</div>
+<aside class="news-card">
+<p class="mini-heading"><span class="lang-en">Recent</span><span class="lang-ko">최근 소식</span><span class="lang-ja">最近</span><span class="lang-ch">近期</span></p>
+<ul>
+<li><strong>2026</strong><span class="lang-en">Survey on flexible biometric systems published in <em>Information Fusion</em>.</span><span class="lang-ko"><em>Information Fusion</em>에 유연한 생체인식 시스템 survey 논문 게재.</span><span class="lang-ja"><em>Information Fusion</em> に柔軟な生体認証システムのサーベイ論文を掲載。</span><span class="lang-ch">在 <em>Information Fusion</em> 发表灵活生物识别系统综述。</span></li>
+<li><strong>2026</strong><span class="lang-en">Joined Xiamen University Malaysia as Assistant Professor.</span><span class="lang-ko">샤먼대학교 말레이시아캠퍼스 조교수로 부임.</span><span class="lang-ja">厦門大学マレーシア校に助教として着任。</span><span class="lang-ch">加入厦门大学马来西亚分校担任助理教授。</span></li>
+<li><strong>2025</strong><span class="lang-en">Flexible secure biometrics work published in IEEE TIFS.</span><span class="lang-ko">유연한 보안 생체인식 연구를 IEEE TIFS에 게재.</span><span class="lang-ja">柔軟なセキュア生体認証研究を IEEE TIFS に掲載。</span><span class="lang-ch">灵活安全生物识别研究发表于 IEEE TIFS。</span></li>
+</ul>
+</aside>
+</div>
+</section>
+<section class="site-section research-section" id="research">
+<div class="section-shell">
+<div class="section-title-row">
+<div><p class="section-kicker"><span class="lang-en">Research</span><span class="lang-ko">연구</span><span class="lang-ja">研究</span><span class="lang-ch">研究</span></p><h2><i aria-hidden="true" class="fa-solid fa-microscope section-title-icon"></i><span class="lang-en">Four connected areas</span><span class="lang-ko">서로 연결된 네 가지 영역</span><span class="lang-ja">つながる四つの領域</span><span class="lang-ch">四个相互关联的方向</span></h2></div>
+<p class="section-note"><span class="lang-en">The same themes shown in the research overview, distilled for the web.</span><span class="lang-ko">연구 개요의 핵심 주제를 웹에 맞게 간결하게 정리했습니다.</span><span class="lang-ja">研究概要のテーマをウェブ向けに簡潔に整理しています。</span><span class="lang-ch">将研究概览中的主题提炼为适合网页浏览的形式。</span></p>
+</div>
+<div class="research-grid">
+<article class="research-card"><div class="card-top"><span class="card-number">01</span><span class="research-icon"><i class="fa-solid fa-fingerprint"></i></span></div><h3>Flexible Biometrics</h3><p>Recognition under modality mismatch, occlusion, low resolution, and deployment constraints.</p><div class="topic-list"><span>Conditional biometrics</span><span>Cross-modal matching</span><span>Low-resolution recognition</span></div></article>
+<article class="research-card"><div class="card-top"><span class="card-number">02</span><span class="research-icon"><i class="fa-solid fa-shield-halved"></i></span></div><h3>Biometric Privacy &amp; Template Protection</h3><p>Protected representations, privacy-preserving recognition, and cancellable biometric templates.</p><div class="topic-list"><span>Template protection</span><span>Protected embeddings</span><span>Cancellable biometrics</span></div></article>
+<article class="research-card"><div class="card-top"><span class="card-number">03</span><span class="research-icon"><i class="fa-solid fa-diagram-project"></i></span></div><h3>Multimodal Learning &amp; Computer Vision</h3><p>Representation learning across modalities, domains, models, and challenging visual conditions.</p><div class="topic-list"><span>Representation learning</span><span>Cross-model recognition</span><span>Quality &amp; alignment</span></div></article>
+<article class="research-card"><div class="card-top"><span class="card-number">04</span><span class="research-icon"><i class="fa-solid fa-key"></i></span></div><h3>Cryptography &amp; Provable Security</h3><p>Digital signatures, authentication, reductions, and cryptographic security in practical systems.</p><div class="topic-list"><span>Digital signatures</span><span>Tight reductions</span><span>Authentication</span></div></article>
+</div>
+</div>
+</section>
+<div class="site-section retained-section optional-section" id="publications">
+<h2 class="heading">
+<i class="fa fa-book section-icon"></i>
+<span class="lang-en">Selected Publications</span>
+<span class="lang-ko" style="display:none;">선택된 논문</span>
+<span class="lang-ja" style="display:none;">主要論文</span>
+<span class="lang-ch" style="display:none;">精选出版物</span>
+</h2>
+<p class="section-subtitle">
+<span class="lang-en">Selected publications in biometric recognition, computer vision, privacy-preserving biometrics, and cryptographic security.</span>
+<span class="lang-ko" style="display:none;">생체인식, 컴퓨터 비전, 프라이버시 보호형 생체인식 및 암호 보안 분야의 주요 논문입니다.</span>
+<span class="lang-ja" style="display:none;">生体認証、コンピュータビジョン、プライバシー保護型生体認証、暗号セキュリティに関する主な研究論文です。</span>
+<span class="lang-ch" style="display:none;">生物识别、计算机视觉、隐私保护生物识别与密码安全领域的精选论文。</span>
+</p>
+<div class="publication-grid">
+<div class="pub-entry pub-featured">
+<span class="pub-label">[Journal]</span>
+<span class="pub-authors">Tiong, L. C. O., Sigmund, D., <b>Ng, T. S.</b> &amp; Teoh, A. B. J.</span><br/>
+<a class="pub-title" href="https://www.sciencedirect.com/science/article/abs/pii/S1566253526001466" target="_blank">
+				From unimodal to flexible: A survey of generalized biometric systems.</a><br/>
+<span class="pub-meta"><i>Information Fusion, vol.133</i>, pp. 104267, 2026.</span>
+</div>
+<div class="pub-entry pub-featured">
+<span class="pub-label">[Book Chapter]</span>
+<span class="pub-authors">Krivokuća Hahn, V., Valenti, M., Talreja, V., Nasrabadi, N., <b>Ng, T. S.</b> &amp; Teoh, A. B. J.</span><br/>
+<a class="pub-title" href="https://link.springer.com/chapter/10.1007/978-981-95-0995-9_7" target="_blank">
+				Using Neural Networks to Learn Biometric Template Protection.</a><br/>
+<span class="pub-meta"><i>Handbook of Biometric Template Protection</i>, pp. 171–201, 2025.</span>
+</div>
+<div class="pub-entry">
+<span class="pub-label">[Journal]</span>
+<span class="pub-authors">Kim, J., <b>Ng, T. S.</b>, Kim, T. &amp; Teoh, A. B. J.</span><br/>
+<a class="pub-title" href="https://ieeexplore.ieee.org/document/11320315/" target="_blank">
+				Cross-Model Face Recognition via Guided Alignment Mutual Decoupled Distillation.</a><br/>
+<span class="pub-meta"><i>IEEE Signal Processing Letters, vol.33</i>, pp. 466–470, 2025.</span>
+</div>
+<div class="pub-entry">
+<span class="pub-label">[Journal]</span>
+<span class="pub-authors">Gao C., Yang Z., <b>Ng, T. S.</b>, Zhu M. &amp; Teoh, A. B. J.</span><br/>
+<a class="pub-title" href="https://ieeexplore.ieee.org/document/11020755" target="_blank">
+				Bridging the Divide Between Left and Right Palmprints for Cross-Chirality Verification.</a><br/>
+<span class="pub-meta"><i>IEEE Internet of Things Journal, vol.12, no.15</i>, pp. 32046–32057, 2025.</span>
+</div>
+<div class="pub-entry pub-featured">
+<span class="pub-label">[Journal]</span>
+<span class="pub-authors"><b>Ng, T. S.</b>, Kim, J., &amp; Teoh, A. B. J.</span><br/>
+<a class="pub-title" href="https://ieeexplore.ieee.org/document/10962269" target="_blank">
+          Flexible Secure Biometrics: A Protected Modality-Invariant Face-Periocular Recognition System.</a><br/>
+<span class="pub-meta"><i>IEEE Transactions on Information Forensics and Security, vol. 20</i>, pp. 4610–4621, 2025.</span>
+</div>
+<div class="pub-entry pub-featured">
+<span class="pub-label">[Journal]</span>
+<span class="pub-authors"><b>Ng, T. S.</b>, &amp; Teoh, A. B. J.</span><br/>
+<a class="pub-title" href="https://www.sciencedirect.com/science/article/abs/pii/S1568494625003552" target="_blank">
+          Attention-aware ensemble learning for face-periocular cross-modality matching.</a><br/>
+<span class="pub-meta"><i>Applied Soft Computing, vol. 175</i>, pp. 113044, 2024.</span>
+</div>
+<div class="pub-entry">
+<span class="pub-label">[Conference]</span>
+<span class="pub-authors">Tan, S.Y., <b>Ng, T. S.</b>, &amp; Heng, S.H.</span><br/>
+<a class="pub-title" href="https://link.springer.com/chapter/10.1007/978-981-96-0954-3_13" target="_blank">
+          Efficient Fork-Free BLS Multi-signature Scheme with Incremental Signing.</a><br/>
+<span class="pub-meta"><i>International Conference on Provable Security (ProvSec)</i>, pp. 250–268, 2024.</span>
+</div>
+<div class="pub-entry pub-featured">
+<span class="pub-label">[Journal]</span>
+<span class="pub-authors"><b>Ng, T. S.</b>, Chai, J. C. L., Low, C. Y., &amp; Teoh, A. B. J.</span><br/>
+<a class="pub-title" href="https://ieeexplore.ieee.org/abstract/document/10418204/" target="_blank">
+          Self-Attentive Contrastive Learning for Conditioned Periocular and Face Biometrics.</a><br/>
+<span class="pub-meta"><i>IEEE Transactions on Information Forensics and Security, vol. 19</i>, pp. 3251–3264, 2024.</span>
+</div>
+<div class="pub-entry pub-featured">
+<span class="pub-label">[Journal]</span>
+<span class="pub-authors"><b>Ng, T. S.</b>, Low, C. Y., Chai, J. C. L., &amp; Teoh, A. B. J.</span><br/>
+<a class="pub-title" href="https://ieeexplore.ieee.org/abstract/document/10201879" target="_blank">
+          On the Representation Learning of Conditional Biometrics for Flexible Deployment.</a><br/>
+<span class="pub-meta"><i>IEEE Access, vol. 11</i>, pp. 82338–82350, 2023.</span>
+</div>
+<div class="pub-entry">
+<span class="pub-label">[Conference]</span>
+<span class="pub-authors">Chai, J. C. L., <b>Ng, T. S.</b>, Low, C. Y., Park, J., &amp; Teoh, A. B. J.</span><br/>
+<a class="pub-title" href="https://openaccess.thecvf.com/content/CVPR2023/html/Chai_Recognizability_Embedding_Enhancement_for_Very_Low-Resolution_Face_Recognition_and_Quality_CVPR_2023_paper.html" target="_blank">
+          Recognizability embedding enhancement for very low-resolution face recognition and quality estimation.</a><br/>
+<span class="pub-meta"><i>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</i>, pp. 9957–9967, 2023.</span>
+</div>
+<div class="pub-entry">
+<span class="pub-label">[Conference]</span>
+<span class="pub-authors"><b>Ng, T. S.</b>, Low, C. Y., Chai, J. C. L., &amp; Teoh, A. B. J.</span><br/>
+<a class="pub-title" href="https://ieeexplore.ieee.org/abstract/document/9956636/" target="_blank">
+          Conditional Multimodal Biometrics Embedding Learning For Periocular and Face in the Wild.</a><br/>
+<span class="pub-meta"><i>International Conference on Pattern Recognition (ICPR)</i>, pp. 812–818, 2022.</span>
+</div>
+<div class="pub-entry pub-featured">
+<span class="pub-label">[Conference]</span>
+<span class="pub-authors"><b>Ng, T. S.</b>, &amp; Teoh, A. B. J.</span><br/>
+<a class="pub-title" href="https://link.springer.com/chapter/10.1007/978-3-030-94763-7_23" target="_blank">
+          Fuzzy MP - A Fuzzy Digital Signature Scheme with Biometrics.</a><br/>
+<span class="pub-meta"><i>International Conference on Mobile Networks and Management (EAI-MONAMI)</i>, pp. 299–315, 2022.</span>
+</div>
+<div class="pub-entry pub-featured">
+<span class="pub-label">[Conference]</span>
+<span class="pub-authors"><b>Ng, T. S.</b>, Tan, S. Y., &amp; Chin, J. J.</span><br/>
+<a class="pub-title" href="https://link.springer.com/chapter/10.1007/978-3-030-34339-2_15" target="_blank">
+          Improving Signature Schemes With Tight Security Reductions.</a><br/>
+<span class="pub-meta"><i>International Conference on Information Security Practice and Experience (ISPEC)</i>, pp. 273–292, 2019.</span>
+</div>
+<div class="pub-entry">
+<span class="pub-label">[Conference]</span>
+<span class="pub-authors"><b>Ng, T. S.</b>, Tan, S. Y., &amp; Chin, J. J.</span><br/>
+<a class="pub-title" href="https://link.springer.com/chapter/10.1007/978-3-319-90775-8_13" target="_blank">
+          A Variant of BLS Signature Scheme with Tight Security Reduction.</a><br/>
+<span class="pub-meta"><i>International Conference on Mobile Networks and Management (EAI-MONAMI)</i>, pp. 150–163, 2017.</span>
+</div>
+<div class="pub-entry">
+<span class="pub-label">[Conference]</span>
+<span class="pub-authors"><b>Ng, T. S.</b>, Tan, S. Y., &amp; Chin, J. J.</span><br/>
+<a class="pub-title" href="https://ieeexplore.ieee.org/abstract/document/8191014/" target="_blank">
+          A Variant of Schnorr Signature Scheme with Tight Security Reduction.</a><br/>
+<span class="pub-meta"><i>International Conference on Information and Communication Technology Convergence (ICTC)</i>, pp. 411–415, 2017.</span>
+</div>
+</div>
+</div>
+<div class="site-section retained-section background-alt" id="projects">
+<h2 class="heading">
+<i class="fa fa-flask section-icon"></i>
+<span class="lang-en">Projects</span>
+<span class="lang-ko" style="display:none;">프로젝트</span>
+<span class="lang-ja" style="display:none;">プロジェクト</span>
+<span class="lang-ch" style="display:none;">项目</span>
+</h2>
+<p class="section-subtitle">
+<span class="lang-en">Selected research and development projects in biometrics, cryptography, AI systems, and secure applications.</span>
+<span class="lang-ko" style="display:none;">생체인식, 암호학, AI 시스템 및 보안 응용 분야의 주요 연구·개발 프로젝트입니다.</span>
+<span class="lang-ja" style="display:none;">生体認証、暗号学、AIシステム、セキュアアプリケーションに関する主な研究開発プロジェクトです。</span>
+<span class="lang-ch" style="display:none;">生物识别、密码学、AI 系统与安全应用方面的代表性研究和开发项目。</span>
+</p>
+<div class="container">
+<div class="row">
+<div class="project shadow-large">
+<div class="project-image">
+<img src="images/doctorate_project.jpg"/>
+</div>
+<div class="project-info">
+<h3>NRF Project (S. Korea): Multimodal Biometrics Conditioning and Data-driven Template Hashing (Member - Ph.D. Researcher)</h3>
+<p>
+<span class="lang-en">Researched deep learning-based face and periocular biometric recognition for flexible deployment under occlusion and cross-modality settings. Developed conditional embedding and biometric template protection methods for privacy-preserving recognition.</span>
+<span class="lang-ko" style="display:none;">가림 및 교차 모달 환경에서 유연한 배포를 위한 딥러닝 기반 얼굴 및 눈 주위 생체인식 연구를 수행함. 개인정보 보호형 인식을 위한 조건부 임베딩 및 생체 템플릿 보호 기법을 개발함.</span>
+<span class="lang-ja" style="display:none;">遮蔽およびクロスモダリティ環境における柔軟な展開を目的として、深層学習に基づく顔・眼周囲生体認証を研究。プライバシー保護型認証のための条件付き埋め込みおよび生体テンプレート保護手法を開発。</span>
+<span class="lang-ch" style="display:none;">研究面向遮挡与跨模态场景的深度学习人脸与眼周生物识别方法。开发用于隐私保护识别的条件嵌入学习与生物模板保护技术。</span> </p>
+</div>
+</div>
+<div class="project shadow-large">
+<div class="project-image">
+<img src="images/MySEAL.PNG"/>
+</div>
+<div class="project-info">
+<h3>Malaysian Digital Signature Algorithm Proposal: TNC Signature Scheme (MySEAL)</h3>
+<p>
+<span class="lang-en">Co-developed the TNC Signature Scheme, a Malaysian digital signature algorithm proposal compatible with Schnorr signatures. Contributed to formal security proofs and C/Libgcrypt implementation under discrete logarithm and elliptic curve settings.</span>
+<span class="lang-ko" style="display:none;">Schnorr 서명과 호환되는 말레이시아 디지털 서명 알고리즘 제안인 TNC Signature Scheme을 공동 개발함. 이산 로그 및 타원곡선 환경에서의 정형 보안 증명과 C/Libgcrypt 구현에 기여함.</span>
+<span class="lang-ja" style="display:none;">Schnorr署名と互換性を持つマレーシアのデジタル署名アルゴリズム提案である TNC Signature Scheme を共同開発。離散対数および楕円曲線設定における形式的安全性証明と C/Libgcrypt 実装に貢献。</span>
+<span class="lang-ch" style="display:none;">共同开发 TNC Signature Scheme，该方案为马来西亚数字签名算法提案，并与 Schnorr 签名兼容。参与离散对数与椭圆曲线环境下的形式化安全证明及 C/Libgcrypt 实现。</span> </p>
+<a href="https://mykripto.cybersecurity.my/index.php/files/101/AKBA-MySEAL/8/MySEAL---TNCSeminar-Slide.pdf">Slides for Technical Report</a>
+</div>
+</div>
+<div class="project shadow-large">
+<div class="project-image">
+<img src="images/master_project.PNG"/>
+</div>
+<div class="project-info">
+<h3>FRGS Project (Malaysia): Tight Security Reduction Techniques for Cryptography Primitives (Member - M. Sc. Researcher)</h3>
+<p>
+<span class="lang-en">Investigated tight security reduction techniques for digital signature schemes and cryptographic primitives. Applied formal reduction-based analysis to improve provable security guarantees under standard model assumptions.</span>
+<span class="lang-ko" style="display:none;">디지털 서명 스킴 및 암호 프리미티브를 위한 타이트 보안 리덕션 기법을 연구함. 표준 모델 가정하에서 증명 가능한 보안 보장을 향상시키기 위해 정형 리덕션 기반 분석을 적용함.</span>
+<span class="lang-ja" style="display:none;">デジタル署名スキームおよび暗号プリミティブに対するタイトな安全性削減技術を研究。標準モデル仮定の下で証明可能安全性を向上させるため、形式的な削減ベース解析を適用。</span>
+<span class="lang-ch" style="display:none;">研究数字签名方案与密码学原语中的紧密安全归约技术。通过形式化归约分析，在标准模型假设下提升可证明安全性保证。</span> </p>
+</div>
+</div>
+<div class="project shadow-large">
+<div class="project-image">
+<img src="images/bachelors_project.PNG"/>
+</div>
+<div class="project-info">
+<h3>ITEX Exhibition 2016: An Online Digital Medical Certificate System Using Identity-Based Signature (Member - Undergraduate Project)</h3>
+<p>
+<span class="lang-en">Implemented a secure digital medical certificate prototype using identity-based signatures, ECC-based encryption, QR code generation, and server-side verification. The system was demonstrated at ITEX 2016 and received a Gold Award.</span>
+<span class="lang-ko" style="display:none;">ID 기반 서명, ECC 기반 암호화, QR 코드 생성 및 서버 측 검증을 활용한 안전한 디지털 진단서 프로토타입을 구현함. 해당 시스템은 ITEX 2016에서 시연되었으며 금상을 수상함.</span>
+<span class="lang-ja" style="display:none;">IDベース署名、ECCベース暗号化、QRコード生成、サーバ側検証を用いた安全なデジタル医療証明書プロトタイプを実装。ITEX 2016で展示され、金賞を受賞。</span>
+<span class="lang-ch" style="display:none;">实现基于身份签名、ECC 加密、二维码生成与服务器端验证的安全数字医疗证明原型系统。该系统于 ITEX 2016 展示并获得金奖。</span> </p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section class="site-section teaching-section" id="teaching">
+<div class="section-shell">
+<div class="section-title-row">
+<div><p class="section-kicker"><span class="lang-en">Teaching &amp; supervision</span><span class="lang-ko">교육 및 지도</span><span class="lang-ja">教育・指導</span><span class="lang-ch">教学与指导</span></p><h2><i aria-hidden="true" class="fa-solid fa-chalkboard-user section-title-icon"></i><span class="lang-en">Teaching, mentoring, and research supervision</span><span class="lang-ko">교육, 멘토링 및 연구 지도</span><span class="lang-ja">教育・メンタリング・研究指導</span><span class="lang-ch">教学、指导与研究督导</span></h2></div>
+<p class="section-note"><span class="lang-en">Courses and supervision areas across computing, biometrics, computer vision, and cybersecurity.</span><span class="lang-ko">컴퓨팅, 생체인식, 컴퓨터 비전 및 사이버보안 분야의 교육과 연구 지도를 담당합니다.</span><span class="lang-ja">コンピューティング、生体認証、コンピュータビジョン、サイバーセキュリティ分野の教育・研究指導を行っています。</span><span class="lang-ch">涵盖计算、生物识别、计算机视觉与网络安全领域的教学和研究指导。</span></p>
+</div>
+<div class="teaching-grid">
+<article class="teaching-card"><span class="teaching-icon"><i class="fa fa-book"></i></span><div><h3><span class="lang-en">Teaching</span><span class="lang-ko">교육</span><span class="lang-ja">教育</span><span class="lang-ch">教学</span></h3><p><span class="lang-en">Undergraduate computing and cybersecurity courses.</span><span class="lang-ko">컴퓨팅 및 사이버보안 학부 과목.</span><span class="lang-ja">コンピューティングとサイバーセキュリティの学部科目。</span><span class="lang-ch">计算与网络安全本科课程。</span></p><div class="pill-row"><span>Biometrics</span><span>Cryptanalysis</span><span>Computer Architecture</span><span>Fundamentals in Academic Research</span></div></div></article>
+<article class="teaching-card"><span class="teaching-icon"><i class="fa fa-users"></i></span><div><h3><span class="lang-en">Supervision</span><span class="lang-ko">연구 지도</span><span class="lang-ja">研究指導</span><span class="lang-ch">研究指导</span></h3><p><span class="lang-en">Undergraduate and postgraduate research, final-year projects, and internships.</span><span class="lang-ko">학부·대학원 연구, 졸업 프로젝트 및 인턴십 지도.</span><span class="lang-ja">学部・大学院研究、卒業研究、インターンシップの指導。</span><span class="lang-ch">本科与研究生研究、毕业设计及实习指导。</span></p><div class="pill-row"><span>Biometric recognition</span><span>Computer vision</span><span>Multimodal domain alignment</span><span>Secure biometrics</span><span>Cybersecurity</span><span>Applied machine learning</span><span>Data science &amp; explainable AI</span></div></div></article>
+</div>
+</div>
+</section>
+<div class="site-section retained-section background-alt" id="experience">
+<h2 class="heading">
+<i class="fa fa-briefcase section-icon"></i>
+<span class="lang-en">Employment Experience</span>
+<span class="lang-ko" style="display:none;">경력</span>
+<span class="lang-ja" style="display:none;">職務経験</span>
+<span class="lang-ch" style="display:none;">工作经验</span>
+</h2>
+<p class="section-subtitle">
+<span class="lang-en">Academic, research, and industry roles across artificial intelligence, cybersecurity, software systems, and applied research.</span>
+<span class="lang-ko" style="display:none;">인공지능, 사이버보안, 소프트웨어 시스템 및 응용 연구와 관련된 학술, 연구 및 산업 경력입니다.</span>
+<span class="lang-ja" style="display:none;">人工知能、サイバーセキュリティ、ソフトウェアシステム、応用研究に関する学術・研究・産業経験です。</span>
+<span class="lang-ch" style="display:none;">涵盖人工智能、网络安全、软件系统与应用研究的学术、研究及产业经历。</span>
+</p>
+<div id="experience-timeline">
+<div class="experience-card-v4" data-date="February 2026 - Present" data-date-ch="2026年2月 - 至今" data-date-en="February 2026 - Present" data-date-ja="2026年2月 - 現在" data-date-ko="2026년 2월 - 현재"><div aria-hidden="false" class="employment-logo-placeholder"><img alt="Xiamen University Malaysia logo" loading="lazy" src="images/logos/xmum.png"/></div><div class="employment-content">
+<h3>
+<span class="lang-en">Xiamen University Malaysia</span>
+<span class="lang-ko" style="display:none;">샤먼대학교 말레이시아캠퍼스</span>
+<span class="lang-ja" style="display:none;">厦門大学マレーシア校</span>
+<span class="lang-ch" style="display:none;">厦门大学马来西亚分校</span>
+</h3>
+<h4>
+<span class="lang-en">Assistant Professor</span>
+<span class="lang-ko" style="display:none;">조교수</span>
+<span class="lang-ja" style="display:none;">助教</span>
+<span class="lang-ch" style="display:none;">助理教授</span>
+</h4>
+<li>
+<span class="lang-en">Teach undergraduate courses in computing and cybersecurity, including biometrics, cryptanalysis, computer architecture, and related technical modules.</span>
+<span class="lang-ko" style="display:none;">생체인식, 암호해석, 컴퓨터 구조 및 관련 기술 과목을 포함한 컴퓨팅 및 사이버보안 관련 학부 과목을 강의함.</span>
+<span class="lang-ja" style="display:none;">生体認証、暗号解読、コンピュータアーキテクチャ、および関連技術科目を含む、コンピューティングおよびサイバーセキュリティ関連の学部科目を担当。</span>
+<span class="lang-ch" style="display:none;">教授计算与网络安全相关本科课程，包括生物识别、密码分析、计算机体系结构及相关技术模块。</span>
+</li>
+<li>
+<span class="lang-en">Supervise undergraduate research projects, final-year projects, and internship students in AI, computer vision, cybersecurity, and software development topics.</span>
+<span class="lang-ko" style="display:none;">인공지능, 컴퓨터 비전, 사이버보안 및 소프트웨어 개발 주제의 학부 연구 프로젝트, 졸업 프로젝트 및 인턴십 학생을 지도함.</span>
+<span class="lang-ja" style="display:none;">人工知能、コンピュータビジョン、サイバーセキュリティ、ソフトウェア開発に関する学部研究、卒業研究、およびインターンシップ学生を指導。</span>
+<span class="lang-ch" style="display:none;">指导人工智能、计算机视觉、网络安全及软件开发相关的本科研究项目、毕业设计项目和实习学生。</span>
+</li>
+<li>
+<span class="lang-en">Contribute to academic administration, assessment preparation, curriculum support, student mentoring, and research grant development.</span>
+<span class="lang-ko" style="display:none;">학사 행정, 평가 자료 준비, 교육과정 지원, 학생 멘토링 및 연구 과제 개발에 기여함.</span>
+<span class="lang-ja" style="display:none;">学務運営、評価資料の作成、カリキュラム支援、学生メンタリング、および研究助成申請の準備に貢献。</span>
+<span class="lang-ch" style="display:none;">参与学术行政、评估材料准备、课程支持、学生指导及研究基金申请工作。</span>
+</li>
+<p></p>
+</div></div>
+<div class="experience-card-v4" data-date="April 2025 - December 2025" data-date-ch="2025年4月 - 2025年12月" data-date-en="April 2025 - December 2025" data-date-ja="2025年4月 - 2025年12月" data-date-ko="2025년 4월 - 2025년 12월"><div aria-hidden="false" class="employment-logo-placeholder"><img alt="INSUNET FC logo, parent company of Placa Inc." loading="lazy" src="images/logos/placa.png"/></div><div class="employment-content">
+<h3>주식회사 플라카 (Placa Inc.)</h3>
+<p class="company-parent-note">
+<span class="lang-en">Subsidiary of INSUNET FC</span>
+<span class="lang-ko" style="display:none;">INSUNET FC 자회사</span>
+<span class="lang-ja" style="display:none;">INSUNET FC の子会社</span>
+<span class="lang-ch" style="display:none;">INSUNET FC 旗下子公司</span>
+</p>
+<h4>
+<span class="lang-en">AI and Software Technology Development Engineer</span>
+<span class="lang-ko" style="display:none;">AI 및 소프트웨어 기술 개발 엔지니어</span>
+<span class="lang-ja" style="display:none;">AI・ソフトウェア技術開発エンジニア</span>
+<span class="lang-ch" style="display:none;">AI 与软件技术开发工程师</span>
+</h4>
+<li>
+<span class="lang-en">Architected and deployed an Amazon Connect + Lex V2 (ko_KR) automated call system integrating Lambda, S3, DynamoDB, and CloudWatch, enabling real-time utterance capture, AI-powered response handling, and natural conversational flows for Korean-speaking users.</span>
+<span class="lang-ko" style="display:none;">Lambda, S3, DynamoDB, CloudWatch를 통합한 Amazon Connect + Lex V2(ko_KR) 자동화 콜 시스템을 구축하여 실시간 발화 캡처, AI 기반 응답 처리, 자연스러운 한국어 대화 흐름을 구현함.</span>
+<span class="lang-ja" style="display:none;">Lambda，S3，DynamoDB，CloudWatch を統合した Amazon Connect + Lex V2（ko_KR）自動通話システムを構築し、リアルタイム発話取得、AI応答処理、自然な韓国語会話フローを実現。</span>
+<span class="lang-ch" style="display:none;">构建并部署基于 Amazon Connect + Lex V2（ko_KR）的自动化呼叫系统，整合 Lambda、S3、DynamoDB、CloudWatch，实现实时语音捕获、AI 驱动响应处理，以及自然的韩语对话流程。</span>
+</li>
+<li>
+<span class="lang-en">Built and adapted TTS pipelines using FishSpeech, OpenVoice, ElevenLabs, XTTS, and VALL-E for Korean voice generation.</span>
+<span class="lang-ko" style="display:none;">FishSpeech, OpenVoice, ElevenLabs, XTTS, VALL-E를 활용하여 한국어 음성 생성을 위한 TTS 파이프라인을 구축·개선함.</span>
+<span class="lang-ja" style="display:none;">FishSpeech、OpenVoice、ElevenLabs、XTTS、VALL-E を用いて、韓国語音声生成向けの TTS パイプラインを構築・改良。</span>
+<span class="lang-ch" style="display:none;">使用 FishSpeech、OpenVoice、ElevenLabs、XTTS 和 VALL-E 构建并改进韩语语音生成 TTS 管线。</span>
+</li>
+<li>
+<span class="lang-en">Fine-tuned an insurance-domain Korean chatbot with intent classification, retrieval-augmented generation, and evaluation tooling.</span>
+<span class="lang-ko" style="display:none;">의도 분류, 검색 증강 생성(RAG), 평가 도구를 포함한 보험 도메인 특화 한국어 챗봇을 파인튜닝함.</span>
+<span class="lang-ja" style="display:none;">意図分類、検索拡張生成（RAG）、評価ツールを含む、保険領域特化の韓国語チャットボットをファインチューニング。</span>
+<span class="lang-ch" style="display:none;">微调面向保险领域的韩语聊天机器人，涵盖意图分类、检索增强生成（RAG）和评估工具。</span>
+</li>
+<li>
+<span class="lang-en">Configured FreeSWITCH and SIP-based telephony workflows for RTC bridging, internal routing, and hybrid call automation.</span>
+<span class="lang-ko" style="display:none;">RTC 브리징, 내부 라우팅, 하이브리드 콜 자동화를 위한 FreeSWITCH 및 SIP 기반 통신 워크플로를 구성함.</span>
+<span class="lang-ja" style="display:none;">RTC ブリッジング、内部ルーティング、ハイブリッド通話自動化のために FreeSWITCH および SIP ベースの通信ワークフローを構成。</span>
+<span class="lang-ch" style="display:none;">配置基于 FreeSWITCH 和 SIP 的通信流程，以支持 RTC 桥接、内部路由和混合式通话自动化。</span>
+</li>
+<p></p>
+</div></div>
+<div class="experience-card-v4" data-date="September 2017 - December 2017" data-date-ch="2017年9月 - 2017年12月" data-date-en="September 2017 - December 2017" data-date-ja="2017年9月 - 2017年12月" data-date-ko="2017년 9월 - 2017년 12월"><div aria-hidden="false" class="employment-logo-placeholder"><img alt="Hitachi eBworx logo" loading="lazy" src="images/logos/hitachi_ebworx.png"/></div><div class="employment-content">
+<h3>Hitachi Hokenso Sdn. Bhd.</h3>
+<h4>
+<span class="lang-en">Application Engineer</span>
+<span class="lang-ko" style="display:none;">애플리케이션 엔지니어</span>
+<span class="lang-ja" style="display:none;">アプリケーションエンジニア</span>
+<span class="lang-ch" style="display:none;">应用工程师</span>
+</h4>
+<li>
+<span class="lang-en">Maintained and deployed enterprise-grade backend systems using the Java Spring Framework and Oracle WebLogic Server.</span>
+<span class="lang-ko" style="display:none;">Java Spring Framework와 Oracle WebLogic Server를 사용하여 기업용 백엔드 시스템을 유지 및 배포함.</span>
+<span class="lang-ja" style="display:none;">Java Spring FrameworkとOracle WebLogic Serverを使用して、エンタープライズグレードのバックエンドシステムを保守・展開。</span>
+<span class="lang-ch" style="display:none;">使用Java Spring框架和Oracle WebLogic Server维护和部署企业级后端系统。</span> </li>
+<li>
+<span class="lang-en">Designed SQL stored procedures and generated operational reports via Jasper Framework.</span>
+<span class="lang-ko" style="display:none;">SQL 저장 프로시저를 설계하고 Jasper Framework를 통해 운영 보고서를 생성함.</span>
+<span class="lang-ja" style="display:none;">SQLストアドプロシージャを設計し、Jasper Frameworkを介して運用レポートを生成。</span>
+<span class="lang-ch" style="display:none;">设计SQL存储过程，并通过Jasper框架生成运营报告。</span> </li>
+<li>
+<span class="lang-en">Applied version control and collaborative development using Git for backend modules.</span>
+<span class="lang-ko" style="display:none;">백엔드 모듈을 위해 Git을 사용하여 버전 관리 및 협업 개발을 수행함.</span>
+<span class="lang-ja" style="display:none;">バックエンドモジュールのためにGitを使用してバージョン管理と共同開発を適用。</span>
+<span class="lang-ch" style="display:none;">对后端模块使用Git进行版本控制和协作开发。</span> </li>
+<p></p>
+</div></div>
+<div class="experience-card-v4" data-date="September 2016 - August 2017" data-date-ch="2016年9月 - 2017年08月" data-date-en="September 2016 - August 2017" data-date-ja="2016年9月 - 2017年08月" data-date-ko="2016년 9월 - 2017년 08월"><div aria-hidden="false" class="employment-logo-placeholder"><img alt="Multimedia University logo" loading="lazy" src="images/logos/mmu.png"/></div><div class="employment-content">
+<h3>
+<span class="lang-en">Multimedia University</span>
+<span class="lang-ko" style="display:none;">멀티미디어대학교</span>
+<span class="lang-ja" style="display:none;">マルチメディア大学</span>
+<span class="lang-ch" style="display:none;">多媒体大学</span>
+</h3>
+<h4>
+<span class="lang-en">Research Assistant</span>
+<span class="lang-ko" style="display:none;">연구조교</span>
+<span class="lang-ja" style="display:none;">リサーチアシスタント</span>
+<span class="lang-ch" style="display:none;">研究助理</span>
+</h4>
+<li>
+<span class="lang-en">Conducted academic research on digital signature schemes and provable security, with a focus on tight reduction techniques.</span>
+<span class="lang-ko" style="display:none;">디지털 서명 스킴과 증명 가능한 보안에 대한 학술 연구를 수행했으며, 특히 타이트 리덕션 기법에 중점을 둠.</span>
+<span class="lang-ja" style="display:none;">デジタル署名スキームと証明可能なセキュリティに関する学術研究を実施し、特にタイトな削減技術に焦点を当てた。</span>
+<span class="lang-ch" style="display:none;">进行数字签名方案和可证明安全性方面的学术研究，重点关注紧密归约技术。</span> </li>
+<li>
+<span class="lang-en">Assisted in formalizing authentication protocols suitable for privacy-preserving or safety-critical systems, contributing to publication-oriented cryptographic analysis.</span>
+<span class="lang-ko" style="display:none;">프라이버시 보호 또는 안전이 중요한 시스템에 적합한 인증 프로토콜을 공식화하는 데 기여하며, 학술 논문 중심의 암호 분석에 기여함.</span>
+<span class="lang-ja" style="display:none;">プライバシー保護または安全性が重要なシステムに適した認証プロトコルの形式化を支援し、出版志向の暗号解析に貢献。</span>
+<span class="lang-ch" style="display:none;">协助形式化适用于隐私保护或安全关键系统的认证协议，为面向出版的密码分析做出贡献。</span> </li>
+</div></div>
+<div class="experience-card-v4" data-date="March 2015 - May 2015" data-date-ch="2015年3月 - 2015年05月" data-date-en="March 2015 - May 2015" data-date-ja="2015年3月 - 2015年05月" data-date-ko="2015년 3월 - 2015년 05월"><div aria-hidden="false" class="employment-logo-placeholder"><img alt="NetEon logo" loading="lazy" src="images/logos/neteon.png"/></div><div class="employment-content">
+<h3>NetEon Sdn. Bhd.</h3>
+<h4>
+<span class="lang-en">Technical Assistant (Internship)</span>
+<span class="lang-ko" style="display:none;">기술 보조 인턴</span>
+<span class="lang-ja" style="display:none;">技術アシスタント（インターンシップ）</span>
+<span class="lang-ch" style="display:none;">技术助理（实习）</span>
+</h4>
+<li>
+<span class="lang-en">Learnt  how  to  interface  computer  hardware for industrial purposes, such as soldering and adding components in circuit boards and also configuring radio antennas.</span>
+<span class="lang-ko" style="display:none;">산업용으로 컴퓨터 하드웨어를 인터페이스하는 방법을 학습함 (예: 회로 기판 납땜, 부품 추가, 무선 안테나 구성 등).</span>
+<span class="lang-ja" style="display:none;">工業目的でのコンピュータハードウェアのインターフェース方法を習得（例：回路基板のはんだ付け、部品追加、無線アンテナの設定など）。</span>
+<span class="lang-ch" style="display:none;">学习了如何为工业目的连接计算机硬件，例如在电路板上焊接和添加组件，以及配置无线电天线。</span>
+</li>
+</div></div>
+</div>
+</div>
+<div class="site-section retained-section" id="education">
+<h2 class="heading">
+<i class="fa fa-graduation-cap section-icon"></i>
+<span class="lang-en">Education</span>
+<span class="lang-ko" style="display:none;">학력</span>
+<span class="lang-ja" style="display:none;">学歴</span>
+<span class="lang-ch" style="display:none;">教育背景</span>
+</h2>
+<p class="section-subtitle">
+<span class="lang-en">My academic training and research foundations in engineering, biometrics, and cryptographic security.</span>
+<span class="lang-ko" style="display:none;">공학, 생체인식 및 암호 보안 분야에서의 학문적 배경과 연구 기반입니다.</span>
+<span class="lang-ja" style="display:none;">工学、生体認証、暗号セキュリティにおける学術的訓練と研究基盤です。</span>
+<span class="lang-ch" style="display:none;">我在工程、生物识别与密码安全领域的学术训练和研究基础。</span>
+</p>
+<div class="education-block education-card-v5"><div class="education-logo-placeholder"><img alt="Yonsei University logo" loading="lazy" src="images/logos/yonsei.png"/></div><div class="education-content">
+<h3>
+<span class="lang-en">Yonsei University</span>
+<span class="lang-ko" style="display:none;">연세대학교</span>
+<span class="lang-ja" style="display:none;">延世大学</span>
+<span class="lang-ch" style="display:none;">延世大学</span>
+</h3>
+<h4>Doctorate of Engineering</h4>
+<span class="education-date">2020 - 2025</span>
+<p>
+<span class="lang-en">On the Realization of Conditional Periocular-Face Biometrics for Flexible Deployment</span>
+<span class="lang-ko" style="display:none; text-align:left;">유연한 배포를 위한 조건부 눈 주위-얼굴 생체인식의 구현</span>
+<span class="lang-ja" style="display:none; text-align:left;">柔軟な展開のための条件付き眼周囲・顔生体認証の実現</span>
+<span class="lang-ch" style="display:none; text-align:left;">条件性眼周面部生物识别在灵活部署中的实现</span> </p>
+</div></div>
+<div class="education-block education-card-v5"><div class="education-logo-placeholder"><img alt="Multimedia University logo" loading="lazy" src="images/logos/mmu.png"/></div><div class="education-content">
+<h3>
+<span class="lang-en">Multimedia University</span>
+<span class="lang-ko" style="display:none;">멀티미디어대학교</span>
+<span class="lang-ja" style="display:none;">マルチメディア大学</span>
+<span class="lang-ch" style="display:none;">多媒体大学</span>
+</h3>
+<h4>Master of Science in Information Technology</h4>
+<span class="education-date">2016 - 2019</span>
+<p>
+<span class="lang-en">Design of Tight Security Reduction for Signature Schemes</span>
+<span class="lang-ko" style="display:none; text-align:left;">서명 스킴을 위한 타이트 보안 리덕션 설계</span>
+<span class="lang-ja" style="display:none; text-align:left;">署名スキームにおけるタイトなセキュリティ削減の設計</span>
+<span class="lang-ch" style="display:none; text-align:left;">签名方案的紧密安全归约设计</span> </p>
+</div></div>
+<div class="education-block education-card-v5"><div class="education-logo-placeholder"><img alt="Multimedia University logo" loading="lazy" src="images/logos/mmu.png"/></div><div class="education-content">
+<h3>
+<span class="lang-en">Multimedia University</span>
+<span class="lang-ko" style="display:none;">멀티미디어대학교</span>
+<span class="lang-ja" style="display:none;">マルチメディア大学</span>
+<span class="lang-ch" style="display:none;">多媒体大学</span>
+</h3>
+<h4>Bachelor of Engineering (Hons.) Electronics Majoring in Computer</h4>
+<span class="education-date">2012 - 2016</span>
+<p>
+<span class="lang-en">Secure Digital Medical Certificate System: Identity-Based Signatures</span>
+<span class="lang-ko" style="display:none;">안전한 디지털 진단서 시스템: ID 기반 서명</span>
+<span class="lang-ja" style="display:none;">安全なデジタル医療証明書システム：IDベース署名</span>
+<span class="lang-ch" style="display:none;">安全数字医疗证明系统：基于身份的签名</span> </p>
+</div></div>
+</div>
+<section class="site-section methods-section background-alt" id="methods">
+<div class="section-shell">
+<div class="section-title-row">
+<div><p class="section-kicker"><span class="lang-en">Methods &amp; tools</span><span class="lang-ko">방법론 및 도구</span><span class="lang-ja">手法・ツール</span><span class="lang-ch">方法与工具</span></p><h2><i aria-hidden="true" class="fa-solid fa-gears section-title-icon"></i><span class="lang-en">Methods, frameworks, and research practice</span><span class="lang-ko">연구 방법, 프레임워크 및 실무 도구</span><span class="lang-ja">研究手法・フレームワーク・実務ツール</span><span class="lang-ch">研究方法、框架与实践工具</span></h2></div>
+</div>
+<div class="methods-grid">
 
-		<div id="lead">
-			<div id="lead-content">
-				<h1>
-          <span class="lang-en">Tiong-Sik Ng</span>
-          <span class="lang-ko">황충식</span>
-          <span class="lang-ja">ン・ティオング・シーク</span>
-          <span class="lang-ch" style="display:none;">黄忠植</span> </h1>
-				<h2 class="lead-subtitle">
-          <span class="lang-en">Assistant Professor | Artificial Intelligence, Biometrics, Computer Vision, Cryptography, Secure Machine Learning</span>
-          <span class="lang-ko" style="display:none;">조교수 | 인공지능, 생체인식, 컴퓨터 비전, 암호학, 보안 머신러닝</span>
-          <span class="lang-ja" style="display:none;">助教 | 人工知能、生体認証、コンピュータビジョン、暗号学、セキュア機械学習</span>
-          <span class="lang-ch" style="display:none;">助理教授 | 人工智能、生物识别、计算机视觉、密码学、安全机器学习</span>
-        </h2>
+  <!-- Methods -->
+  <article class="method-card">
+    <span class="method-icon"><i class="fa fa-cogs"></i></span>
 
-        <div class="lead-social">
-          <a href="https://github.com/tiongsikng/" target="_blank">
-            <i aria-hidden="true" class="fa fa-github" style="color:gray"></i>
-          </a>
-          <a href="https://scholar.google.com/citations?user=oT2_EAEAAAAJ&amp;hl=en/" target="_blank">
-            <i aria-hidden="true" class="fa-brands fa-google-scholar" style="color:skyblue"></i>
-          </a>
-          <a href="https://orcid.org/0000-0001-7248-3935/" target="_blank">
-            <i aria-hidden="true" class="fa-brands fa-orcid" style="color:lawngreen"></i>
-          </a>
-          <a href="https://www.researchgate.net/profile/Tiong_Sik_Ng/" target="_blank">
-            <i aria-hidden="true" class="fa-brands fa-researchgate" style="color:turquoise"></i>
-          </a>
-          <a href="https://www.linkedin.com/in/tiong-sik-ng-521031145/" target="_blank">
-            <i aria-hidden="true" class="fa-brands fa-linkedin" style="color:#228dda"></i>
-          </a>
-        </div>
-				<ul>
-				</ul>
-				<a class="btn-rounded-black" download="curriculum_vitae.pdf" href="files/Resume_CV.pdf">Curriculum Vitae</a>
-			</div>
+    <div class="method-copy">
+      <h3>
+        <span class="lang-en">Methods</span>
+        <span class="lang-ko">연구 방법</span>
+        <span class="lang-ja">研究手法</span>
+        <span class="lang-ch">研究方法</span>
+      </h3>
 
-			<div id="lead-overlay"></div>
-			<div id="lead-down">
-				<span>
-					<i aria-hidden="true" class="fa fa-chevron-down"></i>
-				</span>
-			</div>
-
-			</div>
-
-		<div id="about">
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-4">
-						<h2 class="heading">
-              <i class="fa fa-user section-icon"></i>
-							<span class="lang-en">About Me</span>
-							<span class="lang-ko" style="display:none;">소개</span>
-              <span class="lang-ja" style="display:none;">自己紹介</span>
-              <span class="lang-ch" style="display:none;">关于我</span> </h2>
-					</div>
-					<div class="col-sm-8">
-            <p> </p> 
-            <li id="dateItem"> 
-              <span class="lang-en">Last Updated:</span> 
-              <span class="lang-ko" style="display:none;">최종 업데이트:</span> 
-              <span class="lang-ja" style="display:none;">最終更新日：</span> 
-              <span class="lang-ch" style="display:none;">最后更新：</span> 
-              <span class="date lang-en"></span> 
-              <span class="date lang-ko" style="display:none;"></span> 
-              <span class="date lang-ja" style="display:none;"></span> 
-              <span class="date lang-ch" style="display:none;"></span> </li>
-						<p>
-              <li> 
-                <span class="lang-en"> I am an Assistant Professor at Xiamen University Malaysia, working in the areas of artificial intelligence, biometrics, computer vision, and secure machine learning. My research focuses on flexible and privacy-aware biometric recognition, particularly systems that remain reliable under practical conditions such as occlusion, modality mismatch, low image quality, and deployment constraints. The biometric modalities include, but are not limited to, face and periocular biometrics.
-                </span> 
-                <span class="lang-ko" style="display:none;"> 저는 샤먼대학교 말레이시아캠퍼스의 조교수로, 인공지능, 생체인식, 컴퓨터 비전 및 보안 머신러닝 분야에서 연구하고 있습니다. 제 연구는 유연하고 개인정보 보호를 고려한 생체인식에 중점을 두며, 특히 가림, 모달리티 불일치, 낮은 영상 품질, 실제 배포 환경의 제약과 같은 practical한 조건에서도 안정적으로 동작하는 시스템을 목표로 합니다. 연구 대상 생체 모달리티는 얼굴과 눈 주위 생체인식을 포함하지만, 이에 한정되지는 않습니다. 
-                </span> 
-                <span class="lang-ja" style="display:none;"> 私は厦門大学マレーシア校の助教として、人工知能、生体認証、コンピュータビジョン、セキュア機械学習の分野に取り組んでいます。研究の中心は、柔軟性とプライバシー保護を考慮した生体認証であり、特に遮蔽、モダリティの不一致、低画質、実環境での展開制約といった条件下でも安定して機能するシステムに関心があります。対象とする生体モダリティには、顔および眼周囲領域が含まれますが、それらに限定されません。
-                </span> 
-                <span class="lang-ch" style="display:none;"> 我是厦门大学马来西亚分校的助理教授，研究领域包括人工智能、生物识别、计算机视觉和安全机器学习。我的研究主要关注灵活且注重隐私保护的生物识别方法，尤其是能够在遮挡、模态不匹配、图像质量较低以及实际部署限制等条件下保持可靠性的系统。涉及的生物识别模态包括但不限于人脸和眼周区域。
-                </span> 
-              </li>
-            </p>
-            <p>
-              <li>
-                <span class="lang-en"> I received my Doctorate in Engineering from Yonsei University, where my doctoral research investigated conditional periocular-face biometrics for flexible deployment. My broader research interests include deep representation learning, biometric template protection, multimodal learning, and the security aspects of AI-enabled recognition systems.
-                </span> 
-                <span class="lang-ko" style="display:none;"> 저는 연세대학교에서 공학 박사 학위를 받았으며, 박사과정 연구에서는 유연한 배포를 위한 조건부 눈 주위-얼굴 생체인식에 대해 연구했습니다. 보다 넓은 연구 관심사는 딥 표현 학습, 생체 템플릿 보호, 멀티모달 학습, 그리고 AI 기반 인식 시스템의 보안 측면을 포함합니다.  
-                </span> 
-                <span class="lang-ja" style="display:none;"> 延世大学校にて工学博士号を取得し、博士研究では柔軟な展開を目的とした条件付き眼周囲・顔生体認証について研究しました。より広い研究関心には、深層表現学習、生体テンプレート保護、マルチモーダル学習、およびAIを用いた認識システムのセキュリティが含まれます。 
-                </span> 
-                <span class="lang-ch" style="display:none;"> 我在延世大学获得工学博士学位，博士研究主要探讨面向灵活部署的条件性眼周-人脸生物识别。我的 broader 研究兴趣包括深度表征学习、生物模板保护、多模态学习，以及 AI 识别系统中的安全性问题。
-                </span> 
-              </li>
-            </p> 
-            <p> 
-              <li>
-                <span class="lang-en"> Alongside research, I teach and supervise undergraduate students in computing and cybersecurity-related areas, including biometrics, cryptanalysis, computer architecture, and AI-based research projects. 
-                </span> 
-                <span class="lang-ko" style="display:none;"> 연구와 함께, 저는 생체인식, 암호해석, 컴퓨터 구조, AI 기반 연구 프로젝트 등 컴퓨팅 및 사이버보안 관련 분야에서 학부생을 가르치고 지도하고 있습니다. 
-                </span> 
-                <span class="lang-ja" style="display:none;"> 研究に加えて、生体認証、暗号解読、コンピュータアーキテクチャ、AIを用いた研究プロジェクトなど、コンピューティングおよびサイバーセキュリティ関連分野で学部生の教育と指導を行っています。
-                </span> 
-                <span class="lang-ch" style="display:none;"> 除了研究之外，我也负责计算与网络安全相关领域的本科教学与学生指导，包括生物识别、密码分析、计算机体系结构，以及基于 AI 的研究项目。 
-                </span> 
-              </li>
-            </p>
-
-            <h3>
-              <span class="lang-en">Research Interests</span>
-              <span class="lang-ko" style="display:none;">연구 관심 분야</span>
-              <span class="lang-ja" style="display:none;">研究関心</span>
-              <span class="lang-ch" style="display:none;">研究兴趣</span>
-            </h3>
-
-            <div class="research-tags"> 
-              <span> 
-                <span class="lang-en">Flexible Biometric Recognition</span> 
-                <span class="lang-ko" style="display:none;">유연한 생체인식</span> <span class="lang-ja" style="display:none;">柔軟な生体認証</span> <span class="lang-ch" style="display:none;">灵活生物识别</span> 
-              </span> 
-              <span> 
-                <span class="lang-en">Secure Biometric Template Protection</span> <span class="lang-ko" style="display:none;">안전한 생체 템플릿 보호</span> 
-                <span class="lang-ja" style="display:none;">安全な生体テンプレート保護</span> 
-                <span class="lang-ch" style="display:none;">安全生物模板保护</span> 
-              </span> 
-              <span> 
-                <span class="lang-en">Multimodal Learning</span> 
-                <span class="lang-ko" style="display:none;">멀티모달 학습</span> <span class="lang-ja" style="display:none;">マルチモーダル学習</span> 
-                <span class="lang-ch" style="display:none;">多模态学习</span> 
-              </span> 
-              <span> 
-                <span class="lang-en">Cryptography and Provable Security</span> <span class="lang-ko" style="display:none;">암호학 및 증명 가능한 보안</span> 
-                <span class="lang-ja" style="display:none;">暗号学と証明可能安全性</span> 
-                <span class="lang-ch" style="display:none;">密码学与可证明安全性</span> 
-              </span> 
-            </div>
-
-            <h3> 
-              <span class="lang-en">Latest News</span> 
-              <span class="lang-ko" style="display:none;">최근 소식</span> 
-              <span class="lang-ja" style="display:none;">最新情報</span> 
-              <span class="lang-ch" style="display:none;">最新动态</span> 
-            </h3> 
-            <ul class="latest-news"> 
-              <li> 
-                <span class="lang-en"><strong>2026</strong> — Published a survey on flexible and secure biometrics in <em>Information Fusion</em>.</span> 
-                <span class="lang-ko" style="display:none;"><strong>2026</strong> — 유연하고 안전한 생체인식에 관한 survey 논문을 <em>Information Fusion</em>에 게재.</span> 
-                <span class="lang-ja" style="display:none;"><strong>2026</strong> — 柔軟かつ安全な生体認証に関するサーベイ論文を <em>Information Fusion</em> に掲載。</span> 
-                <span class="lang-ch" style="display:none;"><strong>2026</strong> — 在 <em>Information Fusion</em> 发表关于灵活与安全生物识别的综述论文。</span> 
-              </li> 
-              <li> 
-                <span class="lang-en"><strong>2026</strong> — Joined Xiamen University Malaysia as an Assistant Professor.</span> 
-                <span class="lang-ko" style="display:none;"><strong>2026</strong> — 샤먼대학교 말레이시아캠퍼스 조교수로 부임.</span> 
-                <span class="lang-ja" style="display:none;"><strong>2026</strong> — 厦門大学マレーシア校に助教として着任。</span> 
-                <span class="lang-ch" style="display:none;"><strong>2026</strong> — 加入厦门大学马来西亚分校，担任助理教授。</span> 
-              </li> 
-              <li> 
-                <span class="lang-en"><strong>2025</strong> — Joined Placa Inc. as AI and Software Technology Development Engineer.</span> 
-                <span class="lang-ko" style="display:none;"><strong>2025</strong> — 주식회사 플라카에 AI 및 소프트웨어 기술 개발 엔지니어로 합류.</span> 
-                <span class="lang-ja" style="display:none;"><strong>2025</strong> — Placa Inc. にAI・ソフトウェア技術開発エンジニアとして入社。</span> 
-                <span class="lang-ch" style="display:none;"><strong>2025</strong> — 加入 Placa Inc.，担任 AI 与软件技术开发工程师。</span> 
-              </li> 
-              <li> 
-                <span class="lang-en"><strong>2025</strong> — Published work on flexible secure biometric recognition in <em>IEEE Transactions on Information Forensics and Security</em>.</span> 
-                <span class="lang-ko" style="display:none;"><strong>2025</strong> — 유연하고 안전한 생체인식에 관한 연구를 <em>IEEE Transactions on Information Forensics and Security</em>에 게재.</span> 
-                <span class="lang-ja" style="display:none;"><strong>2025</strong> — 柔軟で安全な生体認証に関する研究を <em>IEEE Transactions on Information Forensics and Security</em> に掲載。</span> 
-                <span class="lang-ch" style="display:none;"><strong>2025</strong> — 在 <em>IEEE Transactions on Information Forensics and Security</em> 发表关于灵活安全生物识别的研究。</span> 
-              </li> 
-              <li> 
-                <span class="lang-en"><strong>2025</strong> — Graduated from Yonsei University.</span> 
-                <span class="lang-ko" style="display:none;"><strong>2025</strong> — 연세대학교 박사과정을 졸업.</span> 
-                <span class="lang-ja" style="display:none;"><strong>2025</strong> — 延世大学校を卒業。</span> 
-                <span class="lang-ch" style="display:none;"><strong>2025</strong> — 毕业于延世大学。</span> 
-              </li> 
-            </ul>
-
-						<script>
-            fetch("https://api.github.com/repos/tiongsikng/tiongsikng.github.io/commits?path=index.html")
-              .then(response => response.json())
-              .then(data => {
-                const lastCommit = data[0].commit.author.date;
-                const dateObj = new Date(lastCommit);
-
-                // Format YYYY.MM.DD for multi-language
-                const year = dateObj.getFullYear();
-                const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-                const day = String(dateObj.getDate()).padStart(2, '0');
-
-                const weekdaysEn = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-                const weekdaysKo = ['일','월','화','수','목','금','토'];
-                const weekdaysJa = ['日','月','火','水','木','金','土'];
-                const weekdaysCh = ['日','一','二','三','四','五','六'];
-
-                const wd = dateObj.getDay();
-
-                document.querySelector('.date.lang-en').textContent =
-                  `${year}.${month}.${day} (${weekdaysEn[wd]})`;
-
-                document.querySelector('.date.lang-ko').textContent =
-                  `${year}년 ${month}월 ${day}일 (${weekdaysKo[wd]})`;
-
-                document.querySelector('.date.lang-ja').textContent =
-                  `${year}年${month}月${day}日（${weekdaysJa[wd]}）`;
-
-                document.querySelector('.date.lang-ch').textContent =
-                  `${year}年${month}月${day}日 (星期${weekdaysCh[wd]})`;
-              })
-              .catch(err => console.error("GitHub API error:", err));
-            </script>
-
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="background-alt" id="experience">
-			<h2 class="heading">
-        <i class="fa fa-briefcase section-icon"></i>
-				<span class="lang-en">Employment Experience</span>
-        <span class="lang-ko" style="display:none;">경력</span>
-        <span class="lang-ja" style="display:none;">職務経験</span>
-        <span class="lang-ch" style="display:none;">工作经验</span> 
-      </h2>
-        <p class="section-subtitle">
-          <span class="lang-en">Academic, research, and industry roles across artificial intelligence, cybersecurity, software systems, and applied research.</span>
-          <span class="lang-ko" style="display:none;">인공지능, 사이버보안, 소프트웨어 시스템 및 응용 연구와 관련된 학술, 연구 및 산업 경력입니다.</span>
-          <span class="lang-ja" style="display:none;">人工知能、サイバーセキュリティ、ソフトウェアシステム、応用研究に関する学術・研究・産業経験です。</span>
-          <span class="lang-ch" style="display:none;">涵盖人工智能、网络安全、软件系统与应用研究的学术、研究及产业经历。</span>
-        </p>
-			<div id="experience-timeline">
-        <div
-          data-date="February 2026 - Present"
-          data-date-en="February 2026 - Present"
-          data-date-ko="2026년 2월 - 현재"
-          data-date-ja="2026年2月 - 現在"
-          data-date-ch="2026年2月 - 至今"
-        >
-          <h3>Xiamen University</h3>
-          <h4> 
-            <span class="lang-en">Assistant Professor</span> 
-            <span class="lang-ko" style="display:none;">조교수</span> 
-            <span class="lang-ja" style="display:none;">助教</span> 
-            <span class="lang-ch" style="display:none;">助理教授</span> 
-          </h4>
-          <li>
-            <span class="lang-en">Teach undergraduate courses in computing and cybersecurity, including biometrics, cryptanalysis, computer architecture, and related technical modules.</span>
-            <span class="lang-ko" style="display:none;">생체인식, 암호해석, 컴퓨터 구조 및 관련 기술 과목을 포함한 컴퓨팅 및 사이버보안 관련 학부 과목을 강의함.</span>
-            <span class="lang-ja" style="display:none;">生体認証、暗号解読、コンピュータアーキテクチャ、および関連技術科目を含む、コンピューティングおよびサイバーセキュリティ関連の学部科目を担当。</span>
-            <span class="lang-ch" style="display:none;">教授计算与网络安全相关本科课程，包括生物识别、密码分析、计算机体系结构及相关技术模块。</span>
-          </li>          
-          <li>
-            <span class="lang-en">Supervise undergraduate research projects, final-year projects, and internship students in AI, computer vision, cybersecurity, and software development topics.</span>
-            <span class="lang-ko" style="display:none;">인공지능, 컴퓨터 비전, 사이버보안 및 소프트웨어 개발 주제의 학부 연구 프로젝트, 졸업 프로젝트 및 인턴십 학생을 지도함.</span>
-            <span class="lang-ja" style="display:none;">人工知能、コンピュータビジョン、サイバーセキュリティ、ソフトウェア開発に関する学部研究、卒業研究、およびインターンシップ学生を指導。</span>
-            <span class="lang-ch" style="display:none;">指导人工智能、计算机视觉、网络安全及软件开发相关的本科研究项目、毕业设计项目和实习学生。</span>
-          </li>
-          <li>
-            <span class="lang-en">Contribute to academic administration, assessment preparation, curriculum support, student mentoring, and research grant development.</span>
-            <span class="lang-ko" style="display:none;">학사 행정, 평가 자료 준비, 교육과정 지원, 학생 멘토링 및 연구 과제 개발에 기여함.</span>
-            <span class="lang-ja" style="display:none;">学務運営、評価資料の作成、カリキュラム支援、学生メンタリング、および研究助成申請の準備に貢献。</span>
-            <span class="lang-ch" style="display:none;">参与学术行政、评估材料准备、课程支持、学生指导及研究基金申请工作。</span>
-          </li>
-          <p></p>
-        </div>
-        <div
-          data-date="April 2025 - December 2025"
-          data-date-en="April 2025 - December 2025"
-          data-date-ko="2025년 4월 - 2025년 12월"
-          data-date-ja="2025年4月 - 2025年12月"
-          data-date-ch="2025年4月 - 2025年12月"
-        >
-          <h3>주식회사 플라카 (Placa Inc.)</h3>
-          <h4> 
-            <span class="lang-en">AI and Software Technology Development Engineer</span> 
-            <span class="lang-ko" style="display:none;">AI 및 소프트웨어 기술 개발 엔지니어</span> 
-            <span class="lang-ja" style="display:none;">AI・ソフトウェア技術開発エンジニア</span> 
-            <span class="lang-ch" style="display:none;">AI 与软件技术开发工程师</span> 
-          </h4>
-          <li>
-            <span class="lang-en">Architected and deployed an Amazon Connect + Lex V2 (ko_KR) automated call system integrating Lambda, S3, DynamoDB, and CloudWatch, enabling real-time utterance capture, AI-powered response handling, and natural conversational flows for Korean-speaking users.</span>
-            <span class="lang-ko" style="display:none;">Lambda, S3, DynamoDB, CloudWatch를 통합한 Amazon Connect + Lex V2(ko_KR) 자동화 콜 시스템을 구축하여 실시간 발화 캡처, AI 기반 응답 처리, 자연스러운 한국어 대화 흐름을 구현함.</span>
-            <span class="lang-ja" style="display:none;">Lambda，S3，DynamoDB，CloudWatch を統合した Amazon Connect + Lex V2（ko_KR）自動通話システムを構築し、リアルタイム発話取得、AI応答処理、自然な韓国語会話フローを実現。</span>
-            <span class="lang-ch" style="display:none;">构建并部署基于 Amazon Connect + Lex V2（ko_KR）的自动化呼叫系统，整合 Lambda、S3、DynamoDB、CloudWatch，实现实时语音捕获、AI 驱动响应处理，以及自然的韩语对话流程。</span>
-          </li>
-          <li>
-            <span class="lang-en">Built and adapted TTS pipelines using FishSpeech, OpenVoice, ElevenLabs, XTTS, and VALL-E for Korean voice generation.</span>
-            <span class="lang-ko" style="display:none;">FishSpeech, OpenVoice, ElevenLabs, XTTS, VALL-E를 활용하여 한국어 음성 생성을 위한 TTS 파이프라인을 구축·개선함.</span>
-            <span class="lang-ja" style="display:none;">FishSpeech、OpenVoice、ElevenLabs、XTTS、VALL-E を用いて、韓国語音声生成向けの TTS パイプラインを構築・改良。</span>
-            <span class="lang-ch" style="display:none;">使用 FishSpeech、OpenVoice、ElevenLabs、XTTS 和 VALL-E 构建并改进韩语语音生成 TTS 管线。</span>
-          </li>
-          <li>
-            <span class="lang-en">Fine-tuned an insurance-domain Korean chatbot with intent classification, retrieval-augmented generation, and evaluation tooling.</span>
-            <span class="lang-ko" style="display:none;">의도 분류, 검색 증강 생성(RAG), 평가 도구를 포함한 보험 도메인 특화 한국어 챗봇을 파인튜닝함.</span>
-            <span class="lang-ja" style="display:none;">意図分類、検索拡張生成（RAG）、評価ツールを含む、保険領域特化の韓国語チャットボットをファインチューニング。</span>
-            <span class="lang-ch" style="display:none;">微调面向保险领域的韩语聊天机器人，涵盖意图分类、检索增强生成（RAG）和评估工具。</span>
-          </li>
-          <li>
-            <span class="lang-en">Configured FreeSWITCH and SIP-based telephony workflows for RTC bridging, internal routing, and hybrid call automation.</span>
-            <span class="lang-ko" style="display:none;">RTC 브리징, 내부 라우팅, 하이브리드 콜 자동화를 위한 FreeSWITCH 및 SIP 기반 통신 워크플로를 구성함.</span>
-            <span class="lang-ja" style="display:none;">RTC ブリッジング、内部ルーティング、ハイブリッド通話自動化のために FreeSWITCH および SIP ベースの通信ワークフローを構成。</span>
-            <span class="lang-ch" style="display:none;">配置基于 FreeSWITCH 和 SIP 的通信流程，以支持 RTC 桥接、内部路由和混合式通话自动化。</span>
-          </li>
-          <p></p>
-        </div>
-        
-				<div 
-          data-date="September 2017 - December 2017"
-          data-date-en="September 2017 - December 2017"
-          data-date-ko="2017년 9월 - 2017년 12월"
-          data-date-ja="2017年9月 - 2017年12月"
-          data-date-ch="2017年9月 - 2017年12月"
-        >
-          <h3>Hitachi Hokenso Sdn. Bhd.</h3>
-					<h4> 
-            <span class="lang-en">Application Engineer</span> 
-            <span class="lang-ko" style="display:none;">애플리케이션 엔지니어</span> 
-            <span class="lang-ja" style="display:none;">アプリケーションエンジニア</span> 
-            <span class="lang-ch" style="display:none;">应用工程师</span> 
-          </h4>
-					<li>
-						<span class="lang-en">Maintained and deployed enterprise-grade backend systems using the Java Spring Framework and Oracle WebLogic Server.</span>
-						<span class="lang-ko" style="display:none;">Java Spring Framework와 Oracle WebLogic Server를 사용하여 기업용 백엔드 시스템을 유지 및 배포함.</span>
-            <span class="lang-ja" style="display:none;">Java Spring FrameworkとOracle WebLogic Serverを使用して、エンタープライズグレードのバックエンドシステムを保守・展開。</span>
-            <span class="lang-ch" style="display:none;">使用Java Spring框架和Oracle WebLogic Server维护和部署企业级后端系统。</span> </li>
-					<li>
-						<span class="lang-en">Designed SQL stored procedures and generated operational reports via Jasper Framework.</span>
-						<span class="lang-ko" style="display:none;">SQL 저장 프로시저를 설계하고 Jasper Framework를 통해 운영 보고서를 생성함.</span>
-            <span class="lang-ja" style="display:none;">SQLストアドプロシージャを設計し、Jasper Frameworkを介して運用レポートを生成。</span>
-            <span class="lang-ch" style="display:none;">设计SQL存储过程，并通过Jasper框架生成运营报告。</span> </li>
-					<li>
-						<span class="lang-en">Applied version control and collaborative development using Git for backend modules.</span>
-						<span class="lang-ko" style="display:none;">백엔드 모듈을 위해 Git을 사용하여 버전 관리 및 협업 개발을 수행함.</span>
-            <span class="lang-ja" style="display:none;">バックエンドモジュールのためにGitを使用してバージョン管理と共同開発を適用。</span>
-            <span class="lang-ch" style="display:none;">对后端模块使用Git进行版本控制和协作开发。</span> </li>
-					<p></p>
-				</div>
-				<div 
-          data-date="September 2016 - August 2017"
-          data-date-en="September 2016 - August 2017"
-          data-date-ko="2016년 9월 - 2017년 08월"
-          data-date-ja="2016年9月 - 2017年08月"
-          data-date-ch="2016年9月 - 2017年08月"
-        >
-					<h3>Multimedia University</h3>
-					<h4> 
-            <span class="lang-en">Research Assistant</span> 
-            <span class="lang-ko" style="display:none;">연구조교</span> 
-            <span class="lang-ja" style="display:none;">リサーチアシスタント</span> 
-            <span class="lang-ch" style="display:none;">研究助理</span> 
-          </h4>
-					<li>
-						<span class="lang-en">Conducted academic research on digital signature schemes and provable security, with a focus on tight reduction techniques.</span>
-						<span class="lang-ko" style="display:none;">디지털 서명 스킴과 증명 가능한 보안에 대한 학술 연구를 수행했으며, 특히 타이트 리덕션 기법에 중점을 둠.</span>
-            <span class="lang-ja" style="display:none;">デジタル署名スキームと証明可能なセキュリティに関する学術研究を実施し、特にタイトな削減技術に焦点を当てた。</span>
-            <span class="lang-ch" style="display:none;">进行数字签名方案和可证明安全性方面的学术研究，重点关注紧密归约技术。</span> </li>
-					<li>
-						<span class="lang-en">Assisted in formalizing authentication protocols suitable for privacy-preserving or safety-critical systems, contributing to publication-oriented cryptographic analysis.</span>
-						<span class="lang-ko" style="display:none;">프라이버시 보호 또는 안전이 중요한 시스템에 적합한 인증 프로토콜을 공식화하는 데 기여하며, 학술 논문 중심의 암호 분석에 기여함.</span>
-            <span class="lang-ja" style="display:none;">プライバシー保護または安全性が重要なシステムに適した認証プロトコルの形式化を支援し、出版志向の暗号解析に貢献。</span>
-            <span class="lang-ch" style="display:none;">协助形式化适用于隐私保护或安全关键系统的认证协议，为面向出版的密码分析做出贡献。</span> </li>
-				</div>
-        <div 
-          data-date="March 2015 - May 2015"
-          data-date-en="March 2015 - May 2015"
-          data-date-ko="2015년 3월 - 2015년 05월"
-          data-date-ja="2015年3月 - 2015年05月"
-          data-date-ch="2015年3月 - 2015年05月"
-        >
-					<h3>NetEon Sdn. Bhd.</h3>
-					<h4> 
-            <span class="lang-en">Technical Assistant (Internship)</span> 
-            <span class="lang-ko" style="display:none;">기술 보조 인턴</span> 
-            <span class="lang-ja" style="display:none;">技術アシスタント（インターンシップ）</span> 
-            <span class="lang-ch" style="display:none;">技术助理（实习）</span> 
-          </h4>
-          <li>
-						<span class="lang-en">Learnt  how  to  interface  computer  hardware for industrial purposes, such as soldering and adding components in circuit boards and also configuring radio antennas.</span>
-						<span class="lang-ko" style="display:none;">산업용으로 컴퓨터 하드웨어를 인터페이스하는 방법을 학습함 (예: 회로 기판 납땜, 부품 추가, 무선 안테나 구성 등).</span>
-            <span class="lang-ja" style="display:none;">工業目的でのコンピュータハードウェアのインターフェース方法を習得（例：回路基板のはんだ付け、部品追加、無線アンテナの設定など）。</span>
-            <span class="lang-ch" style="display:none;">学习了如何为工业目的连接计算机硬件，例如在电路板上焊接和添加组件，以及配置无线电天线。</span> 
-          </li>
-				</div>
-			</div>
-		</div>
-
-		<div id="education">
-			<h2 class="heading">
-        <i class="fa fa-graduation-cap section-icon"></i>
-				<span class="lang-en">Education</span>
-				<span class="lang-ko" style="display:none;">학력</span>
-        <span class="lang-ja" style="display:none;">学歴</span>
-        <span class="lang-ch" style="display:none;">教育背景</span> 
-      </h2>
-      <p class="section-subtitle">
-        <span class="lang-en">My academic training and research foundations in engineering, biometrics, and cryptographic security.</span>
-        <span class="lang-ko" style="display:none;">공학, 생체인식 및 암호 보안 분야에서의 학문적 배경과 연구 기반입니다.</span>
-        <span class="lang-ja" style="display:none;">工学、生体認証、暗号セキュリティにおける学術的訓練と研究基盤です。</span>
-        <span class="lang-ch" style="display:none;">我在工程、生物识别与密码安全领域的学术训练和研究基础。</span>
+      <p class="method-note">
+        <span class="lang-en">Core techniques and research directions.</span>
+        <span class="lang-ko">주요 연구 기법 및 연구 방향.</span>
+        <span class="lang-ja">主要な研究手法および研究方向。</span>
+        <span class="lang-ch">主要研究方法与研究方向。</span>
       </p>
-			<div class="education-block">
-				<h3>Yonsei University</h3>
-				<span class="education-date">2020 - 2025</span>
-				<h4>Doctorate of Engineering</h4>
-				<p>
-					<span class="lang-en">On the Realization of Conditional Periocular-Face Biometrics for Flexible Deployment</span>
-					<span class="lang-ko" style="display:none; text-align:left;">유연한 배포를 위한 조건부 눈 주위-얼굴 생체인식의 구현</span>
-          <span class="lang-ja" style="display:none; text-align:left;">柔軟な展開のための条件付き眼周囲・顔生体認証の実現</span>
-          <span class="lang-ch" style="display:none; text-align:left;">条件性眼周面部生物识别在灵活部署中的实现</span> </p>
-			</div>
+    </div>
 
-			<div class="education-block">
-				<h3>Multimedia University</h3>
-				<span class="education-date">2016 - 2019</span>
-				<h4>Master of Science in Information Technology</h4>
-				<p>
-					<span class="lang-en">Design of Tight Security Reduction for Signature Schemes</span>
-					<span class="lang-ko" style="display:none; text-align:left;">서명 스킴을 위한 타이트 보안 리덕션 설계</span>
-          <span class="lang-ja" style="display:none; text-align:left;">署名スキームにおけるタイトなセキュリティ削減の設計</span>
-          <span class="lang-ch" style="display:none; text-align:left;">签名方案的紧密安全归约设计</span> </p>
-			</div>
+    <div class="pill-row">
+      <span class="lang-en">Deep Learning</span>
+      <span class="lang-ko">딥러닝</span>
+      <span class="lang-ja">深層学習</span>
+      <span class="lang-ch">深度学习</span>
 
-			<div class="education-block">
-				<h3>Multimedia University</h3>
-				<span class="education-date">2012 - 2016</span>
-				<h4>Bachelor of Engineering (Hons.) Electronics Majoring in Computer</h4>
-				<p>
-					<span class="lang-en">Secure Digital Medical Certificate System: Identity-Based Signatures</span>
-					<span class="lang-ko" style="display:none;">안전한 디지털 진단서 시스템: ID 기반 서명</span>
-          <span class="lang-ja" style="display:none;">安全なデジタル医療証明書システム：IDベース署名</span>
-          <span class="lang-ch" style="display:none;">安全数字医疗证明系统：基于身份的签名</span> </p>
-			</div>
+      <span class="lang-en">Representation Learning</span>
+      <span class="lang-ko">표현 학습</span>
+      <span class="lang-ja">表現学習</span>
+      <span class="lang-ch">表征学习</span>
 
-			</div>
+      <span class="lang-en">Multimodal Learning</span>
+      <span class="lang-ko">멀티모달 학습</span>
+      <span class="lang-ja">マルチモーダル学習</span>
+      <span class="lang-ch">多模态学习</span>
 
-		<div class="background-alt" id="projects">
-			<h2 class="heading">
-        <i class="fa fa-flask section-icon"></i>
-				<span class="lang-en">Projects</span>
-				<span class="lang-ko" style="display:none;">프로젝트</span>
-        <span class="lang-ja" style="display:none;">プロジェクト</span>
-        <span class="lang-ch" style="display:none;">项目</span> 
-      </h2>
-      <p class="section-subtitle">
-        <span class="lang-en">Selected research and development projects in biometrics, cryptography, AI systems, and secure applications.</span>
-        <span class="lang-ko" style="display:none;">생체인식, 암호학, AI 시스템 및 보안 응용 분야의 주요 연구·개발 프로젝트입니다.</span>
-        <span class="lang-ja" style="display:none;">生体認証、暗号学、AIシステム、セキュアアプリケーションに関する主な研究開発プロジェクトです。</span>
-        <span class="lang-ch" style="display:none;">生物识别、密码学、AI 系统与安全应用方面的代表性研究和开发项目。</span>
+      <span class="lang-en">Biometric Template Protection</span>
+      <span class="lang-ko">생체 템플릿 보호</span>
+      <span class="lang-ja">生体テンプレート保護</span>
+      <span class="lang-ch">生物特征模板保护</span>
+
+      <span class="lang-en">Cryptographic Provable Security</span>
+      <span class="lang-ko">암호학적 증명 가능 보안</span>
+      <span class="lang-ja">暗号学的証明可能安全性</span>
+      <span class="lang-ch">密码学可证明安全性</span>
+    </div>
+  </article>
+
+
+  <!-- Frameworks & Computing -->
+  <article class="method-card">
+    <span class="method-icon"><i class="fa fa-code"></i></span>
+
+    <div class="method-copy">
+      <h3>
+        <span class="lang-en">Frameworks &amp; Computing</span>
+        <span class="lang-ko">프레임워크 및 컴퓨팅</span>
+        <span class="lang-ja">フレームワーク・コンピューティング</span>
+        <span class="lang-ch">框架与计算工具</span>
+      </h3>
+
+      <p class="method-note">
+        <span class="lang-en">Libraries, frameworks, development, and computing tools.</span>
+        <span class="lang-ko">라이브러리, 프레임워크, 개발 및 컴퓨팅 도구.</span>
+        <span class="lang-ja">ライブラリ、フレームワーク、開発・コンピューティングツール。</span>
+        <span class="lang-ch">程序库、框架、开发与计算工具。</span>
       </p>
-			<div class="container">
-				<div class="row">
-					<div class="project shadow-large">
-						<div class="project-image">
-							<img src="images/doctorate_project.jpg">
-						</div>
+    </div>
 
-						<div class="project-info">
-							<h3>NRF Project (S. Korea): Multimodal Biometrics Conditioning and Data-driven Template Hashing (Member - Ph.D. Researcher)</h3>
-							<p>
-								<span class="lang-en">Researched deep learning-based face and periocular biometric recognition for flexible deployment under occlusion and cross-modality settings. Developed conditional embedding and biometric template protection methods for privacy-preserving recognition.</span>
-                <span class="lang-ko" style="display:none;">가림 및 교차 모달 환경에서 유연한 배포를 위한 딥러닝 기반 얼굴 및 눈 주위 생체인식 연구를 수행함. 개인정보 보호형 인식을 위한 조건부 임베딩 및 생체 템플릿 보호 기법을 개발함.</span>
-                <span class="lang-ja" style="display:none;">遮蔽およびクロスモダリティ環境における柔軟な展開を目的として、深層学習に基づく顔・眼周囲生体認証を研究。プライバシー保護型認証のための条件付き埋め込みおよび生体テンプレート保護手法を開発。</span>
-                <span class="lang-ch" style="display:none;">研究面向遮挡与跨模态场景的深度学习人脸与眼周生物识别方法。开发用于隐私保护识别的条件嵌入学习与生物模板保护技术。</span> </p>
-						</div>
+    <div class="pill-row">
+      <span>Python</span>
+      <span>PyTorch</span>
+      <span>TensorFlow</span>
+      <span>OpenCV</span>
+      <span>NumPy</span>
+      <span>MATLAB</span>
+      <span>Docker</span>
+      <span>Android Java</span>
+      <span>Java SE (Spring)</span>
+      <span>.NET</span>
+    </div>
+  </article>
 
-						</div>
 
-					<div class="project shadow-large">
-						<div class="project-image">
-							<img src="images/MySEAL.PNG">
-						</div>
+  <!-- Models & Architectures -->
+  <article class="method-card models-card">
+    <span class="method-icon"><i class="fa-solid fa-brain"></i></span>
 
-						<div class="project-info">
-							<h3>Malaysian Digital Signature Algorithm Proposal: TNC Signature Scheme (MySEAL)</h3>
-							<p>
-								<span class="lang-en">Co-developed the TNC Signature Scheme, a Malaysian digital signature algorithm proposal compatible with Schnorr signatures. Contributed to formal security proofs and C/Libgcrypt implementation under discrete logarithm and elliptic curve settings.</span>
-                <span class="lang-ko" style="display:none;">Schnorr 서명과 호환되는 말레이시아 디지털 서명 알고리즘 제안인 TNC Signature Scheme을 공동 개발함. 이산 로그 및 타원곡선 환경에서의 정형 보안 증명과 C/Libgcrypt 구현에 기여함.</span>
-                <span class="lang-ja" style="display:none;">Schnorr署名と互換性を持つマレーシアのデジタル署名アルゴリズム提案である TNC Signature Scheme を共同開発。離散対数および楕円曲線設定における形式的安全性証明と C/Libgcrypt 実装に貢献。</span>
-                <span class="lang-ch" style="display:none;">共同开发 TNC Signature Scheme，该方案为马来西亚数字签名算法提案，并与 Schnorr 签名兼容。参与离散对数与椭圆曲线环境下的形式化安全证明及 C/Libgcrypt 实现。</span> </p>
-							<a href="https://mykripto.cybersecurity.my/index.php/files/101/AKBA-MySEAL/8/MySEAL---TNCSeminar-Slide.pdf">Slides for Technical Report</a>
-						</div>
+    <div class="method-copy">
+      <h3>
+        <span class="lang-en">Models &amp; Architectures</span>
+        <span class="lang-ko">모델 및 아키텍처</span>
+        <span class="lang-ja">モデル・アーキテクチャ</span>
+        <span class="lang-ch">模型与架构</span>
+      </h3>
 
-						</div>
-
-					<div class="project shadow-large">
-						<div class="project-image">
-							<img src="images/master_project.PNG">
-						</div>
-
-						<div class="project-info">
-							<h3>FRGS Project (Malaysia): Tight Security Reduction Techniques for Cryptography Primitives (Member - M. Sc. Researcher)</h3>
-							<p>
-								<span class="lang-en">Investigated tight security reduction techniques for digital signature schemes and cryptographic primitives. Applied formal reduction-based analysis to improve provable security guarantees under standard model assumptions.</span>
-                <span class="lang-ko" style="display:none;">디지털 서명 스킴 및 암호 프리미티브를 위한 타이트 보안 리덕션 기법을 연구함. 표준 모델 가정하에서 증명 가능한 보안 보장을 향상시키기 위해 정형 리덕션 기반 분석을 적용함.</span>
-                <span class="lang-ja" style="display:none;">デジタル署名スキームおよび暗号プリミティブに対するタイトな安全性削減技術を研究。標準モデル仮定の下で証明可能安全性を向上させるため、形式的な削減ベース解析を適用。</span>
-                <span class="lang-ch" style="display:none;">研究数字签名方案与密码学原语中的紧密安全归约技术。通过形式化归约分析，在标准模型假设下提升可证明安全性保证。</span> </p>
-						</div>
-
-						</div>
-
-					<div class="project shadow-large">
-						<div class="project-image">
-							<img src="images/bachelors_project.PNG">
-						</div>
-
-						<div class="project-info">
-							<h3>ITEX Exhibition 2016: An Online Digital Medical Certificate System Using Identity-Based Signature (Member - Undergraduate Project)</h3>
-							<p>
-								<span class="lang-en">Implemented a secure digital medical certificate prototype using identity-based signatures, ECC-based encryption, QR code generation, and server-side verification. The system was demonstrated at ITEX 2016 and received a Gold Award.</span>
-                <span class="lang-ko" style="display:none;">ID 기반 서명, ECC 기반 암호화, QR 코드 생성 및 서버 측 검증을 활용한 안전한 디지털 진단서 프로토타입을 구현함. 해당 시스템은 ITEX 2016에서 시연되었으며 금상을 수상함.</span>
-                <span class="lang-ja" style="display:none;">IDベース署名、ECCベース暗号化、QRコード生成、サーバ側検証を用いた安全なデジタル医療証明書プロトタイプを実装。ITEX 2016で展示され、金賞を受賞。</span>
-                <span class="lang-ch" style="display:none;">实现基于身份签名、ECC 加密、二维码生成与服务器端验证的安全数字医疗证明原型系统。该系统于 ITEX 2016 展示并获得金奖。</span> </p>
-						</div>
-
-						</div>
-
-					</div>
-			</div>
-		</div>
-
-		<div ,="" class="optional-section" id="publications">
-			<h2 class="heading">
-        <i class="fa fa-book section-icon"></i>
-				<span class="lang-en">Selected Publications</span>
-				<span class="lang-ko" style="display:none;">선택된 논문</span>
-				<span class="lang-ja" style="display:none;">主要論文</span>
-				<span class="lang-ch" style="display:none;">精选出版物</span> 
-      </h2>
-      <p class="section-subtitle">
-        <span class="lang-en">Selected publications in biometric recognition, computer vision, secure machine learning, and cryptographic security.</span>
-        <span class="lang-ko" style="display:none;">생체인식, 컴퓨터 비전, 보안 머신러닝 및 암호 보안 분야의 주요 논문입니다.</span>
-        <span class="lang-ja" style="display:none;">生体認証、コンピュータビジョン、セキュア機械学習、暗号セキュリティに関する主な研究論文です。</span>
-        <span class="lang-ch" style="display:none;">生物识别、计算机视觉、安全机器学习与密码安全领域的精选论文。</span>
+      <p class="method-note">
+        <span class="lang-en">Models and architectures used across research and development.</span>
+        <span class="lang-ko">연구 및 개발에 활용한 모델과 아키텍처.</span>
+        <span class="lang-ja">研究・開発で使用したモデルおよびアーキテクチャ。</span>
+        <span class="lang-ch">研究与开发中使用的模型和架构。</span>
       </p>
-			<div class="publication-grid">
+    </div>
 
-        <div class="pub-entry">
-				<span class="pub-label">[Journal]</span>
-				<span class="pub-authors">Tiong, L. C. O., Sigmund, D., <b>Ng, T. S.</b> & Teoh, A. B. J.</span><br>
-				<a href="https://www.sciencedirect.com/science/article/abs/pii/S1566253526001466" target="_blank" class="pub-title">
-				From unimodal to flexible: A survey of generalized biometric systems.</a><br>
-				<span class="pub-meta"><i>Information Fusion, vol.133</i>, pp. 104267, 2026.</span>
-			  </div>
+    <div class="pill-row">
+      <span class="lang-en">Convolutional Neural Networks</span>
+      <span class="lang-ko">합성곱 신경망</span>
+      <span class="lang-ja">畳み込みニューラルネットワーク</span>
+      <span class="lang-ch">卷积神经网络</span>
 
-        <div class="pub-entry">
-				<span class="pub-label">[Book Chapter]</span>
-				<span class="pub-authors">Krivokuća Hahn, V., Valenti, M., Talreja, V., Nasrabadi, N., <b>Ng, T. S.</b> & Teoh, A. B. J.</span><br>
-				<a href="https://link.springer.com/chapter/10.1007/978-981-95-0995-9_7" target="_blank" class="pub-title">
-				Using Neural Networks to Learn Biometric Template Protection.</a><br>
-				<span class="pub-meta"><i>Handbook of Biometric Template Protection</i>, pp. 171–201, 2025.</span>
-			  </div>
+      <span class="lang-en">Vision Transformers</span>
+      <span class="lang-ko">비전 트랜스포머</span>
+      <span class="lang-ja">Vision Transformer</span>
+      <span class="lang-ch">视觉 Transformer</span>
 
-        <div class="pub-entry">
-				<span class="pub-label">[Journal]</span>
-				<span class="pub-authors">Kim, J., <b>Ng, T. S.</b>, Kim, T. & Teoh, A. B. J.</span><br>
-				<a href="https://ieeexplore.ieee.org/document/11320315/" target="_blank" class="pub-title">
-				Cross-Model Face Recognition via Guided Alignment Mutual Decoupled Distillation.</a><br>
-				<span class="pub-meta"><i>IEEE Signal Processing Letters, vol.33</i>, pp. 466–470, 2025.</span>
-			  </div>
+      <span class="lang-en">Hybrid CNN–Transformers</span>
+      <span class="lang-ko">하이브리드 CNN–Transformer</span>
+      <span class="lang-ja">ハイブリッド CNN–Transformer</span>
+      <span class="lang-ch">混合 CNN–Transformer</span>
 
-        <div class="pub-entry">
-				<span class="pub-label">[Journal]</span>
-				<span class="pub-authors">Gao C., Yang Z., <b>Ng, T. S.</b>, Zhu M. & Teoh, A. B. J.</span><br>
-				<a href="https://ieeexplore.ieee.org/document/11020755" target="_blank" class="pub-title">
-				Bridging the Divide Between Left and Right Palmprints for Cross-Chirality Verification.</a><br>
-				<span class="pub-meta"><i>IEEE Internet of Things Journal, vol.12, no.15</i>, pp. 32046–32057, 2025.</span>
-			  </div>
+      <span>CLIP</span>
 
-        <div class="pub-entry">
-          <span class="pub-label">[Journal]</span>
-          <span class="pub-authors"><b>Ng, T. S.</b>, Kim, J., & Teoh, A. B. J.</span><br>
-          <a href="https://ieeexplore.ieee.org/document/10962269" target="_blank" class="pub-title">
-          Flexible Secure Biometrics: A Protected Modality-Invariant Face-Periocular Recognition System.</a><br>
-          <span class="pub-meta"><i>IEEE Transactions on Information Forensics and Security, vol. 20</i>, pp. 4610–4621, 2025.</span>
-        </div>
+      <span class="lang-en">Korean BERT</span>
+      <span class="lang-ko">한국어 BERT</span>
+      <span class="lang-ja">韓国語 BERT</span>
+      <span class="lang-ch">韩语 BERT</span>
 
-        <div class="pub-entry">
-          <span class="pub-label">[Journal]</span>
-          <span class="pub-authors"><b>Ng, T. S.</b>, & Teoh, A. B. J.</span><br>
-          <a href="https://www.sciencedirect.com/science/article/abs/pii/S1568494625003552" target="_blank" class="pub-title">
-          Attention-aware ensemble learning for face-periocular cross-modality matching.</a><br>
-          <span class="pub-meta"><i>Applied Soft Computing, vol. 175</i>, pp. 113044, 2024.</span>
-        </div>
+      <span>FishSpeech</span>
+      <span>OpenVoice</span>
+      <span>XTTS</span>
+      <span>VALL-E</span>
+    </div>
+  </article>
 
-        <div class="pub-entry">
-          <span class="pub-label">[Conference]</span>
-          <span class="pub-authors">Tan, S.Y., <b>Ng, T. S.</b>, & Heng, S.H.</span><br>
-          <a href="https://link.springer.com/chapter/10.1007/978-981-96-0954-3_13" target="_blank" class="pub-title">
-          Efficient Fork-Free BLS Multi-signature Scheme with Incremental Signing.</a><br>
-          <span class="pub-meta"><i>International Conference on Provable Security (ProvSec)</i>, pp. 250–268, 2024.</span>
-        </div>
 
-        <div class="pub-entry">
-          <span class="pub-label">[Journal]</span>
-          <span class="pub-authors"><b>Ng, T. S.</b>, Chai, J. C. L., Low, C. Y., & Teoh, A. B. J.</span><br>
-          <a href="https://ieeexplore.ieee.org/abstract/document/10418204/" target="_blank" class="pub-title">
-          Self-Attentive Contrastive Learning for Conditioned Periocular and Face Biometrics.</a><br>
-          <span class="pub-meta"><i>IEEE Transactions on Information Forensics and Security, vol. 19</i>, pp. 3251–3264, 2024.</span>
-        </div>
+  <!-- Research & Development -->
+  <article class="method-card">
+    <span class="method-icon"><i class="fa fa-terminal"></i></span>
 
-        <div class="pub-entry">
-          <span class="pub-label">[Journal]</span>
-          <span class="pub-authors"><b>Ng, T. S.</b>, Low, C. Y., Chai, J. C. L., & Teoh, A. B. J.</span><br>
-          <a href="https://ieeexplore.ieee.org/abstract/document/10201879" target="_blank" class="pub-title">
-          On the Representation Learning of Conditional Biometrics for Flexible Deployment.</a><br>
-          <span class="pub-meta"><i>IEEE Access, vol. 11</i>, pp. 82338–82350, 2023.</span>
-        </div>
+    <div class="method-copy">
+      <h3>
+        <span class="lang-en">Research &amp; Development</span>
+        <span class="lang-ko">연구 및 개발</span>
+        <span class="lang-ja">研究・開発</span>
+        <span class="lang-ch">研究与开发</span>
+      </h3>
 
-        <div class="pub-entry">
-          <span class="pub-label">[Conference]</span>
-          <span class="pub-authors">Chai, J. C. L., <b>Ng, T. S.</b>, Low, C. Y., Park, J., & Teoh, A. B. J.</span><br>
-          <a href="https://openaccess.thecvf.com/content/CVPR2023/html/Chai_Recognizability_Embedding_Enhancement_for_Very_Low-Resolution_Face_Recognition_and_Quality_CVPR_2023_paper.html" target="_blank" class="pub-title">
-          Recognizability embedding enhancement for very low-resolution face recognition and quality estimation.</a><br>
-          <span class="pub-meta"><i>IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)</i>, pp. 9957–9967, 2023.</span>
-        </div>
-
-        <div class="pub-entry">
-          <span class="pub-label">[Conference]</span>
-          <span class="pub-authors"><b>Ng, T. S.</b>, Low, C. Y., Chai, J. C. L., & Teoh, A. B. J.</span><br>
-          <a href="https://ieeexplore.ieee.org/abstract/document/9956636/" target="_blank" class="pub-title">
-          Conditional Multimodal Biometrics Embedding Learning For Periocular and Face in the Wild.</a><br>
-          <span class="pub-meta"><i>International Conference on Pattern Recognition (ICPR)</i>, pp. 812–818, 2022.</span>
-        </div>
-
-        <div class="pub-entry">
-          <span class="pub-label">[Conference]</span>
-          <span class="pub-authors"><b>Ng, T. S.</b>, & Teoh, A. B. J.</span><br>
-          <a href="https://link.springer.com/chapter/10.1007/978-3-030-94763-7_23" target="_blank" class="pub-title">
-          Fuzzy MP - A Fuzzy Digital Signature Scheme with Biometrics.</a><br>
-          <span class="pub-meta"><i>International Conference on Mobile Networks and Management (EAI-MONAMI)</i>, pp. 299–315, 2022.</span>
-        </div>
-
-        <div class="pub-entry">
-          <span class="pub-label">[Conference]</span>
-          <span class="pub-authors"><b>Ng, T. S.</b>, Tan, S. Y., & Chin, J. J.</span><br>
-          <a href="https://link.springer.com/chapter/10.1007/978-3-030-34339-2_15" target="_blank" class="pub-title">
-          Improving Signature Schemes With Tight Security Reductions.</a><br>
-          <span class="pub-meta"><i>International Conference on Information Security Practice and Experience (ISPEC)</i>, pp. 273–292, 2019.</span>
-        </div>
-
-        <div class="pub-entry">
-          <span class="pub-label">[Conference]</span>
-          <span class="pub-authors"><b>Ng, T. S.</b>, Tan, S. Y., & Chin, J. J.</span><br>
-          <a href="https://link.springer.com/chapter/10.1007/978-3-319-90775-8_13" target="_blank" class="pub-title">
-          A Variant of BLS Signature Scheme with Tight Security Reduction.</a><br>
-          <span class="pub-meta"><i>International Conference on Mobile Networks and Management (EAI-MONAMI)</i>, pp. 150–163, 2017.</span>
-        </div>
-
-        <div class="pub-entry">
-          <span class="pub-label">[Conference]</span>
-          <span class="pub-authors"><b>Ng, T. S.</b>, Tan, S. Y., & Chin, J. J.</span><br>
-          <a href="https://ieeexplore.ieee.org/abstract/document/8191014/" target="_blank" class="pub-title">
-          A Variant of Schnorr Signature Scheme with Tight Security Reduction.</a><br>
-          <span class="pub-meta"><i>International Conference on Information and Communication Technology Convergence (ICTC)</i>, pp. 411–415, 2017.</span>
-        </div>
-
-		</div>
-
-	</div>
-
-		<section class="background-alt" id="skills">
-			<h2 class="heading">
-				<span class="lang-en">Skills</span>
-				<span class="lang-ko" style="display:none;">기술</span>
-        <span class="lang-ja" style="display:none;">スキル</span>
-        <span class="lang-ch" style="display:none;">技能</span> 
-      </h2>
-
-      <p class="section-subtitle">
-        <span class="lang-en">Technical skills and tools used across research, teaching, software development, and AI system implementation.</span>
-        <span class="lang-ko" style="display:none;">연구, 교육, 소프트웨어 개발 및 AI 시스템 구현에 활용하는 기술과 도구입니다.</span>
-        <span class="lang-ja" style="display:none;">研究、教育、ソフトウェア開発、AIシステム実装で使用する技術とツールです。</span>
-        <span class="lang-ch" style="display:none;">用于研究、教学、软件开发与 AI 系统实现的技术能力和工具。</span>
+      <p class="method-note">
+        <span class="lang-en">Experimentation, evaluation, and development.</span>
+        <span class="lang-ko">실험, 평가 및 개발.</span>
+        <span class="lang-ja">実験、評価、および開発。</span>
+        <span class="lang-ch">实验、评估与开发。</span>
       </p>
+    </div>
 
-			<div class="optional-section-block">
-				<h3>
-          <span class="lang-en">Technical Skills</span>
-          <span class="lang-ko" style="display:none;">전문 기술</span>
-          <span class="lang-ja" style="display:none;">技術スキル</span>
-          <span class="lang-ch" style="display:none;">专业技能</span>
-        </h3>
-				<ul>
-					<li>
-						<strong>
-              <span class="lang-en">Development:</span>
-              <span class="lang-ko" style="display:none;">개발:</span>
-              <span class="lang-ja" style="display:none;">開発:</span>
-              <span class="lang-ch" style="display:none;">开发：</span>
-            </strong>
-						PyTorch, Docker, TensorFlow</li>
-					<li>
-						<strong>
-              <span class="lang-en">Programming Languages:</span>
-              <span class="lang-ko" style="display:none;">프로그래밍 언어:</span>
-              <span class="lang-ja" style="display:none;">プログラミング言語:</span>
-              <span class="lang-ch" style="display:none;">编程语言：</span>
-            </strong>
-						Python, Android Java, Java SE (Spring), .NET, C++</li>
-					<li>
-						<strong>
-              <span class="lang-en">Platform:</span>
-              <span class="lang-ko" style="display:none;">플랫폼:</span>
-              <span class="lang-ja" style="display:none;">プラットフォーム:</span>
-              <span class="lang-ch" style="display:none;">平台：</span>
-            </strong>
-						Windows .NET, Android, Windows Phone</li>
-					<li>
-						<strong>
-              <span class="lang-en">Scripting:</span>
-              <span class="lang-ko" style="display:none;">스크립팅:</span>
-              <span class="lang-ja" style="display:none;">スクリプト:</span>
-              <span class="lang-ch" style="display:none;">脚本编写：</span>
-            </strong>
-						Linux Ubuntu Bash, HTML &amp; CSS</li>
-				</ul>
-			</div>
+    <div class="pill-row">
+      <span>LaTeX</span>
+      <span>Git</span>
+      <span>Linux</span>
+      <span>AWS</span>
 
-			<div class="optional-section-block">
-				<h3>
-          <span class="lang-en">Deep Learning Model Development</span>
-          <span class="lang-ko" style="display:none;">딥러닝 모델 개발</span>
-          <span class="lang-ja" style="display:none;">深層学習モデル開発</span>
-          <span class="lang-ch" style="display:none;"></span>
-        </h3>
-				<ul>
-					<li>
-						<strong>
-              <span class="lang-en">Computer Vision:</span>
-              <span class="lang-ko" style="display:none;">컴퓨터 비전:</span>
-              <span class="lang-ja" style="display:none;">コンピュータビジョン:</span>
-              <span class="lang-ch" style="display:none;">计算机视觉：</span>
-            </strong>
-						Convolutional Neural Networks, Vision Transformers, Hybrid CNN-Transformers</li>
-					<li>
-						<strong>
-              <span class="lang-en">Text-to-Speech (TTS):</span>
-              <span class="lang-ko" style="display:none;">텍스트 음성 변환 (TTS):</span>
-              <span class="lang-ja" style="display:none;">テキスト音声変換 (TTS):</span>
-              <span class="lang-ch" style="display:none;">文本转语音 (TTS):</span>
-            </strong>
-						FishSpeech, OpenVoice, XTTS, VALL-E</li>
-					<li>
-						<strong>
-              <span class="lang-en">Multimodal Learning:</span>
-              <span class="lang-ko" style="display:none;">멀티모달 학습:</span>
-              <span class="lang-ja" style="display:none;">マルチモーダル学習:</span>
-              <span class="lang-ch" style="display:none;">多模态学习：</span>
-            </strong>
-            Hybrid Multimodal Transformers, CLIP</li>
-          <li>
-            <strong>
-              <span class="lang-en">Natural Language Processing:</span>
-              <span class="lang-ko" style="display:none;">자연어 처리:</span>
-              <span class="lang-ja" style="display:none;">自然言語処理:</span>
-              <span class="lang-ch" style="display:none;">自然语言处理：</span>
-            </strong>
-            <span class="lang-en">Korean BERT fine-tuning, intent classification, retrieval-based chatbot development</span>
-            <span class="lang-ko" style="display:none;">한국어 BERT 파인튜닝, 의도 분류, 검색 기반 챗봇 개발</span>
-            <span class="lang-ja" style="display:none;">韓国語BERTのファインチューニング, 意図分類, 検索ベースのチャットボット開発</span>
-            <span class="lang-ch" style="display:none;">韩语 BERT 微调、意图分类、基于检索的聊天机器人开发</span>
-          </li>
-				</ul>
-			</div>
+      <span class="lang-en">Model Evaluation</span>
+      <span class="lang-ko">모델 평가</span>
+      <span class="lang-ja">モデル評価</span>
+      <span class="lang-ch">模型评估</span>
 
-			<div class="optional-section-block">
-				<h3>
-					<span class="lang-en">Languages</span>
-					<span class="lang-ko" style="display:none;">언어</span>
-          <span class="lang-ja" style="display:none;">言語</span>
-          <span class="lang-ch" style="display:none;">语言</span> </h3>
-				<ul>
-					<li>
-						<strong>
-              <span class="lang-en">Spoken:</span>
-              <span class="lang-ko" style="display:none;">구사 언어:</span>
-              <span class="lang-ja" style="display:none;">話せる言語:</span>
-              <span class="lang-ch" style="display:none;">口语：</span>
-            </strong>
-						English (Native), Chinese Mandarin (Fluent), Bahasa Melayu (Fluent)</li>
-					<li>TOEIC: 970/990
-						<em>(December 2022)</em>
-					</li>
-					<li>TOEFL: 96/120
-						<em>(July 2018)</em>
-					</li>
-				</ul>
-			</div>
+      <span class="lang-en">Prototyping</span>
+      <span class="lang-ko">프로토타이핑</span>
+      <span class="lang-ja">プロトタイピング</span>
+      <span class="lang-ch">原型开发</span>
+    </div>
+  </article>
 
-			<div class="optional-section-block">
-				<h3>
-					<span class="lang-en">Others</span>
-					<span class="lang-ko" style="display:none;">기타</span>
-          <span class="lang-ja" style="display:none;">その他</span>
-          <span class="lang-ch" style="display:none;">其他</span> </h3>
-				<ul>
-					<li>
-						<strong>
-              <span class="lang-en">Professional Body:</span>
-              <span class="lang-ko" style="display:none;">전문 단체:</span>
-              <span class="lang-ja" style="display:none;">専門団体:</span>
-              <span class="lang-ch" style="display:none;">专业机构：</span>
-            </strong>
-						Registered Graduate Engineer under Board of Engineers Malaysia (BEM)
-						<em>(GE158045A)</em>
-					</li>
-				</ul>
-			</div>
 
-			</section>
-		<div id="contact">
-			<h2>
-        <i class="fa fa-envelope section-icon"></i>
-				<span class="lang-en">Get in Touch</span>
-				<span class="lang-ko" style="display:none;">연락하기</span>
-        <span class="lang-ja" style="display:none;">お問い合わせ</span>
-        <span class="lang-ch" style="display:none;">联系我</span> 
-      </h2>
-      <p class="section-subtitle contact-subtitle">
-        <span class="lang-en">Feel free to reach out for academic, research, collaboration, or professional inquiries.</span>
-        <span class="lang-ko" style="display:none;">학술, 연구, 협업 또는 전문적인 문의가 있으시면 편하게 연락해 주세요.</span>
-        <span class="lang-ja" style="display:none;">学術、研究、共同研究、または専門的なご相談がありましたら、お気軽にご連絡ください。</span>
-        <span class="lang-ch" style="display:none;">欢迎就学术、研究、合作或专业相关事项与我联系。</span>
+  <!-- Languages -->
+  <article class="method-card">
+    <span class="method-icon"><i class="fa fa-globe"></i></span>
+
+    <div class="method-copy">
+      <h3>
+        <span class="lang-en">Languages</span>
+        <span class="lang-ko">언어</span>
+        <span class="lang-ja">言語</span>
+        <span class="lang-ch">语言</span>
+      </h3>
+
+      <p class="method-note">
+        <span class="lang-en">Languages used in academic and professional settings.</span>
+        <span class="lang-ko">학술 및 전문 환경에서 사용하는 언어.</span>
+        <span class="lang-ja">学術・専門環境で使用する言語。</span>
+        <span class="lang-ch">学术与专业环境中使用的语言。</span>
       </p>
-			<div id="contact-form">
-				<form action="https://formspree.io/f/mvoewlqz" method="POST">
-					<input name="_subject" type="hidden" value="Contact request from personal website">
-					<input data-placeholder-en="Your email" data-placeholder-ko="이메일 주소" data-placeholder-ja="あなたのメールアドレス" data-placeholder-ch="您的电子邮件" name="_replyto" placeholder="Your email" required="" type="email"> <textarea data-placeholder-en="Your message" data-placeholder-ko="메시지 입력" data-placeholder-ja="メッセージを入力" data-placeholder-ch="您的消息" name="message" placeholder="Your message" required=""></textarea> <button type="submit">
-						<span class="lang-en">Send</span>
-						<span class="lang-ko" style="display:none;">보내기</span>
-            <span class="lang-ja" style="display:none;">送信</span>
-            <span class="lang-ch" style="display:none;">发送</span> </button>
-				</form>
-			</div>
+    </div>
 
-			</div>
+    <div class="pill-row">
+      <span class="lang-en">English</span>
+      <span class="lang-ko">영어</span>
+      <span class="lang-ja">英語</span>
+      <span class="lang-ch">英文</span>
 
-		<footer>
-			<div class="container">
-				<div class="row">
-					<div class="col-sm-5 copyright">
-						<p>
-							Copyright © <span id="current-year">2024-2026</span>
-              TIONG-SIK NG
-						</p>
-					</div>
-					<div class="col-sm-2 top">
-						<span id="to-top">
-							<i aria-hidden="true" class="fa fa-chevron-up"></i>
-						</span>
-					</div>
-					<div class="col-sm-5 social">
-						<ul>
-							<li>
-								<a href="https://ryanfitzgerald.github.io/devportfolio/" target="_blank">
-									<i aria-hidden="true" class="fa fa-github"></i>
-									Original Template</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-      <p style="font-size: 0.9em; text-align: center; margin-top: 30px;">
-        <em>
-          <span class="lang-en">Translations are for reference only. English is my primary language.</span>
-          <span class="lang-ko" style="display:none;">번역은 참고용으로 제공되며, 영어가 저의 주요 사용 언어입니다.</span>
-          <span class="lang-ja" style="display:none;">翻訳は参考のために提供されており、英語が主な使用言語です。</span>
-          <span class="lang-ch" style="display:none;">翻译仅供参考，英语为我的主要语言。</span>
-        </em>
+      <span class="lang-en">Mandarin Chinese</span>
+      <span class="lang-ko">중국어</span>
+      <span class="lang-ja">中国語</span>
+      <span class="lang-ch">中文</span>
+
+      <span class="lang-en">Bahasa Melayu</span>
+      <span class="lang-ko">말레이어</span>
+      <span class="lang-ja">マレー語</span>
+      <span class="lang-ch">马来文</span>
+    </div>
+  </article>
+
+
+  <!-- Professional Registration -->
+  <article class="method-card professional-card">
+    <span class="method-icon"><i class="fa-solid fa-id-badge"></i></span>
+
+    <div class="method-copy">
+      <h3>
+        <span class="lang-en">Professional Registration</span>
+        <span class="lang-ko">전문 자격 등록</span>
+        <span class="lang-ja">専門資格登録</span>
+        <span class="lang-ch">专业资格注册</span>
+      </h3>
+
+      <p class="method-note">
+        <span class="lang-en">Engineering professional registration.</span>
+        <span class="lang-ko">공학 분야 전문 자격 등록.</span>
+        <span class="lang-ja">工学分野の専門資格登録。</span>
+        <span class="lang-ch">工程领域专业资格注册。</span>
       </p>
+    </div>
 
-		</footer>
+    <p class="professional-detail">
+      <span class="lang-en">
+        Registered Graduate Engineer under Board of Engineers Malaysia (BEM)
+        <em>(GE158045A)</em>
+      </span>
 
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-		<script src="js/scripts.min.js"></script>
-	</body>
+      <span class="lang-ko">
+        말레이시아 엔지니어협회(Board of Engineers Malaysia, BEM) 등록
+        Graduate Engineer
+        <em>(GE158045A)</em>
+      </span>
+
+      <span class="lang-ja">
+        マレーシア技術者委員会（Board of Engineers Malaysia, BEM）登録
+        Graduate Engineer
+        <em>(GE158045A)</em>
+      </span>
+
+      <span class="lang-ch">
+        马来西亚工程师委员会（Board of Engineers Malaysia, BEM）注册
+        Graduate Engineer
+        <em>(GE158045A)</em>
+      </span>
+    </p>
+  </article>
+
+</div>
+</section>
+<section class="site-section contact-section" id="contact">
+<div class="section-shell contact-grid">
+<div>
+<p class="section-kicker"><span class="lang-en">Contact</span><span class="lang-ko">연락</span><span class="lang-ja">連絡</span><span class="lang-ch">联系</span></p>
+<h2><i aria-hidden="true" class="fa-solid fa-envelope section-title-icon"></i><span class="lang-en">Get in touch</span><span class="lang-ko">연락하기</span><span class="lang-ja">お問い合わせ</span><span class="lang-ch">联系我</span></h2>
+<p><span class="lang-en">For academic, research, collaboration, or professional inquiries, feel free to send a message.</span><span class="lang-ko">학술, 연구, 협업 또는 전문적인 문의가 있으시면 편하게 메시지를 보내 주세요.</span><span class="lang-ja">学術、研究、共同研究、または専門的なご相談がありましたら、お気軽にご連絡ください。</span><span class="lang-ch">欢迎就学术、研究、合作或专业相关事项与我联系。</span></p>
+<div class="contact-links">
+<a class="brand-link github-link" href="https://github.com/tiongsikng/" rel="noopener" target="_blank"><i class="fa fa-github"></i> GitHub</a>
+<a class="brand-link researchgate-link" href="https://www.researchgate.net/profile/Tiong_Sik_Ng/" rel="noopener" target="_blank"><i class="fa-brands fa-researchgate"></i> ResearchGate</a>
+<a class="brand-link linkedin-link" href="https://www.linkedin.com/in/tiong-sik-ng-521031145/" rel="noopener" target="_blank"><i class="fa fa-linkedin"></i> LinkedIn</a>
+</div>
+</div>
+<div id="contact-form">
+<form action="https://formspree.io/f/mvoewlqz" method="POST">
+<input name="_subject" type="hidden" value="Contact request from personal website"/>
+<input data-placeholder-ch="您的电子邮件" data-placeholder-en="Your email" data-placeholder-ja="あなたのメールアドレス" data-placeholder-ko="이메일 주소" name="_replyto" placeholder="Your email" required="" type="email"/> <textarea data-placeholder-ch="您的消息" data-placeholder-en="Your message" data-placeholder-ja="メッセージを入力" data-placeholder-ko="메시지 입력" name="message" placeholder="Your message" required=""></textarea> <button type="submit">
+<span class="lang-en">Send</span>
+<span class="lang-ko" style="display:none;">보내기</span>
+<span class="lang-ja" style="display:none;">送信</span>
+<span class="lang-ch" style="display:none;">发送</span> </button>
+</form>
+</div>
+</div>
+</section>
+</main>
+<footer class="site-footer">
+<div class="section-shell footer-grid">
+<div><strong>Tiong-Sik Ng</strong><span><span class="lang-en">Biometrics, computer vision, and cryptography researcher.</span><span class="lang-ko">생체인식, 컴퓨터 비전 및 암호학 연구자.</span><span class="lang-ja">生体認証、コンピュータビジョン、暗号学の研究者。</span><span class="lang-ch">生物识别、计算机视觉与密码学研究者。</span></span></div>
+<p>© <span id="current-year"></span> Tiong-Sik Ng</p>
+<button aria-label="Back to top" id="to-top"><i class="fa fa-arrow-up"></i></button>
+</div>
+<p class="translation-note"><span class="lang-en">Translations are for reference only. English is my primary language.</span><span class="lang-ko">번역은 참고용으로 제공되며, 영어가 주요 사용 언어입니다.</span><span class="lang-ja">翻訳は参考用で、英語が主な使用言語です。</span><span class="lang-ch">翻译仅供参考，英语为主要使用语言。</span></p>
+</footer>
+<script src="js/site.js"></script>
+</body>
 </html>
