@@ -10,6 +10,8 @@
   const menuToggle = document.getElementById('menu-toggle');
   const mobileNav = document.getElementById('mobile-nav');
   const heroVisual = document.getElementById('hero-visual');
+  const updatedDate = document.getElementById('updated-date');
+  let latestCommitDate = null;
 
   const langData = {
     en: { label: 'EN', flag: 'icons/us.svg', alt: 'English' },
@@ -24,6 +26,41 @@
     if (themeIcon) themeIcon.className = dark ? 'fa fa-sun-o' : 'fa fa-moon-o';
     const themeMeta = document.querySelector('meta[name="theme-color"]');
     if (themeMeta) themeMeta.setAttribute('content', dark ? '#0d0f12' : '#f6f8fb');
+  }
+
+  function formatUpdatedDate(date, lang) {
+    if (!(date instanceof Date) || Number.isNaN(date.getTime())) return '—';
+    const locales = { en: 'en-GB', ko: 'ko-KR', ja: 'ja-JP', ch: 'zh-CN' };
+    return new Intl.DateTimeFormat(locales[lang] || locales.en, {
+      year: 'numeric',
+      month: lang === 'en' ? 'long' : 'numeric',
+      day: 'numeric'
+    }).format(date);
+  }
+
+  function renderUpdatedDate(lang) {
+    if (!updatedDate) return;
+    const date = latestCommitDate || new Date(document.lastModified);
+    updatedDate.textContent = formatUpdatedDate(date, lang);
+  }
+
+  async function loadLatestCommitDate() {
+    if (!updatedDate) return;
+    try {
+      const response = await fetch('https://api.github.com/repos/tiongsikng/tiongsikng.github.io/commits?per_page=1', {
+        headers: { 'Accept': 'application/vnd.github+json' },
+        cache: 'no-store'
+      });
+      if (!response.ok) throw new Error('GitHub commit request failed');
+      const commits = await response.json();
+      const stamp = commits?.[0]?.commit?.committer?.date || commits?.[0]?.commit?.author?.date;
+      if (stamp) latestCommitDate = new Date(stamp);
+    } catch (error) {
+      // Fall back to the page's Last-Modified date if GitHub is unavailable/rate-limited.
+      latestCommitDate = null;
+    }
+    const lang = [...body.classList].find(c => c.startsWith('lang-'))?.slice(5) || 'en';
+    renderUpdatedDate(lang);
   }
 
   function setLanguage(lang) {
@@ -73,6 +110,7 @@
   const storedTheme = localStorage.getItem('theme');
   applyTheme(storedTheme ? storedTheme === 'dark' : true);
   setLanguage(localStorage.getItem('language') || 'en');
+  loadLatestCommitDate();
   document.getElementById('current-year').textContent = new Date().getFullYear();
 
   themeToggle && themeToggle.addEventListener('click', () => applyTheme(!root.classList.contains('theme-dark')));
