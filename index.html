@@ -15,10 +15,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&amp;display=swap" rel="stylesheet"/>
 <link href="libs/font-awesome/css/font-awesome.min.css" rel="stylesheet"/>
 <link href="css/bootstrap.min.css" rel="stylesheet"/>
-<link href="css/styles.css" rel="stylesheet"/>
-<link href="css/redesign.css" rel="stylesheet"/>
-<link href="css/refinement.css" rel="stylesheet"/>
-<link href="css/stage3.css" rel="stylesheet"/>
+<link href="css/site.css?v=5" rel="stylesheet"/>
+
+
+
+
 <script crossorigin="anonymous" src="https://kit.fontawesome.com/9135e9eba9.js"></script>
 <script>
     (function () {
@@ -27,8 +28,8 @@
       document.documentElement.classList.toggle('theme-dark', dark);
     })();
   </script>
-<link href="css/stage4.css" rel="stylesheet"/>
-<link href="css/stage5.css" rel="stylesheet"/><link href="css/stage6.css" rel="stylesheet"/><link href="css/stage7.css" rel="stylesheet"/><link href="css/stage8.css" rel="stylesheet"/><link href="css/stage9.css" rel="stylesheet"/><link href="css/stage10.css" rel="stylesheet"/><link href="css/stage11.css" rel="stylesheet"/><link href="css/stage12.css" rel="stylesheet"/><link href="css/stage13.css" rel="stylesheet"/></head>
+
+</head>
 <body class="lang-en">
 <header class="site-header" id="site-header">
 <div class="nav-shell">
@@ -64,10 +65,13 @@
 </header>
 <main id="top">
 <section class="hero-section" id="lead">
+<span class="sr-only" lang="ko">고요하게, 자유롭게</span>
 <div class="hero-shell">
 <div class="hero-copy">
-<p class="eyebrow"><span class="lang-en">Research · Teaching · Development</span><span class="lang-ko">연구 · 교육 · 개발</span><span class="lang-ja">研究 · 教育 · 開発</span><span class="lang-ch">研究 · 教学 · 开发</span></p>
-<h1><span class="lang-en">Tiong-Sik Ng</span><span class="lang-ko">황충식</span><span class="lang-ja">ン・ティオング・シーク</span><span class="lang-ch">黄忠植</span></h1>
+<p class="eyebrow"><span class="lang-en">Research · Development · Teaching</span><span class="lang-ko">연구 · 개발 · 교육</span><span class="lang-ja">研究 · 開発 · 教育</span><span class="lang-ch">研究 · 开发 · 教学</span></p>
+<h1><span class="lang-en">Tiong-Sik Ng</span><span class="lang-ko">황충식</span>
+<span class="lang-ja"><span class="ja-name-part">ン・ティオング・</span><span class="ja-name-part">シーク</span></span>
+<span class="lang-ch">黄忠植</span></h1>
 <h2 class="hero-tagline">
 <span class="lang-en">Biometrics, computer vision, and cryptography researcher.</span>
 <span class="lang-ko">생체인식, 컴퓨터 비전 및 암호학 연구자.</span>
@@ -81,9 +85,13 @@
 <span class="lang-ch">助理教授 (网络安全) · 厦门大学马来西亚分校</span>
 </p><a class="hero-cv-link" href="files/Resume_CV.pdf" target="_blank"><i class="fa-solid fa-file-lines"></i> Curriculum Vitae</a></div>
 <div class="hero-actions"><a class="brand-link github-link" href="https://github.com/tiongsikng/" rel="noopener" target="_blank"><i class="fa fa-github"></i><span>GitHub</span></a><a class="brand-link scholar-link" href="https://scholar.google.com/citations?user=oT2_EAEAAAAJ&amp;hl=en" rel="noopener" target="_blank"><i class="fa fa-graduation-cap"></i><span>Scholar</span></a><a class="brand-link orcid-link" href="https://orcid.org/0000-0001-7248-3935/" rel="noopener" target="_blank"><i class="fa-brands fa-orcid"></i><span>ORCID</span></a><a class="brand-link researchgate-link" href="https://www.researchgate.net/profile/Tiong_Sik_Ng/" rel="noopener" target="_blank"><i class="fa-brands fa-researchgate"></i><span>ResearchGate</span></a><a class="brand-link linkedin-link" href="https://www.linkedin.com/in/tiong-sik-ng-521031145/" rel="noopener" target="_blank"><i class="fa-brands fa-linkedin"></i><span>LinkedIn</span></a></div>
-<div aria-label="Research topics" class="hero-topics">
-<span>Flexible Biometrics</span><span>Template Protection</span><span>Multimodal Learning</span><span>Provable Security</span>
 </div>
+<!-- Compact mobile counterpart to the desktop research feature illustration.
+     It uses real text and avoids shrinking the desktop graphic into a phone. -->
+<div class="hero-mobile-summary" aria-label="Research themes">
+  <div class="hero-mobile-theme"><span class="hero-mobile-num">01</span><strong><span class="lang-en">Perceive</span><span class="lang-ko">인식</span><span class="lang-ja">認識</span><span class="lang-ch">感知</span></strong><small><span class="lang-en">Biometrics</span><span class="lang-ko">생체인식</span><span class="lang-ja">生体認証</span><span class="lang-ch">生物识别</span></small></div>
+  <div class="hero-mobile-theme"><span class="hero-mobile-num">02</span><strong><span class="lang-en">Represent</span><span class="lang-ko">표현</span><span class="lang-ja">表現</span><span class="lang-ch">表征</span></strong><small><span class="lang-en">Multimodal AI</span><span class="lang-ko">다중모달 AI</span><span class="lang-ja">マルチモーダル AI</span><span class="lang-ch">多模态 AI</span></small></div>
+  <div class="hero-mobile-theme"><span class="hero-mobile-num">03</span><strong><span class="lang-en">Secure</span><span class="lang-ko">보호</span><span class="lang-ja">保護</span><span class="lang-ch">保护</span></strong><small><span class="lang-en">Cryptography</span><span class="lang-ko">암호학</span><span class="lang-ja">暗号学</span><span class="lang-ch">密码学</span></small></div>
 </div>
 <div aria-hidden="true" class="hero-visual hero-visual-v6" id="hero-visual">
 <div class="visual-glow"></div>
@@ -141,20 +149,17 @@
 <div class="core-connector connector-left"></div><div class="core-connector connector-right"></div>
 </div>
 <div class="symbol-cluster symbol-observe">
-<span class="cluster-index">01</span>
 <div class="symbol-orb symbol-orb-fingerprint"><i class="fa-solid fa-fingerprint"></i></div>
 <div class="cluster-copy"><strong>Perceive</strong><small>Biometrics · Computer Vision</small></div>
 </div>
 <div class="symbol-cluster symbol-represent">
-<span class="cluster-index">02</span>
 <div class="representation-icons">
 <div class="symbol-orb symbol-orb-brain"><i class="fa-solid fa-brain"></i></div>
 <div class="symbol-orb symbol-orb-network"><i class="fa-solid fa-diagram-project"></i></div>
 </div>
-<div class="cluster-copy"><strong>Represent</strong><small>Multimodal Domain Alignment · Representation Learning</small></div>
+<div class="cluster-copy"><strong>Representat</strong><small>Multimodal Domain Alignment · Representation Learning</small></div>
 </div>
 <div class="symbol-cluster symbol-protect">
-<span class="cluster-index">03</span>
 <div class="protection-icons">
 <div class="symbol-orb symbol-orb-shield"><i class="fa-solid fa-shield-halved"></i></div>
 <div class="symbol-orb symbol-orb-key"><i class="fa-solid fa-key"></i></div>
@@ -167,7 +172,7 @@
 <span style="--x:64%;--y:63%;--s:10px"></span><span style="--x:73%;--y:42%;--s:7px"></span><span style="--x:83%;--y:68%;--s:12px"></span>
 <span style="--x:91%;--y:31%;--s:6px"></span>
 </div>
-<div class="visual-sequence"><span>Perceive</span><i></i><span>Represent</span><i></i><span>Secure</span></div>
+<div class="visual-sequence"><span>Biometrics</span><i></i><span>Artificial Intelligence</span><i></i><span>Cryptography</span></div>
 </div>
 </div>
 <a aria-label="Scroll to about" class="scroll-cue" href="#about"><span></span></a>
@@ -183,20 +188,27 @@
 <span class="lang-ch">跨越识别、视觉与安全的研究。</span>
 </h2>
 <p class="updated-line"><span class="lang-en">Last updated</span><span class="lang-ko">최종 업데이트</span><span class="lang-ja">最終更新</span><span class="lang-ch">最后更新</span> · <span id="updated-date">—</span></p>
+<figure class="personal-seal" aria-label="Personal panda, yin-yang and Bagua emblem">
+<img class="personal-seal-light" src="images/panda-personal-seal-light.png" width="88" height="88" alt="" loading="lazy" decoding="async">
+<img class="personal-seal-dark" src="images/panda-personal-seal-dark.png" width="88" height="88" alt="" loading="lazy" decoding="async">
+</figure>
 </div>
 <div class="about-copy">
+
 <p>
-<span class="lang-en">I am an Assistant Professor at Xiamen University Malaysia. My work lies at the intersection of biometrics, computer vision, and cryptography, with a focus on flexible and privacy-aware biometric recognition. I am particularly interested in systems that remain reliable under practical conditions such as occlusion, modality mismatch, low image quality, and real-world deployment constraints.</span>
-<span class="lang-ko">저는 샤먼대학교 말레이시아캠퍼스의 조교수입니다. 생체인식, 컴퓨터 비전 및 암호학의 접점에서 연구하며, 유연하고 프라이버시를 고려한 생체인식에 중점을 두고 있습니다. 특히 가림, 모달리티 불일치, 낮은 영상 품질 및 실제 배포 제약과 같은 현실적인 조건에서도 안정적으로 동작하는 시스템에 관심이 있습니다.</span>
-<span class="lang-ja">厦門大学マレーシア校の助教として、生体認証、コンピュータビジョン、暗号学の接点に取り組んでいます。柔軟性とプライバシーを考慮した生体認証を中心に、遮蔽、モダリティ不一致、低画質、実環境での展開制約といった条件下でも安定して機能するシステムに関心があります。</span>
-<span class="lang-ch">我是厦门大学马来西亚分校的助理教授，研究位于生物识别、计算机视觉与密码学的交叉领域，重点关注灵活且注重隐私的生物识别方法。我尤其关注在遮挡、模态不匹配、低图像质量以及实际部署限制等条件下仍能保持可靠性的系统。</span>
+	<span class="lang-en">Currently an Assistant Professor in Cybersecurity at Xiamen University Malaysia, with research interests spanning biometrics, computer vision, and cryptography. Research focuses on flexible and privacy-aware biometric recognition, particularly under challenging conditions such as occlusion, modality mismatch, low image quality, and practical deployment constraints.</span>
+	<span class="lang-ko">현재 샤먼대학교 말레이시아캠퍼스에서 사이버보안 분야 조교수로 재직 중이며, 생체인식, 컴퓨터 비전 및 암호학을 주요 연구 분야로 삼고 있습니다. 특히 가림, 모달리티 불일치, 낮은 영상 품질 및 실제 배포 환경의 제약과 같은 어려운 조건에서도 적용할 수 있는 유연하고 프라이버시를 고려한 생체인식 기술에 중점을 두고 있습니다.</span>
+	<span class="lang-ja">現在、厦門大学マレーシア校でサイバーセキュリティ分野の助教を務めており、生体認証、コンピュータビジョン、暗号学を主な研究分野としています。特に、遮蔽、モダリティの不一致、低画質、実環境への導入に伴う制約などの条件下における、柔軟性とプライバシーに配慮した生体認証技術を研究しています。</span>
+	<span class="lang-ch">现任厦门大学马来西亚分校网络安全领域助理教授，研究方向涵盖生物识别、计算机视觉与密码学。研究重点为兼顾灵活性与隐私保护的生物识别技术，尤其关注遮挡、模态不匹配、图像质量较低及实际部署限制等复杂条件下的生物识别问题。</span>
 </p>
+
 <p>
-<span class="lang-en">I received my Doctorate in Engineering from Yonsei University, where my doctoral research focused on conditional periocular-face biometrics for flexible deployment. My broader interests include representation learning, biometric template protection, multimodal learning, and provable security. Alongside research, I teach and supervise undergraduate and postgraduate students in computing and cybersecurity-related areas.</span>
-<span class="lang-ko">연세대학교에서 공학 박사 학위를 받았으며, 박사 연구에서는 유연한 배포를 위한 조건부 눈 주위-얼굴 생체인식에 중점을 두었습니다. 보다 넓은 관심 분야는 표현 학습, 생체 템플릿 보호, 멀티모달 학습 및 증명 가능한 보안을 포함합니다. 연구와 함께 컴퓨팅 및 사이버보안 관련 분야에서 학부 및 대학원 학생을 가르치고 지도하고 있습니다.</span>
-<span class="lang-ja">延世大学校で工学博士号を取得し、博士研究では柔軟な展開を目的とした条件付き眼周囲・顔生体認証に取り組みました。より広い関心には、表現学習、生体テンプレート保護、マルチモーダル学習、証明可能安全性が含まれます。研究と並行して、コンピューティングおよびサイバーセキュリティ関連分野で学部・大学院教育と研究指導を行っています。</span>
-<span class="lang-ch">我在延世大学获得工学博士学位，博士研究聚焦于面向灵活部署的条件性眼周-人脸生物识别。更广泛的研究兴趣包括表征学习、生物模板保护、多模态学习与可证明安全性。同时，我也负责计算与网络安全相关领域的本科与研究生教学及研究指导。</span>
+	<span class="lang-en">Received a Doctorate in Engineering from Yonsei University, with doctoral research focusing on conditional periocular-face biometrics for flexible deployment. Other areas of interest include representation learning, biometric template protection, multimodal learning, and provable security. Teaching and supervision involve undergraduate and postgraduate students in computing and cybersecurity-related fields.</span>
+	<span class="lang-ko">연세대학교에서 공학 박사 학위를 취득했으며, 박사과정에서는 유연한 배포를 위한 조건부 눈 주위·얼굴 생체인식을 연구했습니다. 그 밖의 관심 분야로는 표현 학습, 생체인식 템플릿 보호, 멀티모달 학습 및 증명 가능한 보안이 있습니다. 또한 컴퓨팅 및 사이버보안 관련 분야에서 학부생과 대학원생을 대상으로 강의와 연구 지도를 수행하고 있습니다.</span>
+	<span class="lang-ja">延世大学校で工学博士号を取得し、博士研究では柔軟な運用を目的とした条件付き眼周囲・顔生体認証に取り組みました。その他の研究関心には、表現学習、生体認証テンプレート保護、マルチモーダル学習、証明可能安全性があります。また、コンピューティングおよびサイバーセキュリティ関連分野において、学部生・大学院生の教育と研究指導を行っています。</span>
+	<span class="lang-ch">于延世大学获得工学博士学位，博士研究主要围绕面向灵活部署的条件式眼周与人脸生物识别展开。其他研究兴趣包括表征学习、生物识别模板保护、多模态学习及可证明安全性。此外，也从事计算机与网络安全相关领域的本科生和研究生教学及研究指导工作。</span>
 </p>
+
 </div>
 <aside class="news-card">
 <p class="mini-heading"><span class="lang-en">Recent</span><span class="lang-ko">최근 소식</span><span class="lang-ja">最近</span><span class="lang-ch">近期</span></p>
@@ -211,14 +223,14 @@
 <section class="site-section research-section" id="research">
 <div class="section-shell">
 <div class="section-title-row">
-<div><p class="section-kicker"><span class="lang-en">Research</span><span class="lang-ko">연구</span><span class="lang-ja">研究</span><span class="lang-ch">研究</span></p><h2><i aria-hidden="true" class="fa-solid fa-microscope section-title-icon"></i><span class="lang-en">Four connected areas</span><span class="lang-ko">서로 연결된 네 가지 영역</span><span class="lang-ja">つながる四つの領域</span><span class="lang-ch">四个相互关联的方向</span></h2></div>
-<p class="section-note"><span class="lang-en">The same themes shown in the research overview, distilled for the web.</span><span class="lang-ko">연구 개요의 핵심 주제를 웹에 맞게 간결하게 정리했습니다.</span><span class="lang-ja">研究概要のテーマをウェブ向けに簡潔に整理しています。</span><span class="lang-ch">将研究概览中的主题提炼为适合网页浏览的形式。</span></p>
+<div><p class="section-kicker"><span class="lang-en">Research</span><span class="lang-ko">연구</span><span class="lang-ja">研究</span><span class="lang-ch">研究</span></p><h2><i aria-hidden="true" class="fa-solid fa-microscope section-title-icon"></i><span class="lang-en">Research Directions</span><span class="lang-ko">연구 분야</span><span class="lang-ja">研究分野</span><span class="lang-ch">研究方向</span></h2></div>
+<p class="section-note"><span class="lang-en">My research focuses on robust biometric recognition, privacy-preserving template protection, multimodal representation learning, and cryptographic security.</span><span class="lang-ko">강건한 생체인식, 개인정보 보호를 위한 생체 템플릿 보호, 다중모달 표현 학습, 암호학적 보안을 중심으로 연구합니다.</span><span class="lang-ja">頑健な生体認証、プライバシーを保護する生体テンプレート保護、マルチモーダル表現学習、暗号技術によるセキュリティを研究しています。</span><span class="lang-ch">研究重点包括鲁棒生物识别、隐私保护型生物特征模板保护、多模态表征学习与密码学安全。</span></p>
 </div>
 <div class="research-grid">
-<article class="research-card"><div class="card-top"><span class="card-number">01</span><span class="research-icon"><i class="fa-solid fa-fingerprint"></i></span></div><h3>Flexible Biometrics</h3><p>Recognition under modality mismatch, occlusion, low resolution, and deployment constraints.</p><div class="topic-list"><span>Conditional biometrics</span><span>Cross-modal matching</span><span>Low-resolution recognition</span></div></article>
-<article class="research-card"><div class="card-top"><span class="card-number">02</span><span class="research-icon"><i class="fa-solid fa-shield-halved"></i></span></div><h3>Biometric Privacy &amp; Template Protection</h3><p>Protected representations, privacy-preserving recognition, and cancellable biometric templates.</p><div class="topic-list"><span>Template protection</span><span>Protected embeddings</span><span>Cancellable biometrics</span></div></article>
-<article class="research-card"><div class="card-top"><span class="card-number">03</span><span class="research-icon"><i class="fa-solid fa-diagram-project"></i></span></div><h3>Multimodal Learning &amp; Computer Vision</h3><p>Representation learning across modalities, domains, models, and challenging visual conditions.</p><div class="topic-list"><span>Representation learning</span><span>Cross-model recognition</span><span>Quality &amp; alignment</span></div></article>
-<article class="research-card"><div class="card-top"><span class="card-number">04</span><span class="research-icon"><i class="fa-solid fa-key"></i></span></div><h3>Cryptography &amp; Provable Security</h3><p>Digital signatures, authentication, reductions, and cryptographic security in practical systems.</p><div class="topic-list"><span>Digital signatures</span><span>Tight reductions</span><span>Authentication</span></div></article>
+<article class="research-card"><div class="card-top"><span class="card-number">01</span><span class="research-icon"><i class="fa-solid fa-fingerprint"></i></span></div><h3>Flexible Biometrics Recognition</h3><p>Recognition under modality mismatch, occlusion, low resolution, and deployment constraints.</p><div class="topic-list"><span>Conditional biometrics</span><span>Cross-modality/domain matching</span><span>Low-resolution recognition</span></div></article>
+<article class="research-card"><div class="card-top"><span class="card-number">02</span><span class="research-icon"><i class="fa-solid fa-shield-halved"></i></span></div><h3>Biometric Privacy &amp; Template Protection</h3><p>Protected representations, privacy-preserving recognition, and cancellable biometric templates.</p><div class="topic-list"><span>Biometric template protection</span><span>Bona-fide image non-invertibility</span><span>Cancellable biometrics transformation</span></div></article>
+<article class="research-card"><div class="card-top"><span class="card-number">03</span><span class="research-icon"><i class="fa-solid fa-diagram-project"></i></span></div><h3>Multimodal Learning &amp; Computer Vision</h3><p>Representation learning across modalities, domains, models, and challenging visual conditions.</p><div class="topic-list"><span>Representation &amp; metric learning</span><span>Cross-model distillation &amp; recognition</span><span>Quality &amp; alignment</span></div></article>
+<article class="research-card"><div class="card-top"><span class="card-number">04</span><span class="research-icon"><i class="fa-solid fa-key"></i></span></div><h3>Cryptography &amp; Provable Security</h3><p>Digital signatures, authentication, reductions, and cryptographic security in practical systems.</p><div class="topic-list"><span>Digital signatures</span><span>Tight security reductions</span><span>Cryptanalysis &amp; attack protocols</span></div></article>
 </div>
 </div>
 </section>
@@ -914,8 +926,8 @@
 <div class="section-shell contact-grid">
 <div>
 <p class="section-kicker"><span class="lang-en">Contact</span><span class="lang-ko">연락</span><span class="lang-ja">連絡</span><span class="lang-ch">联系</span></p>
-<h2><i aria-hidden="true" class="fa-solid fa-envelope section-title-icon"></i><span class="lang-en">Get in touch</span><span class="lang-ko">연락하기</span><span class="lang-ja">お問い合わせ</span><span class="lang-ch">联系我</span></h2>
-<p><span class="lang-en">For academic, research, collaboration, or professional inquiries, feel free to send a message.</span><span class="lang-ko">학술, 연구, 협업 또는 전문적인 문의가 있으시면 편하게 메시지를 보내 주세요.</span><span class="lang-ja">学術、研究、共同研究、または専門的なご相談がありましたら、お気軽にご連絡ください。</span><span class="lang-ch">欢迎就学术、研究、合作或专业相关事项与我联系。</span></p>
+<h2><i aria-hidden="true" class="fa-solid fa-envelope section-title-icon"></i><span class="lang-en">Correspondence</span><span class="lang-ko">연락 및 서신</span><span class="lang-ja">連絡先</span><span class="lang-ch">联系信息</span></h2>
+<p><span class="lang-en">For academic, research, or professional correspondence, the form below is available.</span><span class="lang-ko">학술, 연구 또는 업무 관련 연락은 아래 양식을 이용하실 수 있습니다.</span><span class="lang-ja">学術・研究・業務上の連絡には、以下のフォームをご利用いただけます。</span><span class="lang-ch">学术、研究或专业事务相关的联系可使用以下表单。</span></p>
 <div class="contact-links">
 <a class="brand-link github-link" href="https://github.com/tiongsikng/" rel="noopener" target="_blank"><i class="fa fa-github"></i> GitHub</a>
 <a class="brand-link researchgate-link" href="https://www.researchgate.net/profile/Tiong_Sik_Ng/" rel="noopener" target="_blank"><i class="fa-brands fa-researchgate"></i> ResearchGate</a>
